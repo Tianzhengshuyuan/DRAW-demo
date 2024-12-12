@@ -120,9 +120,10 @@ class MyPlot:
         self.show()
 
     def draw_plot(self, ax, cfg):
-        self.draw_main(ax, cfg)
 
-        self.draw_anno(ax, cfg)
+        self.draw_main(ax, cfg)
+        # anno是散点图中每个点旁边的注释
+        # self.draw_anno(ax, cfg)
         self.draw_grid(ax, cfg)
 
         self.draw_xgroup(ax, cfg)
@@ -155,7 +156,15 @@ class MyPlot:
     @expectTrue("legend")
     def draw_legend(self, ax, cfg):
         kwargs = cfg.get('legend_kwargs', {})
+        print(kwargs)
         ax.legend(**kwargs)
+        # ax.legend(
+        #     loc='upper center',           # 图例位置在顶部中央
+        #     bbox_to_anchor=(0.5, 1.15),  # 调整图例的偏移，放置在图表上方
+        #     ncol=len(cfg.get('label', [])),  # 根据类别数目设置列数
+        #     frameon=False,                # 是否显示边框
+        #     **kwargs                      # 传入用户定义的其他参数
+        # )
 
     # 设置 Matplotlib 图表的布局为紧凑模式
     @expectTrue("tight")
@@ -175,15 +184,27 @@ class MyPlot:
                 kwargs['c'] = cfg['color'][idx]
             if 'size' in cfg:
                 kwargs['s'] = cfg['size'][idx]
+            if 'scatter_alpha' in cfg:  # 检查是否有透明度配置
+                kwargs['alpha'] = cfg['scatter_alpha']  # 透明度设置
 
             ax.scatter(x, y, **kwargs)
+            
+            EF2 = ax.scatter(1, 1, s = 80, c = '#4285f4')
+            SWF = ax.scatter(1, 1, s = 80, c = '#ea4335')
+            EMO = ax.scatter(1, 1, s = 80, c = '#fbbc04')
+            ENX = ax.scatter(1, 1, s = 80, c = '#34a853')
+            MV2 = ax.scatter(1, 1, s = 80, c = '#ff6d01')
+            MV  = ax.scatter(1, 1, s = 80, c = '#46bdc6')
+            LVT = ax.scatter(1, 1, s = 80, c = '#ff00ff')
+            CNN = ax.scatter(1, 1, s = 80, c = '#999999')
+            
+            ax.legend((EF2, SWF, EMO, ENX, MV2, MV, LVT, CNN), ('EF2', 'SWF', 'EMO', 'ENX', 'MV2', 'MV', 'LVT', 'CNN'), loc = 'lower right', frameon=False, fontsize=10)
 
     @expect('x', 'yaxes')
     def draw_linebar(self, ax, cfg):
         ax1 = ax
-
+        #x是['1.Berti', '1.SPP', '2.MLOP', '2.IPCP']
         x = cfg['x']
-
         bar_cols = 0
         # yaxidx为0、1、2....
         for (yaxidx, yax) in enumerate(cfg['yaxes']):

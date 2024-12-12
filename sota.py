@@ -5,16 +5,18 @@ import matplotlib.pyplot as plt
 
 from myplot import MyPlot
 
-data = json.load(open("scatter.json"))
-
+data = json.load(open("sota.json"))
 
 def datum2color(datum):
     mapping = {
-        'SP': 'r',
-        'IMP': 'g', #green
-        'Gretch': 'k', #black
-        'VR': 'y', #yello
-        'Tyche': 'b' #blue
+        'EF2': '#4285f4',
+        'SWF': '#ea4335',
+        'EMO': '#fbbc04',
+        'ENX': '#34a853',
+        'MV2': '#ff6d01',
+        'MV':  '#46bdc6',
+        'LVT': '#ff00ff',
+        'CNN': '#999999'
     }
 
     for (k, v) in mapping.items():
@@ -38,13 +40,14 @@ def datum2marker(datum):
 
 def datum2size(datum):
     #图中每个散点的大小
-    return 500
+    # return 500
+    return datum['size'] * 150
 
 def post_hook_func(ax, cfg) :
     # plt.gca().set_yticks([ x/100.0 for x in range(0,260,50)])
-    plt.ylim(1.30, 1.60) #设置横轴的范围
-    plt.xlim(550, 1100)  #设置纵轴的范围
-    
+    plt.ylim(68, 84) #设置横轴的范围
+    plt.xlim(0.1, 2.1)  #设置纵轴的范围
+    ax.set_xticks([0.1, 0.3, 0.5, 0.7, 0.9, 1.1, 1.3, 1.5, 1.7, 1.9, 2.1]) 
     #plt.gca().axhline(y=1.0,ls='-',zorder=0.51,color='red')
     # plt.ylim(top=2.6)
     ax.set_xticklabels(ax.get_xticklabels(), fontsize=15)
@@ -77,8 +80,14 @@ fig_cfg = {
     'marker': [datum2marker(datum) for datum in data],
     'size': [datum2size(datum) for datum in data],
     'color': [datum2color(datum) for datum in data],
+    'scatter_alpha': 0.7,
 
-    'label': ['IMP', 'Gretch', 'VR', 'Tyche'],
+    # 'label': ['EF2', 'SWF', 'EMO', 'ENX', 'MV2', 'MV', 'LVT', 'CNN'],  # 图例的类别名称
+    'legend': True,  # 启用图例
+    'legend_kwargs': {
+        'frameon': True
+    },
+    
     'post_main_hook': post_hook_func,
 
     #横轴名称(label)的大小
@@ -91,8 +100,8 @@ fig_cfg = {
     },
 
     # Label 横纵坐标
-    'xlabel': 'Storage Overhead (byte)',
-    'ylabel': 'Speedup',
+    'xlabel': 'FLOPs (G)',
+    'ylabel': 'ImageNet-1K Top-1 (%)',
 
     # Misc
     'grid': True,
@@ -100,10 +109,10 @@ fig_cfg = {
 
     #整张图纸的大小
     'tight': True,
-    'figsize' : [10,5],
+    'figsize' : [10,6],
 
     # Save
-    'save_path': 'myscatter.pdf'
+    'save_path': 'sota.pdf'
 }
 
 if __name__ == '__main__':

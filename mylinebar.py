@@ -76,9 +76,9 @@ fig_cfg = {
             'y': y1,
             'type': 'bar',
             'marker': '*',
-            'color': [cat2color(cat) for cat in y1cat],
+            'color': [cat2color(cat) for cat in y1cat], #决定了bar和图例的颜色
             'label': y1cat,
-            'axlabel': 'test ylabel 1',
+            'axlabel': 'ylabel 1',  #决定左侧的label
             'grid': True,
             'grid_below': True,
             'grid_kwargs': {
@@ -93,11 +93,12 @@ fig_cfg = {
             'y': y2,
             'type': 'line',
             'linestyle': '--',  # '' to omit line
-            'side': 'right',
+            'side': 'right', #决定label的位置是在图的右边
             'marker': 'o',
-            'color': [cat2color(cat) for cat in y2cat],
+            # 'color': [cat2color(cat) for cat in y2cat],
+            'color': 'b',
             'label': y2cat,
-            'axlabel': 'test ylabel 2',
+            'axlabel': 'ylabel 2',
         }
     ],
 
@@ -118,7 +119,7 @@ def gen_rand_linebar():
     data = []
     xs = random.shuffle(groups)
     pos = ['left', 'right']
-    ylabels = ['test ylabel 1', 'test ylabel 2'] #test ylabel 1在左侧，test ylabel 2在右侧
+    ylabels = ['test ylabel 1', 'test ylabel 2'] 
     limit = [10, 30]
     for yidx in range(2):
         xys = []
