@@ -28,7 +28,7 @@ python fig5_translate.py --input=fig5 --model=SWF
 python fig5_translate.py --input=fig5 --model=EMO
 python fig5_translate.py --input=fig5 --model=ENX 
 python fig5_translate.py --input=fig5 --model=MV2
-python fig5_translate.py --input=fig5 --model=MV
+python fig5_translate.py --input=fig5 --model=MV-
 python fig5_translate.py --input=fig5 --model=LVT
 ```
 接着使用fig5_accuracy.py画图，注意除EF2外的其他模型，如果不需要ylabel的话，先注释掉fig5_accuracy.py中的这一行
@@ -42,7 +42,7 @@ python fig5_accuracy.py --model=SWF --ymin=75 --ymax=83
 python fig5_accuracy.py --model=EMO --ymin=68 --ymax=80
 python fig5_accuracy.py --model=ENX --ymin=70 --ymax=82
 python fig5_accuracy.py --model=MV2 --ymin=66 --ymax=79
-python fig5_accuracy.py --model=MV  --ymin=66 --ymax=79
+python fig5_accuracy.py --model=MV-  --ymin=66 --ymax=79
 python fig5_accuracy.py --model=LVT --ymin=75 --ymax=81
 ```
 

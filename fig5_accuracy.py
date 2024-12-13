@@ -37,9 +37,6 @@ fig_cfg = {
     'top1_div20': [datum['top1_div20'] for datum in data],
     'top1_div50': [datum['top1_div50'] for datum in data],
 
-    
-
-
     # Misc
     'tight': True,
     'grid': True,
