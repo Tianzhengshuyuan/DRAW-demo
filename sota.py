@@ -40,16 +40,13 @@ def datum2marker(datum):
 
 def datum2size(datum):
     #图中每个散点的大小
-    # return 500
     return datum['size'] * 150
 
 def post_hook_func(ax, cfg) :
-    # plt.gca().set_yticks([ x/100.0 for x in range(0,260,50)])
     plt.ylim(68, 84) #设置横轴的范围
     plt.xlim(0.1, 2.1)  #设置纵轴的范围
-    ax.set_xticks([0.1, 0.3, 0.5, 0.7, 0.9, 1.1, 1.3, 1.5, 1.7, 1.9, 2.1]) 
-    #plt.gca().axhline(y=1.0,ls='-',zorder=0.51,color='red')
-    # plt.ylim(top=2.6)
+    ax.set_xticks([0.1, 0.3, 0.5, 0.7, 0.9, 1.1, 1.3, 1.5, 1.7, 1.9, 2.1]) #手动设置横轴的刻度
+
     ax.set_xticklabels(ax.get_xticklabels(), fontsize=15)
     ax.set_yticklabels(ax.get_yticklabels(), fontsize=15)
     return
@@ -62,7 +59,6 @@ color = [
 ] 
 fig_cfg = {
     'type': 'scatter',
-    #'title': 'test title',
 
     # Real data
     'x': [datum['x'] for datum in data],
@@ -82,11 +78,8 @@ fig_cfg = {
     'color': [datum2color(datum) for datum in data],
     'scatter_alpha': 0.7,
 
-    # 'label': ['EF2', 'SWF', 'EMO', 'ENX', 'MV2', 'MV', 'LVT', 'CNN'],  # 图例的类别名称
     'legend': True,  # 启用图例
-    'legend_kwargs': {
-        'frameon': True
-    },
+
     
     'post_main_hook': post_hook_func,
 

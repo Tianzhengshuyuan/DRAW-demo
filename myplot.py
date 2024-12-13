@@ -120,14 +120,13 @@ class MyPlot:
         self.show()
 
     def draw_plot(self, ax, cfg):
-
         self.draw_main(ax, cfg)
         # anno是散点图中每个点旁边的注释
         # self.draw_anno(ax, cfg)
         self.draw_grid(ax, cfg)
-
+        # 如果x轴需要分组
         self.draw_xgroup(ax, cfg)
-
+        
         self.draw_label(ax, cfg)
 
     # 根据type的类型，选择调用的方法，并传入参数 ax和cfg
@@ -137,6 +136,7 @@ class MyPlot:
             'scatter': self.draw_scatter,
             'linebar': self.draw_linebar,
             'pie': self.draw_pie,
+            'groupbar': self.draw_groupbar
         }
         mapping.get(cfg['type'], lambda self: None)(ax, cfg)
 
@@ -149,22 +149,18 @@ class MyPlot:
         if 'grid_below' in cfg and cfg['grid_below']:
             # 设置轴线在网格下方
             ax.set_axisbelow(True)
-            
+        if 'axis' in cfg:
+            kwargs['axis'] = cfg['axis']
+        
         # 使用 ax.grid 方法绘制网格，传入 cfg['grid'] 和 kwargs
-        ax.grid(cfg['grid'], **kwargs)
+        ax.grid(cfg['grid'], **kwargs, zorder=1)
 
     @expectTrue("legend")
     def draw_legend(self, ax, cfg):
         kwargs = cfg.get('legend_kwargs', {})
         print(kwargs)
         ax.legend(**kwargs)
-        # ax.legend(
-        #     loc='upper center',           # 图例位置在顶部中央
-        #     bbox_to_anchor=(0.5, 1.15),  # 调整图例的偏移，放置在图表上方
-        #     ncol=len(cfg.get('label', [])),  # 根据类别数目设置列数
-        #     frameon=False,                # 是否显示边框
-        #     **kwargs                      # 传入用户定义的其他参数
-        # )
+
 
     # 设置 Matplotlib 图表的布局为紧凑模式
     @expectTrue("tight")
@@ -176,6 +172,7 @@ class MyPlot:
     def draw_scatter(self, ax, cfg):
         # `marker` cannot be a list of str
         # plot one point a time, to work around
+        print("draw_scatter")
         for (idx, (x, y)) in enumerate(zip(cfg['x'], cfg['y'])):
             kwargs = {}
             if 'marker' in cfg:
@@ -198,10 +195,11 @@ class MyPlot:
             LVT = ax.scatter(1, 1, s = 80, c = '#ff00ff')
             CNN = ax.scatter(1, 1, s = 80, c = '#999999')
             
-            ax.legend((EF2, SWF, EMO, ENX, MV2, MV, LVT, CNN), ('EF2', 'SWF', 'EMO', 'ENX', 'MV2', 'MV', 'LVT', 'CNN'), loc = 'lower right', frameon=False, fontsize=10)
+            ax.legend((EF2, SWF, EMO, ENX, MV2, MV, LVT, CNN), ('EF2', 'SWF', 'EMO', 'ENX', 'MV2', 'MV', 'LVT', 'CNN'), loc = 'lower right', frameon=True, fontsize=10)
 
     @expect('x', 'yaxes')
     def draw_linebar(self, ax, cfg):
+        print("draw_linebar")
         ax1 = ax
         #x是['1.Berti', '1.SPP', '2.MLOP', '2.IPCP']
         x = cfg['x']
@@ -218,9 +216,37 @@ class MyPlot:
                 ax = ax1.twinx()
             self.draw_yax(ax, yax, x, bar_cols=bar_cols, bar_cols_idx=bar_cols_idx)
             if yax['type'] in ('bar', 'normalized_bar'):
-                bar_cols_idx += 1
-
+                bar_cols_idx += 1.
+        # 设置当前活动的坐标轴为 ax1。sca是 set_current_axis的缩写，用于指定后续绘图操作将作用于哪个坐标轴
         plt.sca(ax1)
+
+    # @expect('x', 'y')
+    def draw_groupbar(self, ax, cfg):
+        # X轴位置
+        # print("draw_groupbar")
+        categories = cfg['categories']
+        x = np.arange(len(categories))  # 分类的索引
+        bar_width = 0.25  # 每个柱子的宽度
+
+        top1 = cfg['top1']
+        top1_div20 = cfg['top1_div20']
+        top1_div50 = cfg['top1_div50']
+        # 绘制每组柱子
+        ax.bar(x - bar_width, top1, width=bar_width, label='Top-1', color='#4285f4', zorder=2)
+        ax.bar(x, top1_div20, width=bar_width, label='Top-1 div20', color='#ea4335', zorder=2)
+        ax.bar(x + bar_width, top1_div50, width=bar_width, label='Top-1 div50', color='#fbbc04', zorder=2)
+
+        # 设置X轴刻度和分类名称
+        ax.set_xticks(x)
+        ax.set_xticklabels(categories, fontsize=14)
+
+        ymin = cfg['ymin']
+        ymax = cfg['ymax']
+        # 设置Y轴范围
+        ax.set_ylim(ymin, ymax)
+
+        # 添加图例
+        ax.legend(fontsize=10)
 
     @staticmethod
     def draw_line(ax, x, yax, **kwargs):
@@ -342,6 +368,7 @@ class MyPlot:
 
     @expect('x', 'y')
     def draw_pie(self, ax, cfg):
+        print("draw_pie")
         x = cfg['x']
         y = cfg['y']
         pie_kwargs = cfg.get("pie_kwargs", {})

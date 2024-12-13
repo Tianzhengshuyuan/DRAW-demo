@@ -1,0 +1,20 @@
+[
+    {
+        "category": "EF2-s0",
+        "top1": 76.2,
+        "top1_div20": 76.3,
+        "top1_div50": 76.0
+    },
+    {
+        "category": "EF2-s1",
+        "top1": 79.7,
+        "top1_div20": 78.8,
+        "top1_div50": 79.6
+    },
+    {
+        "category": "EF2-s2",
+        "top1": 82.0,
+        "top1_div20": 82.0,
+        "top1_div50": 81.9
+    }
+]

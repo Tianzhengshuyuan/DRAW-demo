@@ -1,0 +1,20 @@
+[
+    {
+        "category": "LVT-128S",
+        "top1": 76.5,
+        "top1_div20": 75.9,
+        "top1_div50": 76.2
+    },
+    {
+        "category": "LVT-128",
+        "top1": 78.6,
+        "top1_div20": 79.3,
+        "top1_div50": 78.2
+    },
+    {
+        "category": "LVT-192",
+        "top1": 79.9,
+        "top1_div20": 79.8,
+        "top1_div50": 79.3
+    }
+]

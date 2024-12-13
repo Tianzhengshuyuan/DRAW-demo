@@ -1,0 +1,20 @@
+[
+    {
+        "category": "ENX-XXS",
+        "top1": 71.2,
+        "top1_div20": 70.8,
+        "top1_div50": 70.4
+    },
+    {
+        "category": "ENX-XS",
+        "top1": 74.9,
+        "top1_div20": 74.9,
+        "top1_div50": 74.9
+    },
+    {
+        "category": "ENX-S",
+        "top1": 81.1,
+        "top1_div20": 80.8,
+        "top1_div50": 80.0
+    }
+]

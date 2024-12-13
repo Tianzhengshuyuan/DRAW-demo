@@ -1,0 +1,20 @@
+[
+    {
+        "category": "SWF-XS",
+        "top1": 75.7,
+        "top1_div20": 76.1,
+        "top1_div50": 75.3
+    },
+    {
+        "category": "SWF-S",
+        "top1": 78.5,
+        "top1_div20": 78.3,
+        "top1_div50": 78.3
+    },
+    {
+        "category": "SWF-L1",
+        "top1": 80.9,
+        "top1_div20": 80.7,
+        "top1_div50": 81.8
+    }
+]
