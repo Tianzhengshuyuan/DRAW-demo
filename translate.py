@@ -1,6 +1,7 @@
 import csv
 import json
 import argparse
+import os
 
 # 命令行参数解析
 parser = argparse.ArgumentParser(description="Generate plots for specific model data")
@@ -13,8 +14,8 @@ input_name = args.input
 model_name = args.model
 
 # 动态加载 JSON 数据和设置保存路径
-input_file = f"{input_name}.csv"  # 动态设置 csv文件
-output_file = f"{model_name}.json"  # 动态设置 json文件
+input_file = os.path.join("result", f"{input_name}.csv")   # 动态设置 csv文件
+output_file = os.path.join("json", f"{model_name}.json")   # 动态设置 json文件
 
 
 # 初始化结果列表

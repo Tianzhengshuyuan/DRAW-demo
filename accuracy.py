@@ -1,8 +1,10 @@
+import os
 import json
 import random
 import argparse
 import numpy as np
 from myplot import MyPlot
+
 
 # 命令行参数解析
 parser = argparse.ArgumentParser(description="Generate plots for specific model data")
@@ -15,8 +17,8 @@ args = parser.parse_args()
 model_name = args.model
 
 # 动态加载 JSON 数据和设置保存路径
-data_file = f"{model_name}.json"  # 动态设置 JSON 文件
-save_path = f"{model_name}.pdf"  # 动态设置保存路径
+data_file = os.path.join("json", f"{model_name}.json")   # 动态设置 JSON 文件
+save_path = os.path.join("pdf", f"{model_name}.pdf") 
 
 data = json.load(open(data_file))
 
