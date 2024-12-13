@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 
 from myplot import MyPlot
 
-data_file = os.path.join("json", "sota.json")   # 动态设置 JSON 文件
-save_path = os.path.join("pdf", "sota.pdf") 
+data_file = os.path.join("json", "independent_PCA.json")   # 动态设置 JSON 文件
+save_path = os.path.join("pdf", "independent_PCA.pdf") 
 
 data = json.load(open(data_file))
 
@@ -18,45 +18,32 @@ def datum2color(datum):
         'ENX': '#34a853',
         'MV2': '#ff6d01',
         'MV':  '#46bdc6',
-        'LVT': '#ff00ff',
-        'CNN': '#999999'
+        'LVT': '#9900ff',
+        'CNN': '#434343'
     }
 
     for (k, v) in mapping.items():
         if k in datum['name']:
             return v
-
 
 def datum2marker(datum):
-    mapping = {
-        'SP': '.', #点
-        'IMP': 'o', #圆
-        'Gretch': '^', #上三角
-        'VR': 'p', #五边形
-        'Tyche': 's' #正方形
-    }
-
-    for (k, v) in mapping.items():
-        if k in datum['name']:
-            return v
-
+    return 'o'
 
 def datum2size(datum):
     #图中每个散点的大小
-    return datum['size'] * 150
+    return 500
 
 def post_hook_func(ax, cfg) :
-    plt.ylim(68, 84) #设置横轴的范围
-    plt.xlim(0.1, 2.1)  #设置纵轴的范围
-    ax.set_xticks([0.1, 0.3, 0.5, 0.7, 0.9, 1.1, 1.3, 1.5, 1.7, 1.9, 2.1]) #手动设置横轴的刻度
+    plt.ylim(-150, 150) #设置横轴的范围
+    plt.xlim(-75, 175)  #设置纵轴的范围
+    ax.set_xticks([-50, 0, 50, 100, 150]) #手动设置横轴的刻度
 
     ax.set_xticklabels(ax.get_xticklabels(), fontsize=15)
     ax.set_yticklabels(ax.get_yticklabels(), fontsize=15)
     return
 
-
 fig_cfg = {
-    'name': 'sota',
+    'name': 'independent-PCA',
     'type': 'scatter',
 
     # Real data
@@ -79,7 +66,7 @@ fig_cfg = {
 
     'legend': True,  # 启用图例
 
-    
+
     'post_main_hook': post_hook_func,
 
     #横轴名称(label)的大小
@@ -92,12 +79,13 @@ fig_cfg = {
     },
 
     # Label 横纵坐标
-    'xlabel': 'FLOPs (G)',
-    'ylabel': 'ImageNet-1K Top-1 (%)',
+    'xlabel': 'PC1',
+    'ylabel': 'PC2',
 
     # Misc
     'grid': True,
     'grid_linestyle': '--',
+    'grid_dark_zero': True,
 
     #整张图纸的大小
     'tight': True,

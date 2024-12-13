@@ -151,6 +151,9 @@ class MyPlot:
             ax.set_axisbelow(True)
         if 'axis' in cfg:
             kwargs['axis'] = cfg['axis']
+        if 'grid_dark_zero' in cfg:
+            ax.axhline(0, color='#b0b0b0', linewidth=1.5, linestyle='-', zorder=1)  # 横线
+            ax.axvline(0, color='#b0b0b0', linewidth=1.5, linestyle='-', zorder=1)  # 竖线
         
         # 使用 ax.grid 方法绘制网格，传入 cfg['grid'] 和 kwargs
         ax.grid(cfg['grid'], **kwargs, zorder=1)
@@ -184,18 +187,19 @@ class MyPlot:
             if 'scatter_alpha' in cfg:  # 检查是否有透明度配置
                 kwargs['alpha'] = cfg['scatter_alpha']  # 透明度设置
 
-            ax.scatter(x, y, **kwargs)
-            
-            EF2 = ax.scatter(1, 1, s = 80, c = '#4285f4')
-            SWF = ax.scatter(1, 1, s = 80, c = '#ea4335')
-            EMO = ax.scatter(1, 1, s = 80, c = '#fbbc04')
-            ENX = ax.scatter(1, 1, s = 80, c = '#34a853')
-            MV2 = ax.scatter(1, 1, s = 80, c = '#ff6d01')
-            MV  = ax.scatter(1, 1, s = 80, c = '#46bdc6')
-            LVT = ax.scatter(1, 1, s = 80, c = '#ff00ff')
-            CNN = ax.scatter(1, 1, s = 80, c = '#999999')
-            
-            ax.legend((EF2, SWF, EMO, ENX, MV2, MV, LVT, CNN), ('EF2', 'SWF', 'EMO', 'ENX', 'MV2', 'MV', 'LVT', 'CNN'), loc = 'lower right', frameon=True, fontsize=10)
+            ax.scatter(x, y, **kwargs, zorder=2)
+            EF2 = ax.scatter(10000, 10000, s = 80, c = '#4285f4')
+            SWF = ax.scatter(10000, 10000, s = 80, c = '#ea4335')
+            EMO = ax.scatter(10000, 10000, s = 80, c = '#fbbc04')
+            ENX = ax.scatter(10000, 10000, s = 80, c = '#34a853')
+            MV2 = ax.scatter(10000, 10000, s = 80, c = '#ff6d01')
+            MV  = ax.scatter(10000, 10000, s = 80, c = '#46bdc6')
+            LVT = ax.scatter(10000, 10000, s = 80, c = '#ff00ff')
+            CNN = ax.scatter(10000, 10000, s = 80, c = '#999999')
+            if cfg['name'] == 'sota':
+                ax.legend((EF2, SWF, EMO, ENX, MV2, MV, LVT, CNN), ('EF2', 'SWF', 'EMO', 'ENX', 'MV2', 'MV', 'LVT', 'CNN'), loc = 'lower right', frameon=True, fontsize=10)
+            elif 'PCA' in cfg['name']:
+                ax.legend((EF2, SWF, EMO, ENX, MV2, MV, LVT, CNN), ('EF2', 'SWF', 'EMO', 'ENX', 'MV2', 'MV', 'LVT', 'CNN'), loc = 'upper right', frameon=True, fontsize=10)
 
     @expect('x', 'yaxes')
     def draw_linebar(self, ax, cfg):
