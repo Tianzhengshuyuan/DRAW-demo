@@ -1,12 +1,17 @@
 import json
 import random
-
+import os
 import numpy as np
 
 from myplot import MyPlot
 
-data1 = json.load(open("linebar1.json"))
-data2 = json.load(open("linebar2.json"))
+data1_file = os.path.join("json", "linebar1.json")   # 动态设置 JSON 文件
+data2_file = os.path.join("json", "linebar2.json")   # 动态设置 JSON 文件
+
+data1 = json.load(open(data1_file))
+data2 = json.load(open(data2_file))
+
+save_path = os.path.join("pdf", "mylinebar.pdf") 
 
 assert [datum['x'] for datum in data1] == [datum['x'] for datum in data2]
 xs = [datum['x'] for datum in data1]
@@ -109,7 +114,7 @@ fig_cfg = {
     'tight': True,
 
     # Save
-    'save_path': 'mylinebar.pdf'
+    'save_path': save_path
 }
 
 

@@ -196,10 +196,11 @@ class MyPlot:
             MV  = ax.scatter(10000, 10000, s = 80, c = '#46bdc6')
             LVT = ax.scatter(10000, 10000, s = 80, c = '#ff00ff')
             CNN = ax.scatter(10000, 10000, s = 80, c = '#999999')
-            if cfg['name'] == 'sota':
-                ax.legend((EF2, SWF, EMO, ENX, MV2, MV, LVT, CNN), ('EF2', 'SWF', 'EMO', 'ENX', 'MV2', 'MV', 'LVT', 'CNN'), loc = 'lower right', frameon=True, fontsize=10)
-            elif 'PCA' in cfg['name']:
-                ax.legend((EF2, SWF, EMO, ENX, MV2, MV, LVT, CNN), ('EF2', 'SWF', 'EMO', 'ENX', 'MV2', 'MV', 'LVT', 'CNN'), loc = 'upper right', frameon=True, fontsize=10)
+            if 'name' in cfg :
+                if cfg['name'] == 'sota':
+                    ax.legend((EF2, SWF, EMO, ENX, MV2, MV, LVT, CNN), ('EF2', 'SWF', 'EMO', 'ENX', 'MV2', 'MV', 'LVT', 'CNN'), loc = 'lower right', frameon=True, fontsize=10)
+                elif 'PCA' in cfg['name']:
+                    ax.legend((EF2, SWF, EMO, ENX, MV2, MV, LVT, CNN), ('EF2', 'SWF', 'EMO', 'ENX', 'MV2', 'MV', 'LVT', 'CNN'), loc = 'upper right', frameon=True, fontsize=10)
 
     @expect('x', 'yaxes')
     def draw_linebar(self, ax, cfg):

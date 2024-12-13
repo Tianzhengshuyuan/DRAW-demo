@@ -1,11 +1,14 @@
 import json
 import random
-
+import os
 import matplotlib.pyplot as plt
 
 from myplot import MyPlot
 
-data = json.load(open("scatter.json"))
+data_file = os.path.join("json", "scatter.json")   # 动态设置 JSON 文件
+data = json.load(open(data_file))
+
+save_path = os.path.join("pdf", "myscatter.pdf") 
 
 
 def datum2color(datum):
@@ -103,7 +106,7 @@ fig_cfg = {
     'figsize' : [10,5],
 
     # Save
-    'save_path': 'myscatter.pdf'
+    'save_path': save_path
 }
 
 if __name__ == '__main__':

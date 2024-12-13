@@ -18,8 +18,8 @@ def datum2color(datum):
         'ENX': '#34a853',
         'MV2': '#ff6d01',
         'MV':  '#46bdc6',
-        'LVT': '#9900ff',
-        'CNN': '#434343'
+        'LVT': '#ff00ff',
+        'CNN': '#999999'
     }
 
     for (k, v) in mapping.items():
@@ -27,11 +27,25 @@ def datum2color(datum):
             return v
 
 def datum2marker(datum):
-    return 'o'
+    # return 'o'
+    mapping = {
+        'EF2': 'D', #菱形
+        'SWF': 'v', #圆
+        'EMO': '^', #上三角
+        'ENX': 'p', #五边形
+        'MV2': 's', #正方形
+        'MV' : 'd', #星
+        'LVT': 'h', #六边形
+        'CNN': 'o', #下三角
+    }
+
+    for (k, v) in mapping.items():
+        if k in datum['name']:
+            return v
 
 def datum2size(datum):
     #图中每个散点的大小
-    return 500
+    return 300
 
 def post_hook_func(ax, cfg) :
     plt.ylim(-150, 150) #设置横轴的范围
@@ -62,7 +76,7 @@ fig_cfg = {
     'marker': [datum2marker(datum) for datum in data],
     'size': [datum2size(datum) for datum in data],
     'color': [datum2color(datum) for datum in data],
-    'scatter_alpha': 0.7,
+    'scatter_alpha': 0.8,
 
     'legend': True,  # 启用图例
 
