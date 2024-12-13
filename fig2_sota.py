@@ -1,11 +1,14 @@
 import json
 import random
-
+import os
 import matplotlib.pyplot as plt
 
 from myplot import MyPlot
 
-data = json.load(open("sota.json"))
+data_file = os.path.join("json", "sota.json")   # 动态设置 JSON 文件
+save_path = os.path.join("pdf", "sota.pdf") 
+
+data = json.load(open(data_file))
 
 def datum2color(datum):
     mapping = {
@@ -105,7 +108,7 @@ fig_cfg = {
     'figsize' : [10,6],
 
     # Save
-    'save_path': 'sota.pdf'
+    'save_path': save_path
 }
 
 if __name__ == '__main__':

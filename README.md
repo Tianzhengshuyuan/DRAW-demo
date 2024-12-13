@@ -18,31 +18,31 @@ python myscatter.py
 # 论文作图
 1. 要画sota.pdf，使用下面的指令，数据在sota.json
 ```bash
-python sota.py
+python fig2_sota.py
 ```
 
-2. 要画EF2.pdf、SWF.pdf、EMO.pdf等，首先使用translate.py处理原始.csv文件中的数据，命令如下，其中input是输入的.csv文件名，model是要处理的模型
+2. 要画EF2.pdf、SWF.pdf、EMO.pdf等，首先使用fig5_translate.py处理原始.csv文件中的数据，命令如下，其中input是输入的.csv文件名，model是要处理的模型
 ```bash
-python translate.py --input=fig5 --model=EF2
-python translate.py --input=fig5 --model=SWF
-python translate.py --input=fig5 --model=EMO
-python translate.py --input=fig5 --model=ENX 
-python translate.py --input=fig5 --model=MV2
-python translate.py --input=fig5 --model=MV
-python translate.py --input=fig5 --model=LVT
+python fig5_translate.py --input=fig5 --model=EF2
+python fig5_translate.py --input=fig5 --model=SWF
+python fig5_translate.py --input=fig5 --model=EMO
+python fig5_translate.py --input=fig5 --model=ENX 
+python fig5_translate.py --input=fig5 --model=MV2
+python fig5_translate.py --input=fig5 --model=MV
+python fig5_translate.py --input=fig5 --model=LVT
 ```
-接着使用accuracy.py画图，注意除了EF2外的其他模型，如果不需要ylabel的话，先注释掉accuracy.py中的这一行
+接着使用fig5_accuracy.py画图，注意除了EF2外的其他模型，如果不需要ylabel的话，先注释掉fig5_accuracy.py中的这一行
 ```python
     # 'ylabel': 'Top-1 accuracy (%)',
 ```
 转换的命令如下，ymin和ymax是y轴的显示范围
 ```bash
-python accuracy.py --model=EF2 --ymin=75 --ymax=83
-python accuracy.py --model=SWF --ymin=75 --ymax=83
-python accuracy.py --model=EMO --ymin=68 --ymax=80
-python accuracy.py --model=ENX --ymin=70 --ymax=82
-python accuracy.py --model=MV2 --ymin=66 --ymax=79
-python accuracy.py --model=MV  --ymin=66 --ymax=79
-python accuracy.py --model=LVT --ymin=75 --ymax=81
+python fig5_accuracy.py --model=EF2 --ymin=75 --ymax=83
+python fig5_accuracy.py --model=SWF --ymin=75 --ymax=83
+python fig5_accuracy.py --model=EMO --ymin=68 --ymax=80
+python fig5_accuracy.py --model=ENX --ymin=70 --ymax=82
+python fig5_accuracy.py --model=MV2 --ymin=66 --ymax=79
+python fig5_accuracy.py --model=MV  --ymin=66 --ymax=79
+python fig5_accuracy.py --model=LVT --ymin=75 --ymax=81
 ```
 
