@@ -188,14 +188,14 @@ class MyPlot:
                 kwargs['alpha'] = cfg['scatter_alpha']  # 透明度设置
 
             ax.scatter(x, y, **kwargs, zorder=2)
-            EF2 = ax.scatter(10000, 10000, s = 80, c = '#4285f4')
-            SWF = ax.scatter(10000, 10000, s = 80, c = '#ea4335')
-            EMO = ax.scatter(10000, 10000, s = 80, c = '#fbbc04')
-            ENX = ax.scatter(10000, 10000, s = 80, c = '#34a853')
-            MV2 = ax.scatter(10000, 10000, s = 80, c = '#ff6d01')
-            MV  = ax.scatter(10000, 10000, s = 80, c = '#46bdc6')
-            LVT = ax.scatter(10000, 10000, s = 80, c = '#ff00ff')
-            CNN = ax.scatter(10000, 10000, s = 80, c = '#999999')
+            EF2 = ax.scatter(10000, 10000, s = 80, c = '#4285f4', marker = 'D')
+            SWF = ax.scatter(10000, 10000, s = 80, c = '#ea4335', marker = 'v')
+            EMO = ax.scatter(10000, 10000, s = 80, c = '#fbbc04', marker = '^')
+            ENX = ax.scatter(10000, 10000, s = 80, c = '#34a853', marker = 'p')
+            MV2 = ax.scatter(10000, 10000, s = 80, c = '#ff6d01', marker = 's')
+            MV  = ax.scatter(10000, 10000, s = 80, c = '#46bdc6', marker = 'd')
+            LVT = ax.scatter(10000, 10000, s = 80, c = '#ff00ff', marker = 'h')
+            CNN = ax.scatter(10000, 10000, s = 80, c = '#999999', marker = 'o')
             if 'name' in cfg :
                 if cfg['name'] == 'sota':
                     ax.legend((EF2, SWF, EMO, ENX, MV2, MV, LVT, CNN), ('EF2', 'SWF', 'EMO', 'ENX', 'MV2', 'MV', 'LVT', 'CNN'), loc = 'lower right', frameon=True, fontsize=10)
