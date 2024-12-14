@@ -262,11 +262,15 @@ class MyPlot:
         color2 = cfg['color2']
         label1 = cfg['label1']
         label2 = cfg['label2']
+        
+        length = cfg['length']
+        width = cfg['width']
+
         x = np.arange(len(categories))  # X轴位置
         bar_width = 0.35  # 每组宽度
 
         # 创建图形
-        fig, ax_Latency = plt.subplots(figsize=(10, 6))
+        fig, ax_Latency = plt.subplots(figsize=(length, width))
 
         # 添加第二个Y轴
         ax_Instruction = ax_Latency.twinx()
@@ -338,26 +342,31 @@ class MyPlot:
         Latency = cfg['Latency']
         latency_label=[]
         color1 = cfg['color1']
-
         label1 = cfg['label1']
+        
+        length = cfg['length']
+        width = cfg['width']
 
-        x = np.arange(len(categories)) *0.1 # X轴位置
-        bar_width = 0.05  # 每组宽度
+        x = np.arange(len(categories)) # X轴位置
+        bar_width = cfg['bar_width']  # 每组宽度
 
         # 创建图形
-        fig, ax_Latency = plt.subplots(figsize=(10, 6))
+        fig, ax_Latency = plt.subplots(figsize=(length, width))
 
         latency_array = np.array(Latency)
         
         btm1 = y2btm(latency_array)
-        
+
+        print(x)
         # 堆叠柱 (Latency)
         for (catidx, (cat, bb)) in enumerate(zip(latency_array.T, btm1.T)):
             ax_Latency.bar(x, cat, width=bar_width, bottom=bb, label=label1[catidx], color=color1[catidx], edgecolor='black', linestyle='-', alpha=1)
 
         # 设置X轴标签
         ax_Latency.set_xticks(x)
-        ax_Latency.set_xticklabels(categories, fontsize=12)
+        ax_Latency.set_xticklabels(categories, fontsize=10)
+        if len(categories) == 2:
+            ax_Latency.set_xlim(-0.75,1.75)
 
         # 设置左侧Y轴（Latency）
         ax_Latency.set_ylabel('latency (ms)', fontsize=14)
@@ -365,8 +374,12 @@ class MyPlot:
 
         
         # 添加图例
+        if len(color1) == 4:
+            order = [3,2,1,0]
+        else:
+            order = [4,3,2,1,0]
+            
         Latency_handles, Latency_labels = ax_Latency.get_legend_handles_labels()
-        order = [4,3,2,1,0]
         Latency_labels = [Latency_labels[i] for i in order]
         Latency_handles = [Latency_handles[i] for i in order]
         ax_Latency.legend(Latency_handles, Latency_labels,  loc='upper left', fontsize=10)

@@ -21,6 +21,9 @@ fig_cfg = {
 
     'color2': ['#b2311a', '#e06228', '#e38f37', '#e6b92a'],
 
+    'length': 5,
+    'width': 6,
+    'bar_width': 0.7,
 
     'label1': ['Conv_GEMM', 'Attn_MatMul', 'Attn_SoftMax', 'MISC_PWOP', 'Fake_Quant'],
 

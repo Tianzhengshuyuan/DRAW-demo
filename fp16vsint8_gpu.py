@@ -19,7 +19,9 @@ fig_cfg = {
 
     'color2': ['#b2311a', '#e06228', '#e38f37', '#e6b92a'],
 
-
+    'length': 4,
+    'width': 6,
+    'bar_width': 0.55,
     'label1': ['Conv_GEMM', 'Attn_MatMul', 'Attn_SoftMax', 'MISC_PWOP'],
 
     'pre_main_hook': lambda: print("I am a hook before main"),
