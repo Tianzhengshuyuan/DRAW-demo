@@ -59,3 +59,17 @@ python fig3a_PCA.py
 ```bash
 python fig3b_PCA.py
 ```
+
+4. 画fp16vsint8的指令如下：
+如果要画cpu的对比图，使用命令：
+```bash
+python fp16vsint8_cpu.py
+```
+如果要画gpu的对比图，使用命令：
+```bash
+python fp16vsint8_gpu.py
+```
+如果要画npu的对比图，使用命令：
+```bash
+python fp16vsint8_npu.py
+```

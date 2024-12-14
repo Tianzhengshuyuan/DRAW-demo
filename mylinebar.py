@@ -79,7 +79,7 @@ fig_cfg = {
     'yaxes': [
         {
             'y': y1,
-            'type': 'bar',
+            'type': 'grouped_bar',
             'marker': '*',
             'color': [cat2color(cat) for cat in y1cat], #决定了bar和图例的颜色
             'label': y1cat,
@@ -118,26 +118,6 @@ fig_cfg = {
 }
 
 
-def gen_rand_linebar():
-    groups = ['Berti', 'IPCP', 'MLOP', 'SPP']
-
-    data = []
-    xs = random.shuffle(groups)
-    pos = ['left', 'right']
-    ylabels = ['test ylabel 1', 'test ylabel 2'] 
-    limit = [10, 30]
-    for yidx in range(2):
-        xys = []
-        for (idx, x) in enumerate(groups):
-            ys = [random.randint(0, limit[yidx] - 1) for i in range(3)]
-            xys.append({'x': x, 'y': ys})
-        ylabel = ylabels[yidx]
-        data.append({
-            'ylabel': ylabel,
-            'data': xys
-        })
-
-    print(json.dumps(data))
 
 use_subplot_example = False
 if use_subplot_example:
@@ -163,6 +143,5 @@ if use_subplot_example:
     }
 
 if __name__ == '__main__':
-    gen_rand_linebar()
     plot = MyPlot(fig_cfg)
     plot.plot()
