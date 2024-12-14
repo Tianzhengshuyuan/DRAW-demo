@@ -298,11 +298,11 @@ class MyPlot:
         # 设置左侧Y轴（Latency）
 
         ax_Latency.set_ylabel('latency (ms)', fontsize=14)
-        ax_Latency.set_ylim(0, latency_array.sum(axis=1).max() * 1.3)
+        ax_Latency.set_ylim(0, latency_array.sum(axis=1).max() * 1.1)
 
         # 设置右侧Y轴（Instruction）
         ax_Instruction.set_ylabel('Instructions number', fontsize=14)
-        ax_Instruction.set_ylim(0,instruction_array.sum(axis=1).max() / scale_factor * 1.3)
+        ax_Instruction.set_ylim(0,instruction_array.sum(axis=1).max() / scale_factor * 1.1)
         
         # # 自定义右侧Y轴刻度标签
         # instruction_ticks = ax_Instruction.get_yticks()  # 获取当前刻度
@@ -368,9 +368,9 @@ class MyPlot:
         if len(categories) == 2:
             ax_Latency.set_xlim(-0.75,1.75)
 
-        # 设置左侧Y轴（Latency）
+        # 设置Y轴（Latency）
         ax_Latency.set_ylabel('latency (ms)', fontsize=14)
-        ax_Latency.set_ylim(0, latency_array.sum(axis=1).max() * 1.3)
+        ax_Latency.set_ylim(0, latency_array.sum(axis=1).max() * 1.1)
 
         
         # 添加图例
