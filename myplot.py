@@ -172,7 +172,17 @@ class MyPlot:
     @hook("tight")
     def setup_tight(self):
         plt.tight_layout()
-
+    # 添加一个辅助函数，标注超过范围的数值
+    def annotate_bars(self, ax, bars, ymax, text_color):
+        for bar in bars:
+            height = bar.get_height()
+            if height > ymax:  # 超过Y轴最大值时才显示
+                ax.text(
+                    bar.get_x() + bar.get_width() / 2,  # X位置
+                    ymax + 0.02,  # Y位置，略高于最大值
+                    f'{height:.2f}',  # 显示数值，保留两位小数
+                    ha='center', va='bottom', fontsize=10, color=text_color
+                )
     @expect('x', 'y')
     def draw_scatter(self, ax, cfg):
         # `marker` cannot be a list of str
@@ -259,15 +269,38 @@ class MyPlot:
             categories = cfg['categories']
             x = np.arange(len(categories))  # 分类的索引
             bar_width = 0.25  # 每个柱子的宽度
+            if 'bar_width' in cfg:
+                bar_width = cfg['bar_width']
 
             TFLite = cfg['TFLite']
             MNN = cfg['MNN']
+            
+            ymin = cfg['ymin']
+            ymax = cfg['ymax']
     
-            # 绘制每组柱子
-            ax.bar(x - bar_width/2, TFLite, width=bar_width, label='TFLite', color='#4285f4', zorder=2)
-            # ax.bar(x, top1_div20, width=bar_width, label='Top-1 div20', color='#ea4335', zorder=2)
-            ax.bar(x + bar_width/2, MNN, width=bar_width, label='MNN', color='#ea4335', zorder=2)
-
+            if 'PDLite' in cfg:
+                PDLite = cfg['PDLite']
+                ncnn = cfg['ncnn']
+                
+                bars1 = ax.bar(x - bar_width * 1.5, TFLite, width=bar_width, label='TFLite', color='#4285f4', zorder=2)
+                bars2 = ax.bar(x - bar_width * 0.5, MNN, width=bar_width, label='MNN', color='#ea4335', zorder=2)            
+                bars3 = ax.bar(x + bar_width * 0.5, PDLite, width=bar_width, label='PDLite', color='#fabc04', zorder=2)            
+                bars4 = ax.bar(x + bar_width * 1.5, ncnn, width=bar_width, label='ncnn', color='#33a852', zorder=2)            
+                
+                # 标注条形上的数值
+                self.annotate_bars(ax, bars1, ymax, '#4285f4')
+                self.annotate_bars(ax, bars2, ymax, '#ea4335')
+                self.annotate_bars(ax, bars3, ymax, '#fabc04')
+                self.annotate_bars(ax, bars4, ymax, '#33a852')
+                
+                ax.set_xlim(-1.3,7)
+            else:
+                # 绘制每组柱子
+                bars1 = ax.bar(x - bar_width/2, TFLite, width=bar_width, label='TFLite', color='#4285f4', zorder=2)
+                bars2 = ax.bar(x + bar_width/2, MNN, width=bar_width, label='MNN', color='#ea4335', zorder=2)
+                
+                self.annotate_bars(ax, bars1, ymax, '#4285f4')
+                self.annotate_bars(ax, bars2, ymax, '#ea4335')           
             # 设置X轴刻度和分类名称
             ax.set_xticks(x)
             ax.set_xticklabels(categories, fontsize=14)
@@ -278,7 +311,7 @@ class MyPlot:
             ax.set_ylim(ymin, ymax)
 
             # 添加图例
-            ax.legend(fontsize=10)
+            ax.legend(fontsize=10, loc='upper left')
             
     def draw_groupstackbar(self, ax, cfg):
         # 数据

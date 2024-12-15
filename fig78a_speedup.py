@@ -38,8 +38,8 @@ fig_cfg = {
 
     # Misc
     'tight': True,
-    'grid': True,
-    'grid_linestyle': '--',
+    # 'grid': True,
+    # 'grid_linestyle': '--',
     'axis': 'y', #表示只显示grid中的横线，如果要只显示竖线的话设置为'x'
 
     'figsize' : [10,6],
