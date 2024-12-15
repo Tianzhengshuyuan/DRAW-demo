@@ -292,15 +292,19 @@ class MyPlot:
                 self.annotate_bars(ax, bars2, ymax, '#ea4335')
                 self.annotate_bars(ax, bars3, ymax, '#fabc04')
                 self.annotate_bars(ax, bars4, ymax, '#33a852')
-                
-                ax.set_xlim(-1.3,7)
+                # 添加图例
+                ax.legend(fontsize=13, loc='upper center', bbox_to_anchor=(0.5, 1.13), ncol=4, frameon=False)
+
+                # ax.set_xlim(-1.3,7)
             else:
                 # 绘制每组柱子
                 bars1 = ax.bar(x - bar_width/2, TFLite, width=bar_width, label='TFLite', color='#4285f4', zorder=2)
                 bars2 = ax.bar(x + bar_width/2, MNN, width=bar_width, label='MNN', color='#ea4335', zorder=2)
                 
                 self.annotate_bars(ax, bars1, ymax, '#4285f4')
-                self.annotate_bars(ax, bars2, ymax, '#ea4335')           
+                self.annotate_bars(ax, bars2, ymax, '#ea4335')  
+                
+                ax.legend(fontsize=13, loc='upper center', bbox_to_anchor=(0.5, 1.1), ncol=2, frameon=False)
             # 设置X轴刻度和分类名称
             ax.set_xticks(x)
             ax.set_xticklabels(categories, fontsize=14)
@@ -310,9 +314,7 @@ class MyPlot:
             # 设置Y轴范围
             ax.set_ylim(ymin, ymax)
 
-            # 添加图例
-            ax.legend(fontsize=10, loc='upper left')
-            
+                        
     def draw_groupstackbar(self, ax, cfg):
         # 数据
         categories = cfg['categories']

@@ -86,7 +86,7 @@ python fig7b_translate.py --input=fig8c --output=A660GFp16Speedup
 ```
 然后作图，使用命令
 ```bash
-python fig78a_speedup.py --input=CpuFp16Speedup --ymin=1.3 --ymax=2.2
+python fig78a_speedup.py --input=CpuFp16Speedup --ymin=1.3 --ymax=2.15
 python fig78a_speedup.py --input=GpuFp16Speedup --ymin=1.1 --ymax=1.8
 python fig78b_speedup.py --input=A78Fp16Speedup --ymin=1.1 --ymax=2.0
 python fig78b_speedup.py --input=A55Fp16Speedup --ymin=1.0 --ymax=2.0
