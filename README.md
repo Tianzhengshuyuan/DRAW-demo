@@ -6,6 +6,7 @@ conda activate plot
 pip install numpy
 pip install matplotlib
 pip install scipy
+pip install pandas
 ```
 # 基础作图
 如果要画折线/柱状图、饼图、散点图，分别使用下面的指令：
@@ -72,4 +73,15 @@ python fp16vsint8_gpu.py
 如果要画npu的对比图，使用命令：
 ```bash
 python fp16vsint8_npu.py
+```
+
+5. 画fig7a、8a，先处理原始.csv数据，使用命令
+```bash
+python fig7a_translate.py --input=fig7a --output=CpuFp16Speedup
+python fig8a_translate.py --input=fig8a --output=GpuFp16Speedup
+```
+然后作图，使用命令
+```bash
+python fig78_speedup.py --input CpuFp16Speedup --ymin=1.3 --ymax=2.2
+python fig78_speedup.py --input GpuFp16Speedup --ymin=1.1 --ymax=1.8
 ```
