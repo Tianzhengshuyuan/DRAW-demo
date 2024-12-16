@@ -267,7 +267,7 @@ class MyPlot:
     def draw_groupbar_accuracy(self, ax, cfg):
         categories = cfg['categories']
         x = np.arange(len(categories))  # 分类的索引
-        bar_width = 0.05  # 每个柱子的宽度
+        bar_width = 0.06  # 每个柱子的宽度
         
         Original = cfg['Original']
         TFLite = cfg['TFLite']  
@@ -282,22 +282,45 @@ class MyPlot:
         OV_CPU = cfg['OV_CPU']
         OV_GPU = cfg['OV_GPU']
         OV_NPU = cfg['OV_GPU']
-        
 
+        bars = [
+            (Original, '#999999', 'Original', -6),
+            (TFLite, '#4185f3', 'TFLite', -5),
+            (MNN, '#ea4234', 'MNN', -4),
+            (PDLite, '#fabc04', 'PDLite', -3),
+            (ONNX, '#33a852', 'ONNX', -2),
+            (ncnn, '#ff6c00', 'ncnn', -1),
+            (TFLite_GPU, '#46bdc5', 'TFLite(GPU)', 0),
+            (TensorRT, '#8A2BE2', 'TensorRT', 1),
+            (TensorRT_NPU, '#BA55D3', 'TensorRT(NPU)', 2),
+            (CANN, '#66cc66', 'CANN', 3),
+            (OV_CPU, '#D94E8F', 'OV(CPU)', 4),
+            (OV_GPU, '#FF69B4', 'OV(GPU)', 5),
+            (OV_NPU, '#FFC0CB', 'OV(NPU)', 6),
+        ]
+        
+        for data, color, label, offset in bars:
+            for i, value in enumerate(data):
+                if value < 0:  # 如果值为负，显示标志
+                    ax.text(
+                        x[i] + bar_width * offset, 1.5,  # 显示在bar的下方
+                        'x', ha='center', va='top', fontsize=12, color='red', zorder=3
+                    )
+            ax.bar(x + bar_width * offset, data, width=bar_width, label=label, color=color, zorder=2)
         # 绘制每组柱子
-        ax.bar(x - bar_width * 6, Original, width=bar_width, label='Original', color='#999999', zorder=2)
-        ax.bar(x - bar_width * 5, TFLite, width=bar_width, label='TFLite', color='#ff00ff', zorder=2)
-        ax.bar(x - bar_width * 4, MNN, width=bar_width, label='MNN', color='#ea4234', zorder=2)
-        ax.bar(x - bar_width * 3, PDLite, width=bar_width, label='PDLite', color='#fabc04', zorder=2)
-        ax.bar(x - bar_width * 2, ONNX, width=bar_width, label='ONNX', color='#33a852', zorder=2)
-        ax.bar(x - bar_width * 1, ncnn, width=bar_width, label='ncnn', color='#ff6c00', zorder=2)
-        ax.bar(x , TFLite_GPU, width=bar_width, label='TFLite(GPU)', color='#4185f3', zorder=2)
-        ax.bar(x + bar_width * 1, TensorRT, width=bar_width, label='TensorRT', color='#9900ff', zorder=2)
-        ax.bar(x + bar_width * 2, TensorRT_NPU, width=bar_width, label='TensorRT(NPU)', color='#0000ff', zorder=2)
-        ax.bar(x + bar_width * 3, CANN, width=bar_width, label='CANN', color='#46bdc5', zorder=2)
-        ax.bar(x + bar_width * 4, OV_CPU, width=bar_width, label='OV(CPU)', color='#e06228', zorder=2)
-        ax.bar(x + bar_width * 5, OV_GPU, width=bar_width, label='OV(GPU)', color='#e38f37', zorder=2)
-        ax.bar(x + bar_width * 6, OV_NPU, width=bar_width, label='OV(NPU)', color='#e6b92a', zorder=2)
+        # ax.bar(x - bar_width * 6, Original, width=bar_width, label='Original', color='#999999', zorder=2)
+        # ax.bar(x - bar_width * 5, TFLite, width=bar_width, label='TFLite', color='#4185f3', zorder=2)
+        # ax.bar(x - bar_width * 4, MNN, width=bar_width, label='MNN', color='#ea4234', zorder=2)
+        # ax.bar(x - bar_width * 3, PDLite, width=bar_width, label='PDLite', color='#fabc04', zorder=2)
+        # ax.bar(x - bar_width * 2, ONNX, width=bar_width, label='ONNX', color='#33a852', zorder=2)
+        # ax.bar(x - bar_width * 1, ncnn, width=bar_width, label='ncnn', color='#ff6c00', zorder=2)
+        # ax.bar(x , TFLite_GPU, width=bar_width, label='TFLite(GPU)', color='#46bdc5', zorder=2)
+        # ax.bar(x + bar_width * 1, TensorRT, width=bar_width, label='TensorRT', color='#8A2BE2', zorder=2)
+        # ax.bar(x + bar_width * 2, TensorRT_NPU, width=bar_width, label='TensorRT(NPU)', color='#BA55D3', zorder=2)
+        # ax.bar(x + bar_width * 3, CANN, width=bar_width, label='CANN', color='#66cc66', zorder=2)
+        # ax.bar(x + bar_width * 4, OV_CPU, width=bar_width, label='OV(CPU)', color='#D94E8F', zorder=2)
+        # ax.bar(x + bar_width * 5, OV_GPU, width=bar_width, label='OV(GPU)', color='#FF69B4', zorder=2)
+        # ax.bar(x + bar_width * 6, OV_NPU, width=bar_width, label='OV(NPU)', color='#FFC0CB', zorder=2)
 
         # 设置X轴刻度和分类名称
         ax.set_xticks(x)
@@ -305,11 +328,13 @@ class MyPlot:
 
         ymin = cfg['ymin']
         ymax = cfg['ymax']
-        # 设置Y轴范围
+        
+        ax.grid(axis='y', linestyle='--')
+        # 设置X、Y轴范围
+        ax.set_xlim(-0.6,11.5)
         ax.set_ylim(ymin, ymax)
 
         # 添加图例
-        
         ax.legend(fontsize=20, loc='upper center', bbox_to_anchor=(0.5, 1.15), ncol=13, frameon=False)
     def draw_groupbar_speedup(self, ax, cfg):
             # X轴位置

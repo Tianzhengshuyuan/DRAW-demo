@@ -75,24 +75,42 @@ python fp16vsint8_gpu.py
 python fp16vsint8_npu.py
 ```
 
-5. 画fig7a、fig7b、fig7c、fig8a、fig8b、fig8c，先处理原始.csv数据，使用命令
+5. 画fig7、fig8、fig10，先处理原始.csv数据，使用命令
 ```bash
 python fig7a_translate.py --input=fig7a --output=CpuFp16Speedup
 python fig7b_translate.py --input=fig7b --output=A78Fp16Speedup 
 python fig7b_translate.py --input=fig7c --output=A55Fp16Speedup 
+
 python fig8a_translate.py --input=fig8a --output=GpuFp16Speedup
 python fig7b_translate.py --input=fig8b --output=G610Fp16Speedup 
 python fig7b_translate.py --input=fig8c --output=A660GFp16Speedup 
+
 python fig8a_translate.py --input=fig10a --output=CpuInt8Speedup
 python fig7b_translate.py --input=fig10b --output=A78Int8Speedup
-python fig7b_translate.py --input=fig10c --output=A510Int8Speedup
+python fig7b_translate.py --input=fig10c --output=A55Int8Speedup
 ```
 然后作图，使用命令
 ```bash
 python fig78a_speedup.py --input=CpuFp16Speedup --ymin=1.3 --ymax=2.15
-python fig78a_speedup.py --input=GpuFp16Speedup --ymin=1.1 --ymax=1.8
 python fig78b_speedup.py --input=A78Fp16Speedup --ymin=1.1 --ymax=2.0
 python fig78b_speedup.py --input=A55Fp16Speedup --ymin=1.0 --ymax=2.0
+
+python fig78a_speedup.py --input=GpuFp16Speedup --ymin=1.1 --ymax=1.8
 python fig78b_speedup.py --input=G610Fp16Speedup --ymin=1.0 --ymax=1.7
 python fig78b_speedup.py --input=A660GFp16Speedup --ymin=0.8 --ymax=1.7
+
+python fig78a_speedup.py --input=CpuInt8Speedup --ymin=0.5 --ymax=1.0
+python fig78b_speedup.py --input=A78Int8Speedup --ymin=0.5 --ymax=1.2
+python fig78b_speedup.py --input=A55Int8Speedup --ymin=0.4 --ymax=1.2  
+(plot) 
+```
+
+6. 处理fig9原始数据
+```bash
+python fig9_translate_upper.py --input=fig9 --output=Int8Accuracy_upper
+python fig9_translate_lower.py --input=fig9 --output=Int8Accuracy_lower
+```
+画图
+```bash
+python fig9_accuracy.py --input=Int8Accuracy_upper --ymin=0 --ymax=82 
 ```

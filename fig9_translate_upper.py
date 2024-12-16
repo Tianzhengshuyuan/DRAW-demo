@@ -39,7 +39,7 @@ with open(input_file, mode="r", encoding="utf-8") as file:
         
         # 处理每一列，处理空字符串转换为默认值 (0.0)
         def safe_float(value):
-            return float(value.strip('%')) if value.strip() else 0.0
+            return float(value.strip('%')) if value.strip() else -1.0
         
         Original = safe_float(row[1])
         TFLite = safe_float(row[2])
