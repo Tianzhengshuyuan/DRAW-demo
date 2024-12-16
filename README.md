@@ -83,6 +83,9 @@ python fig7b_translate.py --input=fig7c --output=A55Fp16Speedup
 python fig8a_translate.py --input=fig8a --output=GpuFp16Speedup
 python fig7b_translate.py --input=fig8b --output=G610Fp16Speedup 
 python fig7b_translate.py --input=fig8c --output=A660GFp16Speedup 
+python fig8a_translate.py --input=fig10a --output=CpuInt8Speedup
+python fig7b_translate.py --input=fig10b --output=A78Int8Speedup
+python fig7b_translate.py --input=fig10c --output=A510Int8Speedup
 ```
 然后作图，使用命令
 ```bash

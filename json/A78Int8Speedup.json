@@ -1,0 +1,51 @@
+[
+    {
+        "category": "EF2",
+        "TFLite": 0.66,
+        "MNN": 1.02,
+        "PDLite": 0.63,
+        "ncnn": 1.0
+    },
+    {
+        "category": "SWF",
+        "TFLite": 0.81,
+        "MNN": 1.08,
+        "PDLite": NaN,
+        "ncnn": NaN
+    },
+    {
+        "category": "EMO",
+        "TFLite": 0.59,
+        "MNN": 0.92,
+        "PDLite": 0.55,
+        "ncnn": NaN
+    },
+    {
+        "category": "ENX",
+        "TFLite": 0.97,
+        "MNN": 0.85,
+        "PDLite": 0.82,
+        "ncnn": NaN
+    },
+    {
+        "category": "MV2",
+        "TFLite": 0.71,
+        "MNN": 1.22,
+        "PDLite": NaN,
+        "ncnn": 1.08
+    },
+    {
+        "category": "MV",
+        "TFLite": 0.67,
+        "MNN": 0.72,
+        "PDLite": 0.58,
+        "ncnn": NaN
+    },
+    {
+        "category": "LVT",
+        "TFLite": 0.97,
+        "MNN": 0.71,
+        "PDLite": 0.65,
+        "ncnn": NaN
+    }
+]

@@ -139,7 +139,8 @@ class MyPlot:
             'groupbar': self.draw_groupbar,
             'groupstackbar': self.draw_groupstackbar,
             'stackbar': self.draw_stackbar,
-            'groupbar_speedup': self.draw_groupbar_speedup
+            'groupbar_speedup': self.draw_groupbar_speedup,
+            'groupbar_accuracy': self.draw_groupbar_accuracy
         }
         mapping.get(cfg['type'], lambda self: None)(ax, cfg)
 
@@ -235,7 +236,7 @@ class MyPlot:
         # 设置当前活动的坐标轴为 ax1。sca是 set_current_axis的缩写，用于指定后续绘图操作将作用于哪个坐标轴
         plt.sca(ax1)
 
-    # @expect('x', 'y')
+   
     def draw_groupbar(self, ax, cfg):
         # X轴位置
         # print("draw_groupbar")
@@ -263,6 +264,52 @@ class MyPlot:
         # 添加图例
         ax.legend(fontsize=10)
         
+    def draw_groupbar_accuracy(self, ax, cfg):
+        categories = cfg['categories']
+        x = np.arange(len(categories))  # 分类的索引
+        bar_width = 0.25  # 每个柱子的宽度
+        
+        Original = cfg['Original']
+        TFLite = cfg['TFLite']  
+        MNN = cfg['MNN']
+        PDLite = cfg['PDLite']
+        ONNX = cfg['ONNX']
+        ncnn = cfg['ncnn']
+        TFLite_GPU = cfg['TFLite_GPU']
+        TensorRT = cfg['TensorRT']
+        TensorRT_NPU = cfg['TensorRT_NPU']
+        CANN = cfg['CANN']
+        OV_CPU = cfg['OV_CPU']
+        OV_GPU = cfg['OV_GPU']
+        OV_NPU = cfg['OV_GPU']
+        
+
+        # 绘制每组柱子
+        ax.bar(x - bar_width * 6, Original, width=bar_width, label='Original', color='#4285f4', zorder=2)
+        ax.bar(x - bar_width * 5, TFLite, width=bar_width, label='TFLite', color='#4285f4', zorder=2)
+        ax.bar(x - bar_width * 4, MNN, width=bar_width, label='MNN', color='#4285f4', zorder=2)
+        ax.bar(x - bar_width * 3, PDLite, width=bar_width, label='PDLite', color='#4285f4', zorder=2)
+        ax.bar(x - bar_width * 2, ONNX, width=bar_width, label='ONNX', color='#4285f4', zorder=2)
+        ax.bar(x - bar_width * 1, ncnn, width=bar_width, label='ncnn', color='#4285f4', zorder=2)
+        ax.bar(x , TFLite_GPU, width=bar_width, label='TFLite_GPU', color='#4285f4', zorder=2)
+        ax.bar(x + bar_width * 1, TensorRT, width=bar_width, label='TensorRT', color='#ea4335', zorder=2)
+        ax.bar(x + bar_width * 2, top1_div50, width=bar_width, label='Top-1 div50', color='#fbbc04', zorder=2)
+        ax.bar(x + bar_width * 3, top1_div50, width=bar_width, label='Top-1 div50', color='#fbbc04', zorder=2)
+        ax.bar(x + bar_width * 4, top1_div50, width=bar_width, label='Top-1 div50', color='#fbbc04', zorder=2)
+        ax.bar(x + bar_width * 5, top1_div50, width=bar_width, label='Top-1 div50', color='#fbbc04', zorder=2)
+        ax.bar(x + bar_width * 6, top1_div50, width=bar_width, label='Top-1 div50', color='#fbbc04', zorder=2)
+
+        # 设置X轴刻度和分类名称
+        ax.set_xticks(x)
+        ax.set_xticklabels(categories, fontsize=14)
+
+        ymin = cfg['ymin']
+        ymax = cfg['ymax']
+        # 设置Y轴范围
+        ax.set_ylim(ymin, ymax)
+
+        # 添加图例
+        ax.legend(fontsize=10)
     def draw_groupbar_speedup(self, ax, cfg):
             # X轴位置
             # print("draw_groupbar")

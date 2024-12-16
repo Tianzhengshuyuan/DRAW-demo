@@ -1,0 +1,62 @@
+[
+    {
+        "category": "M1P",
+        "TFLite": 0.88,
+        "MNN": NaN
+    },
+    {
+        "category": "M1E",
+        "TFLite": 0.76,
+        "MNN": NaN
+    },
+    {
+        "category": "A78",
+        "TFLite": 0.76,
+        "MNN": 0.92
+    },
+    {
+        "category": "T200",
+        "TFLite": 0.71,
+        "MNN": NaN
+    },
+    {
+        "category": "A76",
+        "TFLite": 0.69,
+        "MNN": 0.85
+    },
+    {
+        "category": "A55",
+        "TFLite": 0.71,
+        "MNN": 0.98
+    },
+    {
+        "category": "A75",
+        "TFLite": 0.6,
+        "MNN": 0.75
+    },
+    {
+        "category": "M5",
+        "TFLite": 0.74,
+        "MNN": 0.92
+    },
+    {
+        "category": "X1",
+        "TFLite": 0.68,
+        "MNN": 0.84
+    },
+    {
+        "category": "X3",
+        "TFLite": 0.68,
+        "MNN": 0.97
+    },
+    {
+        "category": "A71x",
+        "TFLite": 0.76,
+        "MNN": 1.01
+    },
+    {
+        "category": "A510",
+        "TFLite": 0.54,
+        "MNN": 1.03
+    }
+]
