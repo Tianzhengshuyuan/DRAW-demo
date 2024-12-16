@@ -267,7 +267,7 @@ class MyPlot:
     def draw_groupbar_accuracy(self, ax, cfg):
         categories = cfg['categories']
         x = np.arange(len(categories))  # 分类的索引
-        bar_width = 0.25  # 每个柱子的宽度
+        bar_width = 0.05  # 每个柱子的宽度
         
         Original = cfg['Original']
         TFLite = cfg['TFLite']  
@@ -285,23 +285,23 @@ class MyPlot:
         
 
         # 绘制每组柱子
-        ax.bar(x - bar_width * 6, Original, width=bar_width, label='Original', color='#4285f4', zorder=2)
-        ax.bar(x - bar_width * 5, TFLite, width=bar_width, label='TFLite', color='#4285f4', zorder=2)
-        ax.bar(x - bar_width * 4, MNN, width=bar_width, label='MNN', color='#4285f4', zorder=2)
-        ax.bar(x - bar_width * 3, PDLite, width=bar_width, label='PDLite', color='#4285f4', zorder=2)
-        ax.bar(x - bar_width * 2, ONNX, width=bar_width, label='ONNX', color='#4285f4', zorder=2)
-        ax.bar(x - bar_width * 1, ncnn, width=bar_width, label='ncnn', color='#4285f4', zorder=2)
-        ax.bar(x , TFLite_GPU, width=bar_width, label='TFLite_GPU', color='#4285f4', zorder=2)
-        ax.bar(x + bar_width * 1, TensorRT, width=bar_width, label='TensorRT', color='#ea4335', zorder=2)
-        ax.bar(x + bar_width * 2, top1_div50, width=bar_width, label='Top-1 div50', color='#fbbc04', zorder=2)
-        ax.bar(x + bar_width * 3, top1_div50, width=bar_width, label='Top-1 div50', color='#fbbc04', zorder=2)
-        ax.bar(x + bar_width * 4, top1_div50, width=bar_width, label='Top-1 div50', color='#fbbc04', zorder=2)
-        ax.bar(x + bar_width * 5, top1_div50, width=bar_width, label='Top-1 div50', color='#fbbc04', zorder=2)
-        ax.bar(x + bar_width * 6, top1_div50, width=bar_width, label='Top-1 div50', color='#fbbc04', zorder=2)
+        ax.bar(x - bar_width * 6, Original, width=bar_width, label='Original', color='#999999', zorder=2)
+        ax.bar(x - bar_width * 5, TFLite, width=bar_width, label='TFLite', color='#ff00ff', zorder=2)
+        ax.bar(x - bar_width * 4, MNN, width=bar_width, label='MNN', color='#ea4234', zorder=2)
+        ax.bar(x - bar_width * 3, PDLite, width=bar_width, label='PDLite', color='#fabc04', zorder=2)
+        ax.bar(x - bar_width * 2, ONNX, width=bar_width, label='ONNX', color='#33a852', zorder=2)
+        ax.bar(x - bar_width * 1, ncnn, width=bar_width, label='ncnn', color='#ff6c00', zorder=2)
+        ax.bar(x , TFLite_GPU, width=bar_width, label='TFLite(GPU)', color='#4185f3', zorder=2)
+        ax.bar(x + bar_width * 1, TensorRT, width=bar_width, label='TensorRT', color='#9900ff', zorder=2)
+        ax.bar(x + bar_width * 2, TensorRT_NPU, width=bar_width, label='TensorRT(NPU)', color='#0000ff', zorder=2)
+        ax.bar(x + bar_width * 3, CANN, width=bar_width, label='CANN', color='#46bdc5', zorder=2)
+        ax.bar(x + bar_width * 4, OV_CPU, width=bar_width, label='OV(CPU)', color='#e06228', zorder=2)
+        ax.bar(x + bar_width * 5, OV_GPU, width=bar_width, label='OV(GPU)', color='#e38f37', zorder=2)
+        ax.bar(x + bar_width * 6, OV_NPU, width=bar_width, label='OV(NPU)', color='#e6b92a', zorder=2)
 
         # 设置X轴刻度和分类名称
         ax.set_xticks(x)
-        ax.set_xticklabels(categories, fontsize=14)
+        ax.set_xticklabels(categories, fontsize=20)
 
         ymin = cfg['ymin']
         ymax = cfg['ymax']
@@ -309,7 +309,8 @@ class MyPlot:
         ax.set_ylim(ymin, ymax)
 
         # 添加图例
-        ax.legend(fontsize=10)
+        
+        ax.legend(fontsize=20, loc='upper center', bbox_to_anchor=(0.5, 1.15), ncol=13, frameon=False)
     def draw_groupbar_speedup(self, ax, cfg):
             # X轴位置
             # print("draw_groupbar")
