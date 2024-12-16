@@ -257,21 +257,22 @@ class MyPlot:
         top1_div20 = cfg['top1_div20']
         top1_div50 = cfg['top1_div50']
         # 绘制每组柱子
-        ax.bar(x - bar_width, top1, width=bar_width, label='Top-1', color='#4285f4', zorder=2)
-        ax.bar(x, top1_div20, width=bar_width, label='Top-1 div20', color='#ea4335', zorder=2)
-        ax.bar(x + bar_width, top1_div50, width=bar_width, label='Top-1 div50', color='#fbbc04', zorder=2)
+        ax.bar(x - bar_width, top1, width=bar_width, label='Top-1', color='#4285f4', zorder=2, edgecolor='black')
+        ax.bar(x, top1_div20, width=bar_width, label='Top-1 div20', color='#ea4335', zorder=2, edgecolor='black')
+        ax.bar(x + bar_width, top1_div50, width=bar_width, label='Top-1 div50', color='#fbbc04', zorder=2, edgecolor='black')
 
         # 设置X轴刻度和分类名称
         ax.set_xticks(x)
-        ax.set_xticklabels(categories, fontsize=14)
+        ax.set_xticklabels(categories, fontsize=12)
 
         ymin = cfg['ymin']
         ymax = cfg['ymax']
         # 设置Y轴范围
         ax.set_ylim(ymin, ymax)
+        ax.set_yticklabels(ax.get_yticklabels(), fontsize=12)
 
         # 添加图例
-        ax.legend(fontsize=10)
+        ax.legend(fontsize=12, loc='upper center', bbox_to_anchor=(0.5, 1.08), ncol=13, frameon=False)
         
     def draw_groupbar_accuracy(self, ax, cfg):
         categories = cfg['categories']
