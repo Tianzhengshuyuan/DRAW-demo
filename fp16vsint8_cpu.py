@@ -30,7 +30,7 @@ fig_cfg = {
     # 'color2': ['#c63b20', '#c95f28', '#d38a37', '#d1a52b'],
     'color2': ['#b2311a', '#e06228', '#e38f37', '#e6b92a'],
 
-    'length': 10,
+    'length': 12,
     'width': 6,
 
     

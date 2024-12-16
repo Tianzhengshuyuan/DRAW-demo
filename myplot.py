@@ -442,21 +442,18 @@ class MyPlot:
 
         # 设置X轴标签
         ax_Latency.set_xticks(x)
-        ax_Latency.set_xticklabels(categories, fontsize=12)
+        ax_Latency.set_xticklabels(categories, fontsize=15)
 
         # 设置左侧Y轴（Latency）
-
-        ax_Latency.set_ylabel('latency (ms)', fontsize=14)
+        ax_Latency.set_ylabel('latency (ms)', fontsize=15)
         ax_Latency.set_ylim(0, latency_array.sum(axis=1).max() * 1.1)
+        ax_Latency.tick_params(axis='y', labelsize=15) 
+        # ax_Latency.set_yticklabels(ax.get_yticklabels(), fontsize=15)
 
         # 设置右侧Y轴（Instruction）
-        ax_Instruction.set_ylabel('Instructions number', fontsize=14)
+        ax_Instruction.set_ylabel('Instructions number', fontsize=15)
         ax_Instruction.set_ylim(0,instruction_array.sum(axis=1).max() / scale_factor * 1.1)
-        
-        # # 自定义右侧Y轴刻度标签
-        # instruction_ticks = ax_Instruction.get_yticks()  # 获取当前刻度
-        # ax_Instruction.set_yticklabels([f'{int(tick * scale_factor):,}' for tick in instruction_ticks])
-
+        ax_Instruction.tick_params(axis='y', labelsize=15) 
         # 自定义右侧Y轴刻度标签
         def format_instruction_ticks(tick, pos):
             value = int(tick * scale_factor)  # 恢复为原始数据
@@ -476,10 +473,8 @@ class MyPlot:
         Latency_handles = [Latency_handles[i] for i in order]
         Instruction_labels = [Instruction_labels[i] for i in order]
         Instruction_handles = [Instruction_handles[i] for i in order]
-        ax_Latency.legend(Latency_handles + Instruction_handles, Latency_labels + Instruction_labels, ncol=2,  loc='upper left', fontsize=10)
-
-        # 显示网格
-        # ax_Latency.grid(axis='y', linestyle='--', alpha=0.6)
+        ax_Latency.legend(Latency_handles + Instruction_handles, Latency_labels + Instruction_labels, fontsize=13, loc='upper center', bbox_to_anchor=(0.5, 1.08), ncol=8, frameon=False,
+                              handletextpad=0.2, columnspacing=0.8)
 
         # 调整布局
         plt.tight_layout()
