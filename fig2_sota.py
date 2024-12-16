@@ -35,8 +35,8 @@ def post_hook_func(ax, cfg) :
     plt.xlim(0.1, 2.1)  #设置纵轴的范围
     ax.set_xticks([0.1, 0.3, 0.5, 0.7, 0.9, 1.1, 1.3, 1.5, 1.7, 1.9, 2.1]) #手动设置横轴的刻度
 
-    ax.set_xticklabels(ax.get_xticklabels(), fontsize=12)
-    ax.set_yticklabels(ax.get_yticklabels(), fontsize=12)
+    ax.set_xticklabels(ax.get_xticklabels(), fontsize=15)
+    ax.set_yticklabels(ax.get_yticklabels(), fontsize=15)
     return
 
 

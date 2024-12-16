@@ -210,8 +210,8 @@ class MyPlot:
                     MV  = ax.scatter(10000, 10000, s = 80, c = '#46bdc6')
                     LVT = ax.scatter(10000, 10000, s = 80, c = '#ff00ff')
                     CNN = ax.scatter(10000, 10000, s = 80, c = '#999999')
-                    # ax.legend(fontsize=20, loc='upper center', bbox_to_anchor=(0.5, 1.15), ncol=13, frameon=False)
-                    ax.legend((EF2, SWF, EMO, ENX, MV2, MV, LVT, CNN), ('EF2', 'SWF', 'EMO', 'ENX', 'MV2', 'MV', 'LVT', 'CNN'), fontsize=12, loc='upper center', bbox_to_anchor=(0.5, 1.08), ncol=13, frameon=False)
+                    ax.legend((EF2, SWF, EMO, ENX, MV2, MV, LVT, CNN), ('EF2', 'SWF', 'EMO', 'ENX', 'MV2', 'MV', 'LVT', 'CNN'), fontsize=15, loc='upper center', bbox_to_anchor=(0.5, 1.08), ncol=8, frameon=False,
+                              handletextpad=0.2, columnspacing=0.8)
                 elif 'PCA' in cfg['name']:
                     EF2 = ax.scatter(10000, 10000, s = 80, c = '#4285f4', marker = 'D')
                     SWF = ax.scatter(10000, 10000, s = 80, c = '#ea4335', marker = 'v')
@@ -221,7 +221,9 @@ class MyPlot:
                     MV  = ax.scatter(10000, 10000, s = 80, c = '#46bdc6', marker = 'd')
                     LVT = ax.scatter(10000, 10000, s = 80, c = '#ff00ff', marker = 'h')
                     CNN = ax.scatter(10000, 10000, s = 80, c = '#999999', marker = 'o')
-                    ax.legend((EF2, SWF, EMO, ENX, MV2, MV, LVT, CNN), ('EF2', 'SWF', 'EMO', 'ENX', 'MV2', 'MV', 'LVT', 'CNN'), loc = 'upper right', frameon=True, fontsize=10)
+                    ax.legend((EF2, SWF, EMO, ENX, MV2, MV, LVT, CNN), ('EF2', 'SWF', 'EMO', 'ENX', 'MV2', 'MV', 'LVT', 'CNN'),  
+                              fontsize=15, loc='upper center', bbox_to_anchor=(0.5, 1.09), ncol=8, frameon=False,
+                              handletextpad=0.2, columnspacing=0.8)
 
     @expect('x', 'yaxes')
     def draw_linebar(self, ax, cfg):
@@ -263,16 +265,17 @@ class MyPlot:
 
         # 设置X轴刻度和分类名称
         ax.set_xticks(x)
-        ax.set_xticklabels(categories, fontsize=12)
+        ax.set_xticklabels(categories, fontsize=15)
 
         ymin = cfg['ymin']
         ymax = cfg['ymax']
         # 设置Y轴范围
         ax.set_ylim(ymin, ymax)
-        ax.set_yticklabels(ax.get_yticklabels(), fontsize=12)
+        ax.set_yticklabels(ax.get_yticklabels(), fontsize=15)
 
         # 添加图例
-        ax.legend(fontsize=12, loc='upper center', bbox_to_anchor=(0.5, 1.08), ncol=13, frameon=False)
+        ax.legend(fontsize=15, loc='upper center', bbox_to_anchor=(0.5, 1.1), ncol=13, frameon=False,
+                  columnspacing=0.8)
         
     def draw_groupbar_accuracy(self, ax, cfg):
         categories = cfg['categories']

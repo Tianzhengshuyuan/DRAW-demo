@@ -103,7 +103,7 @@ fig_cfg = {
 
     #整张图纸的大小
     'tight': True,
-    'figsize' : [10,6],
+    'figsize' : [11,6],
 
     # Save
     'save_path': save_path
