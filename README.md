@@ -114,3 +114,9 @@ python fig9_translate_lower.py --input=fig9 --output=Int8Accuracy_lower
 ```bash
 python fig9_accuracy.py --input=Int8Accuracy_upper --ymin=0 --ymax=82 
 ```
+
+7. 画fig12，使用下面的命令：
+```bash
+python fig12a_bestengine.py
+python fig12b_bestengine.py
+```
