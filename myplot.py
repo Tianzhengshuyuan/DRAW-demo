@@ -281,7 +281,7 @@ class MyPlot:
         CANN = cfg['CANN']
         OV_CPU = cfg['OV_CPU']
         OV_GPU = cfg['OV_GPU']
-        OV_NPU = cfg['OV_GPU']
+        OV_NPU = cfg['OV_NPU']
 
         bars = [
             (Original, '#999999', 'Original', -6),
