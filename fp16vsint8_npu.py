@@ -11,7 +11,7 @@ save_path = os.path.join("pdf", "fp16vsint8_npu.pdf")
 fig_cfg = {
     'type': 'stackbar',
 
-    'categories': ['Openvino FP16', 'Openvino INT8', 'CANN FP16', 'CANN INT8'],
+    'categories': ['Openvino \n FP16', 'Openvino \n INT8', 'CANN FP16', 'CANN INT8'],
     'Latency':     [[0.403, 3.403, 2.577, 1.573, 0],
                     [0.734, 3.676, 4.022, 2.529, 0.686],
                     [6.9927, 0.4326, 3.1793, 10.6493, 0],

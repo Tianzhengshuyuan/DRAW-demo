@@ -416,7 +416,7 @@ class MyPlot:
         width = cfg['width']
 
         x = np.arange(len(categories))  # X轴位置
-        bar_width = 0.35  # 每组宽度
+        bar_width = 0.28  # 每组宽度
 
         # 创建图形
         fig, ax_Latency = plt.subplots(figsize=(length, width))
@@ -448,7 +448,6 @@ class MyPlot:
         ax_Latency.set_ylabel('latency (ms)', fontsize=15)
         ax_Latency.set_ylim(0, latency_array.sum(axis=1).max() * 1.1)
         ax_Latency.tick_params(axis='y', labelsize=15) 
-        # ax_Latency.set_yticklabels(ax.get_yticklabels(), fontsize=15)
 
         # 设置右侧Y轴（Instruction）
         ax_Instruction.set_ylabel('Instructions number', fontsize=15)
@@ -473,15 +472,14 @@ class MyPlot:
         Latency_handles = [Latency_handles[i] for i in order]
         Instruction_labels = [Instruction_labels[i] for i in order]
         Instruction_handles = [Instruction_handles[i] for i in order]
-        ax_Latency.legend(Latency_handles + Instruction_handles, Latency_labels + Instruction_labels, fontsize=13, loc='upper center', bbox_to_anchor=(0.5, 1.08), ncol=8, frameon=False,
-                              handletextpad=0.2, columnspacing=0.8)
+        ax_Latency.legend(Latency_handles + Instruction_handles, Latency_labels + Instruction_labels,  ncol=2,  loc='upper left', fontsize=12)
 
         # 调整布局
         plt.tight_layout()
         plt.show()
 
     def draw_stackbar(self, ax, cfg):
-                # 数据
+        # 数据
         categories = cfg['categories']
         Latency = cfg['Latency']
         latency_label=[]
@@ -501,20 +499,20 @@ class MyPlot:
         
         btm1 = y2btm(latency_array)
 
-        print(x)
         # 堆叠柱 (Latency)
         for (catidx, (cat, bb)) in enumerate(zip(latency_array.T, btm1.T)):
             ax_Latency.bar(x, cat, width=bar_width, bottom=bb, label=label1[catidx], color=color1[catidx], edgecolor='black', linestyle='-', alpha=1)
 
         # 设置X轴标签
         ax_Latency.set_xticks(x)
-        ax_Latency.set_xticklabels(categories, fontsize=10)
+        ax_Latency.set_xticklabels(categories, fontsize=12)
         if len(categories) == 2:
             ax_Latency.set_xlim(-0.75,1.75)
 
         # 设置Y轴（Latency）
         ax_Latency.set_ylabel('latency (ms)', fontsize=14)
         ax_Latency.set_ylim(0, latency_array.sum(axis=1).max() * 1.1)
+        ax_Latency.tick_params(axis='y', labelsize=15)
 
         
         # 添加图例
@@ -526,7 +524,7 @@ class MyPlot:
         Latency_handles, Latency_labels = ax_Latency.get_legend_handles_labels()
         Latency_labels = [Latency_labels[i] for i in order]
         Latency_handles = [Latency_handles[i] for i in order]
-        ax_Latency.legend(Latency_handles, Latency_labels,  loc='upper left', fontsize=10)
+        ax_Latency.legend(Latency_handles, Latency_labels,  loc='upper left', fontsize=12)
 
         # 调整布局
         plt.tight_layout()
