@@ -8,13 +8,6 @@ pip install matplotlib
 pip install scipy
 pip install pandas
 ```
-# 基础作图
-如果要画折线/柱状图、饼图、散点图，分别使用下面的指令：
-```bash
-python mylinebar.py
-python mypie.py
-python myscatter.py
-```
 
 # 论文作图
 1. 画fig2中的sota.pdf，使用下面的指令，使用的数据在json/sota.json
@@ -102,7 +95,14 @@ python fig78b_speedup.py --input=A660GFp16Speedup --ymin=0.8 --ymax=1.7
 python fig78a_speedup.py --input=CpuInt8Speedup --ymin=0.5 --ymax=1.0
 python fig78b_speedup.py --input=A78Int8Speedup --ymin=0.5 --ymax=1.2
 python fig78b_speedup.py --input=A55Int8Speedup --ymin=0.4 --ymax=1.2  
-(plot) 
+```
+如果要把fig7的b和c画到一起，先手动复制fig7b和fig7c的数据到fig7bc.json，然后使用下面的命令画图
+```bash
+python fig7bc_one.py --input=fig7bc --ymin=1.0 --ymax=2.0 --number=7
+```
+同理，对于fig8b、c，手动复制fig8b和fig8c的数据到fig8bc.json，然后使用下面的命令画图
+```bash
+python fig7bc_one.py --input=fig8bc --ymin=0.8 --ymax=1.7 --number=8
 ```
 
 6. 处理fig9原始数据

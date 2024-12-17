@@ -1,6 +1,7 @@
 import functools
 import matplotlib.ticker as ticker
 import matplotlib.pyplot as plt
+import matplotlib.lines as lines
 import numpy as np
 from matplotlib.lines import Line2D
 from matplotlib.transforms import Affine2D
@@ -140,6 +141,7 @@ class MyPlot:
             'groupstackbar': self.draw_groupstackbar,
             'stackbar': self.draw_stackbar,
             'groupbar_speedup': self.draw_groupbar_speedup,
+            'groupbar_one': self.draw_groupbar_one,            
             'groupbar_accuracy': self.draw_groupbar_accuracy
         }
         mapping.get(cfg['type'], lambda self: None)(ax, cfg)
@@ -179,10 +181,10 @@ class MyPlot:
             height = bar.get_height()
             if height > ymax:  # 超过Y轴最大值时才显示
                 ax.text(
-                    bar.get_x() + bar.get_width() / 2,  # X位置
-                    ymax + 0.02,  # Y位置，略高于最大值
-                    f'{height:.2f}',  # 显示数值，保留两位小数
-                    ha='center', va='bottom', fontsize=10, color=text_color
+                    bar.get_x() + 0.45,  # X位置
+                    ymax - 0.04,  # Y位置，略高于最大值
+                    f'{height:.1f}',  # 显示数值，保留两位小数
+                    ha='center', va='bottom', fontsize=12, color=text_color
                 )
     @expect('x', 'y')
     def draw_scatter(self, ax, cfg):
@@ -320,20 +322,6 @@ class MyPlot:
                         'x', ha='center', va='top', fontsize=12, color='red', zorder=3
                     )
             ax.bar(x + bar_width * offset, data, width=bar_width, label=label, color=color, zorder=2)
-        # 绘制每组柱子
-        # ax.bar(x - bar_width * 6, Original, width=bar_width, label='Original', color='#999999', zorder=2)
-        # ax.bar(x - bar_width * 5, TFLite, width=bar_width, label='TFLite', color='#4185f3', zorder=2)
-        # ax.bar(x - bar_width * 4, MNN, width=bar_width, label='MNN', color='#ea4234', zorder=2)
-        # ax.bar(x - bar_width * 3, PDLite, width=bar_width, label='PDLite', color='#fabc04', zorder=2)
-        # ax.bar(x - bar_width * 2, ONNX, width=bar_width, label='ONNX', color='#33a852', zorder=2)
-        # ax.bar(x - bar_width * 1, ncnn, width=bar_width, label='ncnn', color='#ff6c00', zorder=2)
-        # ax.bar(x , TFLite_GPU, width=bar_width, label='TFLite(GPU)', color='#46bdc5', zorder=2)
-        # ax.bar(x + bar_width * 1, TensorRT, width=bar_width, label='TensorRT', color='#8A2BE2', zorder=2)
-        # ax.bar(x + bar_width * 2, TensorRT_NPU, width=bar_width, label='TensorRT(NPU)', color='#BA55D3', zorder=2)
-        # ax.bar(x + bar_width * 3, CANN, width=bar_width, label='CANN', color='#66cc66', zorder=2)
-        # ax.bar(x + bar_width * 4, OV_CPU, width=bar_width, label='OV(CPU)', color='#D94E8F', zorder=2)
-        # ax.bar(x + bar_width * 5, OV_GPU, width=bar_width, label='OV(GPU)', color='#FF69B4', zorder=2)
-        # ax.bar(x + bar_width * 6, OV_NPU, width=bar_width, label='OV(NPU)', color='#FFC0CB', zorder=2)
 
         # 设置X轴刻度和分类名称
         ax.set_xticks(x)
@@ -350,57 +338,110 @@ class MyPlot:
         # 添加图例
         ax.legend(fontsize=20, loc='upper center', bbox_to_anchor=(0.5, 1.15), ncol=13, frameon=False)
     def draw_groupbar_speedup(self, ax, cfg):
-            # X轴位置
-            # print("draw_groupbar")
-            categories = cfg['categories']
-            x = np.arange(len(categories))  # 分类的索引
-            bar_width = 0.25  # 每个柱子的宽度
-            if 'bar_width' in cfg:
-                bar_width = cfg['bar_width']
+        # X轴位置
+        # print("draw_groupbar")
+        categories = cfg['categories']
+        x = np.arange(len(categories))  # 分类的索引
+        bar_width = 0.25  # 每个柱子的宽度
+        if 'bar_width' in cfg:
+            bar_width = cfg['bar_width']
 
-            TFLite = cfg['TFLite']
-            MNN = cfg['MNN']
+        TFLite = cfg['TFLite']
+        MNN = cfg['MNN']
+        
+        ymin = cfg['ymin']
+        ymax = cfg['ymax']
+
+        if 'PDLite' in cfg:
+            PDLite = cfg['PDLite']
+            ncnn = cfg['ncnn']
             
-            ymin = cfg['ymin']
-            ymax = cfg['ymax']
-    
-            if 'PDLite' in cfg:
-                PDLite = cfg['PDLite']
-                ncnn = cfg['ncnn']
-                
-                bars1 = ax.bar(x - bar_width * 1.5, TFLite, width=bar_width, label='TFLite', color='#4285f4', zorder=2)
-                bars2 = ax.bar(x - bar_width * 0.5, MNN, width=bar_width, label='MNN', color='#ea4335', zorder=2)            
-                bars3 = ax.bar(x + bar_width * 0.5, PDLite, width=bar_width, label='PDLite', color='#fabc04', zorder=2)            
-                bars4 = ax.bar(x + bar_width * 1.5, ncnn, width=bar_width, label='ncnn', color='#33a852', zorder=2)            
-                
-                # 标注条形上的数值
-                self.annotate_bars(ax, bars1, ymax, '#4285f4')
-                self.annotate_bars(ax, bars2, ymax, '#ea4335')
-                self.annotate_bars(ax, bars3, ymax, '#fabc04')
-                self.annotate_bars(ax, bars4, ymax, '#33a852')
-                # 添加图例
-                ax.legend(fontsize=13, loc='upper center', bbox_to_anchor=(0.5, 1.13), ncol=4, frameon=False)
+            bars1 = ax.bar(x - bar_width * 1.5, TFLite, width=bar_width, label='TFLite', color='#4285f4', zorder=2)
+            bars2 = ax.bar(x - bar_width * 0.5, MNN, width=bar_width, label='MNN', color='#ea4335', zorder=2)            
+            bars3 = ax.bar(x + bar_width * 0.5, PDLite, width=bar_width, label='PDLite', color='#fabc04', zorder=2)            
+            bars4 = ax.bar(x + bar_width * 1.5, ncnn, width=bar_width, label='ncnn', color='#33a852', zorder=2)            
+            
+            # 标注条形上的数值
+            self.annotate_bars(ax, bars1, ymax, '#4285f4')
+            self.annotate_bars(ax, bars2, ymax, '#ea4335')
+            self.annotate_bars(ax, bars3, ymax, '#fabc04')
+            self.annotate_bars(ax, bars4, ymax, '#33a852')
+            # 添加图例
+            ax.legend(fontsize=13, loc='upper center', bbox_to_anchor=(0.5, 1.13), ncol=4, frameon=False)
 
-                # ax.set_xlim(-1.3,7)
-            else:
-                # 绘制每组柱子
-                bars1 = ax.bar(x - bar_width/2, TFLite, width=bar_width, label='TFLite', color='#4285f4', zorder=2)
-                bars2 = ax.bar(x + bar_width/2, MNN, width=bar_width, label='MNN', color='#ea4335', zorder=2)
-                
-                self.annotate_bars(ax, bars1, ymax, '#4285f4')
-                self.annotate_bars(ax, bars2, ymax, '#ea4335')  
-                
-                ax.legend(fontsize=13, loc='upper center', bbox_to_anchor=(0.5, 1.1), ncol=2, frameon=False)
-            # 设置X轴刻度和分类名称
-            ax.set_xticks(x)
-            ax.set_xticklabels(categories, fontsize=14)
+            # ax.set_xlim(-1.3,7)
+        else:
+            # 绘制每组柱子
+            bars1 = ax.bar(x - bar_width/2, TFLite, width=bar_width, label='TFLite', color='#4285f4', zorder=2)
+            bars2 = ax.bar(x + bar_width/2, MNN, width=bar_width, label='MNN', color='#ea4335', zorder=2)
+            
+            self.annotate_bars(ax, bars1, ymax, '#4285f4')
+            self.annotate_bars(ax, bars2, ymax, '#ea4335')  
+            
+            ax.legend(fontsize=13, loc='upper center', bbox_to_anchor=(0.5, 1.1), ncol=2, frameon=False)
+        # 设置X轴刻度和分类名称
+        ax.set_xticks(x)
+        ax.set_xticklabels(categories, fontsize=14)
 
-            ymin = cfg['ymin']
-            ymax = cfg['ymax']
-            # 设置Y轴范围
-            ax.set_ylim(ymin, ymax)
+        ymin = cfg['ymin']
+        ymax = cfg['ymax']
+        # 设置Y轴范围
+        ax.set_ylim(ymin, ymax)
 
-                        
+    def draw_groupbar_one(self, ax, cfg):
+        # X轴位置
+        categories = cfg['categories']
+        x = np.arange(len(categories))  # 分类的索引
+        bar_width = 0.2  # 每个柱子的宽度
+
+        TFLite = cfg['TFLite']
+        MNN = cfg['MNN']
+        
+        ymin = cfg['ymin']
+        ymax = cfg['ymax']
+
+        PDLite = cfg['PDLite']
+        ncnn = cfg['ncnn']
+        
+        bars1 = ax.bar(x - bar_width * 1.5, TFLite, width=bar_width, label='TFLite', color='#4285f4', zorder=2, edgecolor='black')
+        bars2 = ax.bar(x - bar_width * 0.5, MNN, width=bar_width, label='MNN', color='#ea4335', zorder=2, edgecolor='black')            
+        bars3 = ax.bar(x + bar_width * 0.5, PDLite, width=bar_width, label='PDLite', color='#fabc04', zorder=2, edgecolor='black')            
+        bars4 = ax.bar(x + bar_width * 1.5, ncnn, width=bar_width, label='ncnn', color='#33a852', zorder=2, edgecolor='black')            
+        
+        # 标注条形上的数值
+        self.annotate_bars(ax, bars1, ymax, '#4285f4')
+        self.annotate_bars(ax, bars2, ymax, '#ea4335')
+        self.annotate_bars(ax, bars3, ymax, '#fabc04')
+        self.annotate_bars(ax, bars4, ymax, '#33a852')
+        # 添加图例
+        ax.legend(fontsize=15, loc='upper center', bbox_to_anchor=(0.5, 1.1), ncol=4, frameon=False)
+
+        ax.set_xlim(-0.8,13.6)
+        
+        # 设置X轴刻度和分类名称
+        ax.set_xticks(x)
+        ax.set_xticklabels(categories, fontsize=15)
+
+        ymin = cfg['ymin']
+        ymax = cfg['ymax']
+        
+        # 设置Y轴范围
+        ax.set_ylim(ymin, ymax)
+        ax.set_yticklabels(ax.get_yticklabels(), fontsize=15)
+        
+        number = cfg['number']
+        if number == 7:
+            ax.add_line(lines.Line2D([6.4, 6.4], [0.85, 1], color='black', linewidth=1, clip_on=False))
+            ax.add_line(lines.Line2D([-0.8, -0.8], [0.85, 1], color='black', linewidth=1, clip_on=False))
+            ax.add_line(lines.Line2D([13.6, 13.6], [0.85, 1], color='black', linewidth=1, clip_on=False))
+            ax.text(3, 0.9, "A78", ha='center', va='top', clip_on=False, fontsize=17)  
+            ax.text(10, 0.9, "A55", ha='center', va='top', clip_on=False, fontsize=17)  
+        else:
+            ax.add_line(lines.Line2D([6.4, 6.4], [0.66, 0.8], color='black', linewidth=1, clip_on=False))
+            ax.add_line(lines.Line2D([-0.8, -0.8], [0.66, 0.8], color='black', linewidth=1, clip_on=False))
+            ax.add_line(lines.Line2D([13.6, 13.6], [0.66, 0.8], color='black', linewidth=1, clip_on=False))
+            ax.text(3, 0.71, "G610", ha='center', va='top', clip_on=False, fontsize=17)  
+            ax.text(10, 0.71, "A660G", ha='center', va='top', clip_on=False, fontsize=17)  
     def draw_groupstackbar(self, ax, cfg):
         # 数据
         categories = cfg['categories']
