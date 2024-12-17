@@ -124,3 +124,28 @@ python fig9_accuracy.py --input=Int8Accuracy_upper --ymin=0 --ymax=82
 python fig12a_bestengine.py
 python fig12b_bestengine.py
 ```
+
+8. 画fig13，先使用下面的命令从.csv转换到.json
+```bash
+python fig13_translate.py --input=fig13a --output=A55_acc_lat
+python fig13_translate.py --input=fig13b --output=M1_acc_lat
+python fig13_translate.py --input=fig13c --output=lioncove_acc_lat
+python fig13_translate.py --input=fig13d --output=A660G_acc_lat
+python fig13_translate.py --input=fig13e --output=M1_GPU_acc_lat
+python fig13_translate.py --input=fig13f --output=lunar_GPU_acc_lat
+python fig13_translate.py --input=fig13g --output=AIP_NPU_acc_lat
+python fig13_translate.py --input=fig13h --output=M1_NPU_acc_lat
+python fig13_translate.py --input=fig13i --output=lunar_NPU_acc_lat
+```
+接下来画图，使用命令
+```bash
+python fig13_acc_lat.py --input=A55_acc_lat --ymin=68 --ymax=83 --xmin=30 --xmax=250
+python fig13_acc_lat.py --input=M1_acc_lat --ymin=68 --ymax=83 --xmin=3 --xmax=25
+python fig13_acc_lat.py --input=lioncove_acc_lat --ymin=68 --ymax=83 --xmin=4 --xmax=32
+python fig13_acc_lat.py --input=A660G_acc_lat --ymin=68 --ymax=83 --xmin=4 --xmax=45
+python fig13_acc_lat.py --input=M1_GPU_acc_lat --ymin=68 --ymax=83 --xmin=3 --xmax=8
+python fig13_acc_lat.py --input=lunar_GPU_acc_lat --ymin=68 --ymax=83 --xmin=0.5 --xmax=3.3
+python fig13_acc_lat.py --input=AIP_NPU_acc_lat --ymin=68 --ymax=83 --xmin=3 --xmax=22
+python fig13_acc_lat.py --input=M1_NPU_acc_lat --ymin=65 --ymax=83 --xmin=0.4 --xmax=3
+python fig13_acc_lat.py --input=lunar_NPU_acc_lat --ymin=68 --ymax=83 --xmin=1 --xmax=9.5
+```

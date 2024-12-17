@@ -356,10 +356,10 @@ class MyPlot:
             PDLite = cfg['PDLite']
             ncnn = cfg['ncnn']
             
-            bars1 = ax.bar(x - bar_width * 1.5, TFLite, width=bar_width, label='TFLite', color='#4285f4', zorder=2)
-            bars2 = ax.bar(x - bar_width * 0.5, MNN, width=bar_width, label='MNN', color='#ea4335', zorder=2)            
-            bars3 = ax.bar(x + bar_width * 0.5, PDLite, width=bar_width, label='PDLite', color='#fabc04', zorder=2)            
-            bars4 = ax.bar(x + bar_width * 1.5, ncnn, width=bar_width, label='ncnn', color='#33a852', zorder=2)            
+            bars1 = ax.bar(x - bar_width * 1.5, TFLite, width=bar_width, label='TFLite', color='#4285f4', zorder=2, edgecolor='black')
+            bars2 = ax.bar(x - bar_width * 0.5, MNN, width=bar_width, label='MNN', color='#ea4335', zorder=2, edgecolor='black')            
+            bars3 = ax.bar(x + bar_width * 0.5, PDLite, width=bar_width, label='PDLite', color='#fabc04', zorder=2, edgecolor='black')            
+            bars4 = ax.bar(x + bar_width * 1.5, ncnn, width=bar_width, label='ncnn', color='#33a852', zorder=2, edgecolor='black')            
             
             # 标注条形上的数值
             self.annotate_bars(ax, bars1, ymax, '#4285f4')
@@ -372,8 +372,8 @@ class MyPlot:
             # ax.set_xlim(-1.3,7)
         else:
             # 绘制每组柱子
-            bars1 = ax.bar(x - bar_width/2, TFLite, width=bar_width, label='TFLite', color='#4285f4', zorder=2)
-            bars2 = ax.bar(x + bar_width/2, MNN, width=bar_width, label='MNN', color='#ea4335', zorder=2)
+            bars1 = ax.bar(x - bar_width/2, TFLite, width=bar_width, label='TFLite', color='#4285f4', zorder=2, edgecolor='black')
+            bars2 = ax.bar(x + bar_width/2, MNN, width=bar_width, label='MNN', color='#ea4335', zorder=2, edgecolor='black')
             
             self.annotate_bars(ax, bars1, ymax, '#4285f4')
             self.annotate_bars(ax, bars2, ymax, '#ea4335')  
@@ -387,6 +387,7 @@ class MyPlot:
         ymax = cfg['ymax']
         # 设置Y轴范围
         ax.set_ylim(ymin, ymax)
+        ax.set_yticklabels(ax.get_yticklabels(), fontsize=15)
 
     def draw_groupbar_one(self, ax, cfg):
         # X轴位置
