@@ -104,6 +104,10 @@ python fig7bc_one.py --input=fig7bc --ymin=1.0 --ymax=2.0 --number=7
 ```bash
 python fig7bc_one.py --input=fig8bc --ymin=0.8 --ymax=1.7 --number=8
 ```
+对于fig10b、c，手动复制fig10b和fig10c的数据到fig10bc.json，然后使用下面的命令画图
+```bash
+python fig7bc_one.py --input=fig10bc --ymin=0.4 --ymax=1.2 --number=10
+```
 
 6. 处理fig9原始数据
 ```bash

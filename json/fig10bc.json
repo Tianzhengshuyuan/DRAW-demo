@@ -1,0 +1,100 @@
+[
+    {
+        "category": "EF2",
+        "TFLite": 0.66,
+        "MNN": 1.02,
+        "PDLite": 0.63,
+        "ncnn": 1.0
+    },
+    {
+        "category": "SWF",
+        "TFLite": 0.81,
+        "MNN": 1.08,
+        "PDLite": NaN,
+        "ncnn": NaN
+    },
+    {
+        "category": "EMO",
+        "TFLite": 0.59,
+        "MNN": 0.92,
+        "PDLite": 0.55,
+        "ncnn": NaN
+    },
+    {
+        "category": "ENX",
+        "TFLite": 0.97,
+        "MNN": 0.85,
+        "PDLite": 0.82,
+        "ncnn": NaN
+    },
+    {
+        "category": "MV2",
+        "TFLite": 0.71,
+        "MNN": 1.22,
+        "PDLite": NaN,
+        "ncnn": 1.08
+    },
+    {
+        "category": "MV",
+        "TFLite": 0.67,
+        "MNN": 0.72,
+        "PDLite": 0.58,
+        "ncnn": NaN
+    },
+    {
+        "category": "LVT",
+        "TFLite": 0.97,
+        "MNN": 0.71,
+        "PDLite": 0.65,
+        "ncnn": NaN
+    },
+    {
+        "category": "EF2",
+        "TFLite": 0.64,
+        "MNN": 1.06,
+        "PDLite": 0.78,
+        "ncnn": 0.96
+    },
+    {
+        "category": "SWF",
+        "TFLite": 0.72,
+        "MNN": 1.01,
+        "PDLite": NaN,
+        "ncnn": NaN
+    },
+    {
+        "category": "EMO",
+        "TFLite": 0.57,
+        "MNN": 1.15,
+        "PDLite": 0.65,
+        "ncnn": NaN
+    },
+    {
+        "category": "ENX",
+        "TFLite": 0.98,
+        "MNN": 0.77,
+        "PDLite": 0.87,
+        "ncnn": NaN
+    },
+    {
+        "category": "MV2",
+        "TFLite": 0.61,
+        "MNN": 1.41,
+        "PDLite": NaN,
+        "ncnn": 0.88
+    },
+    {
+        "category": "MV",
+        "TFLite": 0.66,
+        "MNN": 0.9,
+        "PDLite": 0.68,
+        "ncnn": NaN
+    },
+    {
+        "category": "LVT",
+        "TFLite": 0.88,
+        "MNN": 0.71,
+        "PDLite": 0.84,
+        "ncnn": NaN
+    }
+]

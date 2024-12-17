@@ -436,12 +436,18 @@ class MyPlot:
             ax.add_line(lines.Line2D([13.6, 13.6], [0.85, 1], color='black', linewidth=1, clip_on=False))
             ax.text(3, 0.9, "A78", ha='center', va='top', clip_on=False, fontsize=17)  
             ax.text(10, 0.9, "A55", ha='center', va='top', clip_on=False, fontsize=17)  
-        else:
+        elif number == 8:
             ax.add_line(lines.Line2D([6.4, 6.4], [0.66, 0.8], color='black', linewidth=1, clip_on=False))
             ax.add_line(lines.Line2D([-0.8, -0.8], [0.66, 0.8], color='black', linewidth=1, clip_on=False))
             ax.add_line(lines.Line2D([13.6, 13.6], [0.66, 0.8], color='black', linewidth=1, clip_on=False))
             ax.text(3, 0.71, "G610", ha='center', va='top', clip_on=False, fontsize=17)  
-            ax.text(10, 0.71, "A660G", ha='center', va='top', clip_on=False, fontsize=17)  
+            ax.text(10, 0.71, "A660G", ha='center', va='top', clip_on=False, fontsize=17) 
+        else:
+            ax.add_line(lines.Line2D([6.4, 6.4], [0.28, 0.4], color='black', linewidth=1, clip_on=False))
+            ax.add_line(lines.Line2D([-0.8, -0.8], [0.28, 0.4], color='black', linewidth=1, clip_on=False))
+            ax.add_line(lines.Line2D([13.6, 13.6], [0.28, 0.4], color='black', linewidth=1, clip_on=False))
+            ax.text(3, 0.32, "A78", ha='center', va='top', clip_on=False, fontsize=17)  
+            ax.text(10, 0.32, "A55", ha='center', va='top', clip_on=False, fontsize=17)   
     def draw_groupstackbar(self, ax, cfg):
         # 数据
         categories = cfg['categories']
