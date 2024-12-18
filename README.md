@@ -149,3 +149,9 @@ python fig13_acc_lat.py --input=AIP_NPU_acc_lat --ymin=68 --ymax=83 --xmin=3 --x
 python fig13_acc_lat.py --input=M1_NPU_acc_lat --ymin=65 --ymax=83 --xmin=0.4 --xmax=3
 python fig13_acc_lat.py --input=lunar_NPU_acc_lat --ymin=68 --ymax=83 --xmin=1 --xmax=9.5
 ```
+
+9. 画fig11
+```bash
+python fig11_translate.py 
+python fig11_accuracy.py --input=GpuInt8Speedup --ymin=0.45 --ymax=1.6
+```

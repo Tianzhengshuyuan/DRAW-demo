@@ -139,6 +139,7 @@ class MyPlot:
             'pie': self.draw_pie,
             'groupbar': self.draw_groupbar,
             'groupstackbar': self.draw_groupstackbar,
+            'grouplinebar': self.draw_grouplinebar,
             'stackbar': self.draw_stackbar,
             'groupbar_speedup': self.draw_groupbar_speedup,
             'groupbar_speedup_gpu': self.draw_groupbar_speedup_gpu,
@@ -279,6 +280,57 @@ class MyPlot:
         # 添加图例
         ax.legend(fontsize=15, loc='upper center', bbox_to_anchor=(0.5, 1.1), ncol=13, frameon=False,
                   columnspacing=0.8)
+
+    def draw_grouplinebar(self, ax, cfg):
+        # X轴位置
+        # print("draw_groupbar")
+        categories = cfg['categories']
+        x = np.arange(len(categories))  # 分类的索引
+        bar_width = 0.25  # 每个柱子的宽度
+        print(x)
+        A55_bar = cfg['A55_bar']
+        A76_bar = cfg['A76_bar']
+        M1P_bar = cfg['M1P_bar']
+
+        A55_line = cfg['A55_line']
+        A76_line = cfg['A76_line']
+        M1P_line = cfg['M1P_line']
+        
+        # 绘制每组柱子
+        bar1 = ax.bar(x - bar_width, A55_bar, width=bar_width, label='A55', color='#4285f4', zorder=2, edgecolor='black')
+        bar2 = ax.bar(x, A76_bar, width=bar_width, label='A76', color='#ea4335', zorder=2, edgecolor='black')
+        bar3 = ax.bar(x + bar_width, M1P_bar, width=bar_width, label='M1P', color='#fbbc04', zorder=2, edgecolor='black')
+        # 绘制折线图
+        line1, = ax.plot(x, A55_line, linestyle='--', color='#4285f4', marker='o', markersize=10, label='A55', linewidth=2, zorder=3)
+        line2, = ax.plot(x, A76_line, linestyle='--', color='#ea4335', marker='^', markersize=10, label='A76', linewidth=2, zorder=3)
+        line3, = ax.plot(x, M1P_line, linestyle='--', color='#fbbc04', marker='*', markersize=10, label='M1P', linewidth=2, zorder=3)
+
+        # 设置X轴刻度和分类名称
+        ax.set_xticks(x)
+        ax.set_xticklabels(categories, fontsize=15)
+
+        ymin = cfg['ymin']
+        ymax = cfg['ymax']
+        # 设置Y轴范围
+        ax.set_ylim(ymin, ymax)
+        ax.set_yticklabels(ax.get_yticklabels(), fontsize=15)
+        ax.set_xlim(-0.5, 7.5)
+        # 添加图例
+        # 添加图例：第一行（折线图）
+        legend1 = ax.legend(handles=[line1, line2, line3], fontsize=15, loc='upper center', 
+                            bbox_to_anchor=(0.4, 1.18),  ncol=3, frameon=False, columnspacing=0.8)
+
+        # 添加图例：第二行（柱状图）
+        legend2 = ax.legend(handles=[bar1, bar2, bar3], fontsize=15, loc='upper center', 
+                            bbox_to_anchor=(0.4, 1.11), ncol=3, frameon=False, columnspacing=0.8)
+        
+        # 保证legend1不被覆盖
+        ax.add_artist(legend1)
+        
+        # 添加注释文本
+        ax.text(0.57, 1.11, "for torch.compile", transform=ax.transAxes, fontsize=15, ha='left', va='center')
+        ax.text(0.57, 1.04, "for TVM", transform=ax.transAxes, fontsize=15, ha='left', va='center')
+
 
     def draw_groupbar_speedup(self, ax, cfg):
         # X轴位置
