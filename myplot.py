@@ -366,12 +366,12 @@ class MyPlot:
         ax.set_ylim(ymin, ymax)
 
         # 添加图例
-        ax.legend(fontsize=20, loc='upper center', bbox_to_anchor=(0.5, 1.15), ncol=13, frameon=False)
+        ax.legend(fontsize=20, loc='upper center', bbox_to_anchor=(0.48, 1.15), ncol=13, frameon=False)
     def draw_groupbar_speedup_gpu(self, ax, cfg):
         # X轴位置
         categories = cfg['categories']
         x = np.arange(len(categories))  # 分类的索引
-        bar_width = 0.05  # 每个柱子的宽度
+        bar_width = 0.06  # 每个柱子的宽度
         if 'bar_width' in cfg:
             bar_width = cfg['bar_width']
 
@@ -394,43 +394,38 @@ class MyPlot:
         ymin = cfg['ymin']
         ymax = cfg['ymax']
     
-        # 定义14个颜色，色差较大，呈现更明显的渐变效果
-        #ff6c00 橙
-        #ea4234 红
-        #fabc04 黄
-        #33a852 绿
-        #4185f3 蓝
+        #ff6c00 橙  #ea4234 红  #fabc04 黄
+        #33a852 绿  #4185f3 蓝  #9900ff 紫
         colors_large_gap = [
-            "#ff6c00",  
-            "#ff6c00",  
-            "#ff6c00",  
-            "#ff6c00",  
-            "#ff6c00",  
-            "#ff6c00",  
-            "#ff6c00",  
             "#ea4234",  
+            "#ea4234",  
+            "#ea4234",  
+            "#ff6c00",  
+            "#ff6c00",  
+            "#ff6c00",  
+            "#ff6c00",  
             "#fabc04",  
             "#33a852",  
-            "#ea4234",  
             "#4185f3",  
             "#fabc04",  
-            "#33a852"   
+            "#9900ff",  
+            "#33a852",  
+            "#4185f3"   
         ]
-
-        bars1 = ax.bar(x - bar_width * 6.5, G31, hatch='//', width=bar_width, label='G31', color=colors_large_gap[0], zorder=2, edgecolor='black')
-        bars2 = ax.bar(x - bar_width * 5.5, G52, hatch='\\', width=bar_width, label='G52', color=colors_large_gap[1], zorder=2, edgecolor='black')            
-        bars3 = ax.bar(x - bar_width * 4.5, G610, hatch='..', width=bar_width, label='G610', color=colors_large_gap[2], zorder=2, edgecolor='black')            
-        bars4 = ax.bar(x - bar_width * 3.5, G77, hatch='--', width=bar_width, label='G77', color=colors_large_gap[3], zorder=2, edgecolor='black')            
-        bars5 = ax.bar(x - bar_width * 2.5, A630G, hatch='o', width=bar_width, label='A630G', color=colors_large_gap[4], zorder=2, edgecolor='black')            
-        bars6 = ax.bar(x - bar_width * 1.5, A660G, hatch='xx', width=bar_width, label='A660G', color=colors_large_gap[5], zorder=2, edgecolor='black')            
-        bars7 = ax.bar(x - bar_width * 0.5, A740G, width=bar_width, label='A740G', color=colors_large_gap[6], zorder=2, edgecolor='black')            
-        bars8 = ax.bar(x + bar_width * 0.5, AMP, hatch='/', width=bar_width, label='AMP', color=colors_large_gap[7], zorder=2, edgecolor='black')            
-        bars9 = ax.bar(x + bar_width * 1.5, MTL_GPU, hatch='/', width=bar_width, label='MTL_GPU', color=colors_large_gap[8], zorder=2, edgecolor='black')            
-        bars10 = ax.bar(x + bar_width * 2.5, LNL_GPU, hatch='/', width=bar_width, label='LNL_GPU', color=colors_large_gap[9], zorder=2, edgecolor='black')            
-        bars11 = ax.bar(x + bar_width * 3.5, ORIN_NPU, hatch='\\', width=bar_width, label='ORIN_NPU', color=colors_large_gap[10], zorder=2, edgecolor='black')            
-        bars12 = ax.bar(x + bar_width * 4.5, AIP_NPU,  width=bar_width, label='AIP_NPU', color=colors_large_gap[11], zorder=2, edgecolor='black')            
-        bars13 = ax.bar(x + bar_width * 5.5, MTL_NPU, hatch='\\', width=bar_width, label='MTL_NPU', color=colors_large_gap[12], zorder=2, edgecolor='black')            
-        bars14 = ax.bar(x + bar_width * 6.5, LNL_NPU, hatch='\\', width=bar_width, label='LNL_NPU', color=colors_large_gap[13], zorder=2, edgecolor='black') 
+        bars1 = ax.bar(x - bar_width * 6.5, G31, hatch='//', width=bar_width, label='G31', color=colors_large_gap[0], zorder=2, edgecolor='black', alpha=0.8)
+        bars2 = ax.bar(x - bar_width * 5.5, G52, hatch='\\\\', width=bar_width, label='G52', color=colors_large_gap[1], zorder=2, edgecolor='black', alpha=0.8)            
+        bars3 = ax.bar(x - bar_width * 4.5, G610, hatch='..', width=bar_width, label='G610', color=colors_large_gap[2], zorder=2, edgecolor='black', alpha=0.8)            
+        bars4 = ax.bar(x - bar_width * 3.5, G77, hatch='//', width=bar_width, label='G77', color=colors_large_gap[3], zorder=2, edgecolor='black', alpha=0.8)            
+        bars5 = ax.bar(x - bar_width * 2.5, A630G, hatch='\\\\', width=bar_width, label='A630G', color=colors_large_gap[4], zorder=2, edgecolor='black', alpha=0.8)            
+        bars6 = ax.bar(x - bar_width * 1.5, A660G, hatch='..', width=bar_width, label='A660G', color=colors_large_gap[5], zorder=2, edgecolor='black', alpha=0.8)            
+        bars7 = ax.bar(x - bar_width * 0.5, A740G, width=bar_width, label='A740G', color=colors_large_gap[6], zorder=2, edgecolor='black', alpha=0.8)            
+        bars8 = ax.bar(x + bar_width * 0.5, AMP, hatch='//', width=bar_width, label='AMP', color=colors_large_gap[7], zorder=2, edgecolor='black', alpha=0.8)            
+        bars9 = ax.bar(x + bar_width * 1.5, ORIN_NPU, hatch='\\\\', width=bar_width, label='ORIN_NPU', color=colors_large_gap[10], zorder=2, edgecolor='black', alpha=0.8)            
+        bars10 = ax.bar(x + bar_width * 2.5, MTL_GPU, hatch='//', width=bar_width, label='MTL_GPU', color=colors_large_gap[8], zorder=2, edgecolor='black', alpha=0.8)            
+        bars11 = ax.bar(x + bar_width * 3.5, MTL_NPU, hatch='\\\\', width=bar_width, label='MTL_NPU', color=colors_large_gap[12], zorder=2, edgecolor='black', alpha=0.8)            
+        bars12 = ax.bar(x + bar_width * 4.5, LNL_GPU, hatch='//', width=bar_width, label='LNL_GPU', color=colors_large_gap[9], zorder=2, edgecolor='black', alpha=0.8)            
+        bars13 = ax.bar(x + bar_width * 5.5, LNL_NPU, hatch='\\\\', width=bar_width, label='LNL_NPU', color=colors_large_gap[13], zorder=2, edgecolor='black', alpha=0.8) 
+        bars14 = ax.bar(x + bar_width * 6.5, AIP_NPU,  width=bar_width, label='AIP_NPU', color=colors_large_gap[11], zorder=2, edgecolor='black', alpha=0.8)            
 
         # 标注条形上的数值，使用 colors_large_gap 对应的颜色
         self.annotate_bars(ax, bars1, ymax, colors_large_gap[0], 0.15, 0.07)
@@ -441,15 +436,15 @@ class MyPlot:
         self.annotate_bars(ax, bars6, ymax, colors_large_gap[5], 0.15, 0.07)
         self.annotate_bars(ax, bars7, ymax, colors_large_gap[6], 0.15, 0.07)
         self.annotate_bars(ax, bars8, ymax, colors_large_gap[7], 0.15, 0.07)
-        self.annotate_bars(ax, bars9, ymax, colors_large_gap[8], 0.15, 0.07)
-        self.annotate_bars(ax, bars10, ymax, colors_large_gap[9], 0.15, 0.07)
-        self.annotate_bars(ax, bars11, ymax, colors_large_gap[10], 0.15, 0.07)
-        self.annotate_bars(ax, bars12, ymax, colors_large_gap[11], 0.15, 0.07)
-        self.annotate_bars(ax, bars13, ymax, colors_large_gap[12], 0.15, 0.07)
-        self.annotate_bars(ax, bars14, ymax, colors_large_gap[13], 0.15, 0.07)
+        self.annotate_bars(ax, bars9, ymax, colors_large_gap[10], 0.15, 0.07)
+        self.annotate_bars(ax, bars10, ymax, colors_large_gap[8], 0.15, 0.07)
+        self.annotate_bars(ax, bars11, ymax, colors_large_gap[12], 0.15, 0.07)
+        self.annotate_bars(ax, bars12, ymax, colors_large_gap[9], 0.15, 0.07)
+        self.annotate_bars(ax, bars13, ymax, colors_large_gap[13], 0.15, 0.07)
+        self.annotate_bars(ax, bars14, ymax, colors_large_gap[11], 0.15, 0.07)
         # 添加图例
-        ax.legend(fontsize=13, loc='upper center', bbox_to_anchor=(0.5, 1.22), ncol=14, frameon=False,
-                handletextpad=0.2, handlelength = 1.4, columnspacing=0.2)
+        ax.legend(fontsize=13, loc='upper center', bbox_to_anchor=(0.5, 1.13), ncol=14, frameon=False,
+                handletextpad=0.2, handlelength = 1.3, columnspacing=0.2)
 
         # ax.set_xlim(-1.3,7)
 
@@ -462,8 +457,23 @@ class MyPlot:
         # 设置Y轴范围
         ax.set_ylim(ymin, ymax)
         ax.set_yticklabels(ax.get_yticklabels(), fontsize=15)
+        ax.set_xlim(-0.5, 6.5)
         
         ax.axhline(1.0, color='#b0b0b0', linewidth=1, linestyle='--', zorder=1)
+        
+        for i, bar in enumerate([bars1, bars2, bars3, bars4, bars5, bars6, bars7, bars8, bars9, bars10, bars11, bars12, bars13, bars14]):
+            for rect in bar:
+                if rect.get_height() == -1:
+                    ax.text(rect.get_x() + rect.get_width() / 2, 0.445, 'X', color='red', ha='center', va='center', fontsize=10)
+        
+        ax.add_line(lines.Line2D([-0.5, -0.5], [0.4, 0.5], color='black', linewidth=1, clip_on=False))
+        ax.add_line(lines.Line2D([0.5, 0.5], [0.4, 0.5], color='black', linewidth=1, clip_on=False))
+        ax.add_line(lines.Line2D([1.5, 1.5], [0.4, 0.5], color='black', linewidth=1, clip_on=False))
+        ax.add_line(lines.Line2D([2.5, 2.5], [0.4, 0.5], color='black', linewidth=1, clip_on=False))
+        ax.add_line(lines.Line2D([3.5, 3.5], [0.4, 0.5], color='black', linewidth=1, clip_on=False))
+        ax.add_line(lines.Line2D([4.5, 4.5], [0.4, 0.5], color='black', linewidth=1, clip_on=False))
+        ax.add_line(lines.Line2D([5.5, 5.5], [0.4, 0.5], color='black', linewidth=1, clip_on=False))
+        ax.add_line(lines.Line2D([6.5, 6.5], [0.4, 0.5], color='black', linewidth=1, clip_on=False))
 
     def draw_groupbar_one(self, ax, cfg):
         # X轴位置

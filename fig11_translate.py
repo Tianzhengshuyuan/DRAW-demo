@@ -27,7 +27,7 @@ with open(input_file, mode="r", encoding="utf-8") as file:
 
     # 遍历前13行数据
     for idx, row in enumerate(reader):
-        if idx >= 7:  # 只处理前13行数据
+        if idx >= 7:  # 只处理前7行数据
             break
         
         # 跳过空行
