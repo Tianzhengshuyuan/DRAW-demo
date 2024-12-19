@@ -412,7 +412,7 @@ class MyPlot:
             return str(value)
 
         ax.yaxis.set_major_formatter(ticker.FuncFormatter(format_instruction_ticks))
-
+        ax_right.set_ylabel('#models', fontsize=15)
         # 添加图例
         left_handles, left_labels = ax.get_legend_handles_labels()
         right_handles, right_labels = ax_right.get_legend_handles_labels()
