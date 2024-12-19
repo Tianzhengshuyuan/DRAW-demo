@@ -1,0 +1,67 @@
+[
+    {
+        "name": "CPU",
+        "Performance": 7.47,
+        "Performance/W": 3.44
+    },
+    {
+        "name": "GPU",
+        "Performance": 13.11,
+        "Performance/W": 5.63
+    },
+    {
+        "name": "CPU",
+        "Performance": 16.52,
+        "Performance/W": 5.96
+    },
+    {
+        "name": "GPU",
+        "Performance": 23.89,
+        "Performance/W": 7.26
+    },
+    {
+        "name": "CPU",
+        "Performance": 19.48,
+        "Performance/W": 9.19
+    },
+    {
+        "name": "GPU",
+        "Performance": 24.65,
+        "Performance/W": 9.98
+    },
+    {
+        "name": "CPU",
+        "Performance": 27.43,
+        "Performance/W": 15.01
+    },
+    {
+        "name": "GPU",
+        "Performance": 36.71,
+        "Performance/W": 22.38
+    },
+    {
+        "name": "CPU",
+        "Performance": 12.43,
+        "Performance/W": 5.4
+    },
+    {
+        "name": "CPU T4",
+        "Performance": 28.76,
+        "Performance/W": 4.97
+    },
+    {
+        "name": "GPU",
+        "Performance": 22.14,
+        "Performance/W": 6.33
+    },
+    {
+        "name": "CPU",
+        "Performance": 5.06,
+        "Performance/W": 6.02
+    },
+    {
+        "name": "NPU",
+        "Performance": 45.36,
+        "Performance/W": 24.13
+    }
+]

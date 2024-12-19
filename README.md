@@ -169,12 +169,22 @@ python fig14_translate_onnx_line.py
 ```bash
 python fig14_compiler.py
 ```
-11. 画timm-model-1:
+11. 画timm-models-a和timm-models-b:
 ```bash
 python timm-models_translate.py
- python timm-models.py --ymin=0 --ymax=15
+python timm-models.py --ymin=0 --ymax=15
 ```
 ```bash
 python timm-models_translate.py --input=timm-models-b --output=timm-models-b
- python timm-models.py --input=timm-models-b --ymin=0 --ymax=9
+python timm-models.py --input=timm-models-b --ymin=0 --ymax=9
+```
+
+12. 画sub-3W-power-efficiency和sub-20W-power-efficiency
+```bash
+python power_efficiency_translate.py
+python power_efficiency.py
+```
+```bash
+python power_efficiency_translate.py --input=sub-20W-power-efficiency --output=sub-20W-power-efficiency
+python power_efficiency.py --input=sub-20W-power-efficiency --ymin=0 --ymax=54
 ```
