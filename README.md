@@ -169,3 +169,12 @@ python fig14_translate_onnx_line.py
 ```bash
 python fig14_compiler.py
 ```
+11. 画timm-model-1:
+```bash
+python timm-models_translate.py
+ python timm-models.py --ymin=0 --ymax=15
+```
+```bash
+python timm-models_translate.py --input=timm-models-b --output=timm-models-b
+ python timm-models.py --input=timm-models-b --ymin=0 --ymax=9
+```
