@@ -146,7 +146,8 @@ class MyPlot:
             'groupbar_speedup': self.draw_groupbar_speedup,
             'groupbar_speedup_gpu': self.draw_groupbar_speedup_gpu,
             'groupbar_one': self.draw_groupbar_one,            
-            'groupbar_accuracy': self.draw_groupbar_accuracy
+            'groupbar_accuracy': self.draw_groupbar_accuracy,
+            'groupbar_accuracy_blank': self.draw_groupbar_accuracy_blank
         }
         mapping.get(cfg['type'], lambda self: None)(ax, cfg)
 
@@ -436,6 +437,72 @@ class MyPlot:
         handles, labels = ax.get_legend_handles_labels()
         order = [0,7,1,8,2,9,3,10,4,11,5,12,6]
         ax.legend([handles[idx] for idx in order], [labels[idx] for idx in order],fontsize=20, loc='upper center', bbox_to_anchor=(0.48, 1.21), ncol=7, frameon=False)
+
+    def draw_groupbar_accuracy_blank(self, ax, cfg):
+        categories = cfg['categories']
+        x = np.arange(len(categories))  # 分类的索引
+        x = np.array([0,1,2,3,4,5,6,7,8,10,11])
+        bar_width = 0.06  # 每个柱子的宽度
+        
+        Original = cfg['Original']
+        TFLite = cfg['TFLite']  
+        MNN = cfg['MNN']
+        PDLite = cfg['PDLite']
+        ONNX = cfg['ONNX']
+        ncnn = cfg['ncnn']
+        TFLite_GPU = cfg['TFLite_GPU']
+        TensorRT = cfg['TensorRT']
+        TensorRT_NPU = cfg['TensorRT_NPU']
+        CANN = cfg['CANN']
+        OV_CPU = cfg['OV_CPU']
+        OV_GPU = cfg['OV_GPU']
+        OV_NPU = cfg['OV_NPU']
+
+        bars = [
+            (Original, '#999999', 'Original', -6, ''),
+            (TFLite, '#4185f3', 'TFLite', -5, '//'),
+            (TFLite_GPU, '#4185f3', 'TFLite(GPU)', -4, '\\\\'),
+            (MNN, '#ea4234', 'MNN', -3, ''),
+            (PDLite, '#fabc04', 'PDLite', -2, ''),
+            (ONNX, '#ff9632', 'ONNXRT', -1, ''),
+            (ncnn, '#33a852', 'ncnn', -0, ''),
+            (TensorRT, '#BA55D3', 'TensorRT', 1, '//'),
+            (TensorRT_NPU, '#BA55D3', 'TensorRT(NPU)', 2, '\\\\'),
+            (CANN, '#D38DD6', 'CANN', 3, ''),
+            (OV_CPU, '#87CEFA', 'OpenVINO(CPU)', 4, '//'),
+            (OV_GPU, '#87CEFA', 'OpenVINO(GPU)', 5, '..'),
+            (OV_NPU, '#87CEFA', 'OpenVINO(NPU)', 6, '\\\\'),
+        ]
+        
+        for data, color, label, offset, hatch in bars:
+            for i, value in enumerate(data):
+                if value < 0:  # 如果值为负，显示标志
+                    ax.text(
+                        x[i] + bar_width * offset, 2.0,  
+                        'x', ha='center', va='top', fontsize=17, color=color, zorder=3
+                    )
+            ax.bar(x + bar_width * offset, data, width=bar_width, label=label, color=color, zorder=2, edgecolor='black', hatch=hatch)
+
+        ax.add_line(lines.Line2D([-0.5, -0.5], [-6, 0], color='black', linewidth=1, clip_on=False))
+        ax.add_line(lines.Line2D([2.5, 2.5], [-6, 0], color='black', linewidth=1, clip_on=False))
+        ax.add_line(lines.Line2D([5.5, 5.5], [-6, 0], color='black', linewidth=1, clip_on=False))
+        ax.add_line(lines.Line2D([8.5, 8.5], [-6, 0], color='black', linewidth=1, clip_on=False))
+        ax.add_line(lines.Line2D([9.5, 9.5], [-6, 0], color='black', linewidth=1, clip_on=False))
+        ax.add_line(lines.Line2D([10.5, 10.5], [-6, 0], color='black', linewidth=1, clip_on=False))
+        ax.add_line(lines.Line2D([11.5, 11.5], [-6, 0], color='black', linewidth=1, clip_on=False))
+         
+        # 设置X轴刻度和分类名称
+        ax.set_xticks(x)
+        ax.set_xticklabels(categories, fontsize=20)
+
+        ymin = cfg['ymin']
+        ymax = cfg['ymax']
+        
+        ax.grid(axis='y', linestyle='--')
+        # 设置X、Y轴范围
+        ax.set_xlim(-0.5,11.5)
+        ax.set_ylim(ymin, ymax)
+
     def draw_groupbar_speedup_gpu(self, ax, cfg):
         # X轴位置
         categories = cfg['categories']
