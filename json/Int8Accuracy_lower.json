@@ -2,7 +2,7 @@
     {
         "category": "MV2-0.5",
         "Original": 69.9,
-        "TFLite": 0.2,
+        "TFLite": 35.6,
         "MNN": 0.9,
         "PDLite": 0.0,
         "ONNX": 7.2,

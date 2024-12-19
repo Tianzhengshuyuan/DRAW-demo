@@ -390,30 +390,36 @@ class MyPlot:
         OV_NPU = cfg['OV_NPU']
 
         bars = [
-            (Original, '#999999', 'Original', -6),
-            (TFLite, '#4185f3', 'TFLite', -5),
-            (MNN, '#ea4234', 'MNN', -4),
-            (PDLite, '#fabc04', 'PDLite', -3),
-            (ONNX, '#33a852', 'ONNX', -2),
-            (ncnn, '#ff6c00', 'ncnn', -1),
-            (TFLite_GPU, '#46bdc5', 'TFLite(GPU)', 0),
-            (TensorRT, '#8A2BE2', 'TensorRT', 1),
-            (TensorRT_NPU, '#BA55D3', 'TensorRT(NPU)', 2),
-            (CANN, '#66cc66', 'CANN', 3),
-            (OV_CPU, '#D94E8F', 'OV(CPU)', 4),
-            (OV_GPU, '#FF69B4', 'OV(GPU)', 5),
-            (OV_NPU, '#FFC0CB', 'OV(NPU)', 6),
+            (Original, '#999999', 'Original', -6, ''),
+            (TFLite, '#4185f3', 'TFLite', -5, '//'),
+            (TFLite_GPU, '#4185f3', 'TFLite(GPU)', -4, '\\\\'),
+            (MNN, '#ea4234', 'MNN', -3, ''),
+            (PDLite, '#fabc04', 'PDLite', -2, ''),
+            (ONNX, '#ff9632', 'ONNXRT', -1, ''),
+            (ncnn, '#33a852', 'ncnn', -0, ''),
+            (TensorRT, '#BA55D3', 'TensorRT', 1, '//'),
+            (TensorRT_NPU, '#BA55D3', 'TensorRT(NPU)', 2, '\\\\'),
+            (CANN, '#D38DD6', 'CANN', 3, ''),
+            (OV_CPU, '#87CEFA', 'OpenVINO(CPU)', 4, '//'),
+            (OV_GPU, '#87CEFA', 'OpenVINO(GPU)', 5, '..'),
+            (OV_NPU, '#87CEFA', 'OpenVINO(NPU)', 6, '\\\\'),
         ]
         
-        for data, color, label, offset in bars:
+        for data, color, label, offset, hatch in bars:
             for i, value in enumerate(data):
                 if value < 0:  # 如果值为负，显示标志
                     ax.text(
-                        x[i] + bar_width * offset, 1.5,  # 显示在bar的下方
-                        'x', ha='center', va='top', fontsize=12, color='red', zorder=3
+                        x[i] + bar_width * offset, 2.0,  
+                        'x', ha='center', va='top', fontsize=17, color=color, zorder=3
                     )
-            ax.bar(x + bar_width * offset, data, width=bar_width, label=label, color=color, zorder=2)
+            ax.bar(x + bar_width * offset, data, width=bar_width, label=label, color=color, zorder=2, edgecolor='black', hatch=hatch)
 
+        ax.add_line(lines.Line2D([-0.5, -0.5], [-6, 0], color='black', linewidth=1, clip_on=False))
+        ax.add_line(lines.Line2D([2.5, 2.5], [-6, 0], color='black', linewidth=1, clip_on=False))
+        ax.add_line(lines.Line2D([5.5, 5.5], [-6, 0], color='black', linewidth=1, clip_on=False))
+        ax.add_line(lines.Line2D([8.5, 8.5], [-6, 0], color='black', linewidth=1, clip_on=False))
+        ax.add_line(lines.Line2D([11.5, 11.5], [-6, 0], color='black', linewidth=1, clip_on=False))
+         
         # 设置X轴刻度和分类名称
         ax.set_xticks(x)
         ax.set_xticklabels(categories, fontsize=20)
@@ -423,11 +429,13 @@ class MyPlot:
         
         ax.grid(axis='y', linestyle='--')
         # 设置X、Y轴范围
-        ax.set_xlim(-0.6,11.5)
+        ax.set_xlim(-0.5,11.5)
         ax.set_ylim(ymin, ymax)
 
         # 添加图例
-        ax.legend(fontsize=20, loc='upper center', bbox_to_anchor=(0.48, 1.15), ncol=13, frameon=False)
+        handles, labels = ax.get_legend_handles_labels()
+        order = [0,7,1,8,2,9,3,10,4,11,5,12,6]
+        ax.legend([handles[idx] for idx in order], [labels[idx] for idx in order],fontsize=20, loc='upper center', bbox_to_anchor=(0.48, 1.21), ncol=7, frameon=False)
     def draw_groupbar_speedup_gpu(self, ax, cfg):
         # X轴位置
         categories = cfg['categories']

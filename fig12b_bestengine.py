@@ -4,29 +4,29 @@ import os
 
 # 数据示例：矩阵内容定义（每个单元格对应的标签）
 data = [['GPU', 'EF2', 'SWF', 'EMO', 'ENX', 'MV2', 'MV', 'LVT'],
-    ['G31', 'TF', 'TF', 'TF', 'TF', 'TF', 'TF', 'TF'],
-    ['G52', 'TF', 'TF', 'MNN', 'TF', 'TF', 'TF', 'TF'],
-    ['G610', 'TF', 'TF', 'MNN', 'TF', 'TF', 'TF', 'TF'],
-    ['G77', 'TF', 'TF', 'MNN', 'TF', 'TF', 'TF', 'TF'],
-    ['A630G', 'TF', 'TF', 'MNN', 'TF', 'NCNN', 'TF', 'TF'],
-    ['A660G', 'TF', 'TF', 'MNN', 'TF', 'NCNN', 'TF', 'TF'],
-    ['A740G', 'TF', 'TF', 'TF', 'TF', 'NCNN', 'TF', 'TF'],
+    ['G31', 'TFLite', 'TFLite', 'TFLite', 'TFLite', 'TFLite', 'TFLite', 'TFLite'],
+    ['G52', 'TFLite', 'TFLite', 'MNN', 'TFLite', 'TFLite', 'TFLite', 'TFLite'],
+    ['G610', 'TFLite', 'TFLite', 'MNN', 'TFLite', 'TFLite', 'TFLite', 'TFLite'],
+    ['G77', 'TFLite', 'TFLite', 'MNN', 'TFLite', 'TFLite', 'TFLite', 'TFLite'],
+    ['A630G', 'TFLite', 'TFLite', 'MNN', 'TFLite', 'ncnn', 'TFLite', 'TFLite'],
+    ['A660G', 'TFLite', 'TFLite', 'MNN', 'TFLite', 'ncnn', 'TFLite', 'TFLite'],
+    ['A740G', 'TFLite', 'TFLite', 'TFLite', 'TFLite', 'ncnn', 'TFLite', 'TFLite'],
     ['AMP', 'CoreML', 'CoreML', 'CoreML', 'CoreML', 'CoreML', 'CoreML', 'CoreML'],
-    ['M1G', 'TensorRT', 'TensorRT', 'TensorRT', 'TensorRT', 'ONNX', 'TensorRT', 'TensorRT']
+    ['M1G', 'TensorRT', 'TensorRT', 'TensorRT', 'TensorRT', 'ONNXRT', 'TensorRT', 'TensorRT']
 ]
 
 
 # 颜色映射
 color_map = {
-    'TF': '#5491f4',   # 蓝色
+    'TFLite': '#5491f4',   # 蓝色
     'MNN': '#ec5548',      # 红色
-    'NCNN': '#33a852',     # 绿色
-    'ONNX': '#fabc04',   # 黄色
-    'CoreML': '#D3D3D3',     # 灰色
-    'TensorRT': '#46bdc5'     # 灰色
+    'ncnn': '#33a852',     # 绿色
+    'ONNXRT': '#ff9632',   # 橘色
+    'CoreML': '#D38DD6',     # 浅紫色
+    'TensorRT': '#BA55D3'     # 紫色
 }
 
-fig, ax = plt.subplots(figsize=(12, 6))
+fig, ax = plt.subplots(figsize=(12, 4.9))
 
 # 绘制网格
 n_rows = len(data)
@@ -39,7 +39,8 @@ for i in range(n_rows):
             (j, n_rows - i - 1),  # 坐标 (x, y)
             1, 1,                 # 宽度和高度
             facecolor=color_map.get(value, '#FFFFFF'),  # 根据值填充颜色
-            edgecolor='black'     # 设置边框颜色
+            edgecolor='black',     # 设置边框颜色
+            linewidth=1
         )
         if value not in color_map:
             ax.text(

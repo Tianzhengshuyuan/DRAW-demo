@@ -109,7 +109,7 @@ python fig7bc_one.py --input=fig8bc --ymin=0.8 --ymax=1.7 --number=8
 python fig7bc_one.py --input=fig10bc --ymin=0.4 --ymax=1.2 --number=10
 ```
 
-6. 处理fig9原始数据
+6. 处理fig9原始数据：
 ```bash
 python fig9_translate_upper.py --input=fig9 --output=Int8Accuracy_upper
 python fig9_translate_lower.py --input=fig9 --output=Int8Accuracy_lower
@@ -154,4 +154,18 @@ python fig13_acc_lat.py --input=lunar_NPU_acc_lat --ymin=68 --ymax=83 --xmin=1 -
 ```bash
 python fig11_translate.py 
 python fig11_accuracy.py --input=GpuInt8Speedup --ymin=0.45 --ymax=1.6
+```
+
+10. 画fig14，先处理原始数据
+```bash
+python fig14_translate_tflite_bar.py
+python fig14_translate_tflite_line.py
+python fig14_translate_mnn_bar.py
+python fig14_translate_mnn_line.py
+python fig14_translate_onnx_bar.py
+python fig14_translate_onnx_line.py
+```
+然后画三合一大图
+```bash
+python fig14_compiler.py
 ```

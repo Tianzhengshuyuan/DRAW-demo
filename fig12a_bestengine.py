@@ -5,35 +5,35 @@ import os
 
 # 数据示例：矩阵内容定义（每个单元格对应的标签）
 data = [['CPU', 'EF2','EF2', 'SWF','SWF', 'EMO', 'EMO', 'ENX','ENX', 'MV2','MV2', 'MV','MV', 'LVT','LVT'],
-        ['RWC','TF','OV','OV','OV','TF','OV','MNN','OV','TF','OV','OV','OV','ONNX','OV'],
-        ['CMT','MNN','OV','MNN','OV','TF','OV','MNN','MNN','ONNX','TF','ONNX','OV','MNN','OV'],
-        ['LNC','TF','OV','OV','OV','TF','OV','MNN','OV','TF','TF','OV','OV','OV','OV'],
-        ['SMT','MNN','OV','MNN','OV','TF','OV','MNN','OV','TF','TF','MNN','OV','MNN','OV'],
-        ['M1P','MNN','MNN','MNN','MNN','TF','MNN','MNN','TF','NCNN','NCNN','TF','MNN','MNN','MNN'],
-        ['M1E','TF','MNN','TF','TF','TF','TF','MNN','MNN','NCNN','NCNN','TF','MNN','MNN','MNN'],
-        ['A71x','TF','MNN','TF','TF','TF','TF','MNN','MNN','NCNN','NCNN','TF','MNN','TF','MNN'],
-        ['A78','TF','MNN','TF','TF','TF','TF','MNN','MNN','NCNN','NCNN','TF','MNN','MNN','MNN'],
-        ['A76','TF','MNN','TF','MNN','TF','TF','MNN','MNN','NCNN','NCNN','TF','MNN','MNN','MNN'],
-        ['A55','TF','MNN','TF','TF','TF','TF','MNN','MNN','NCNN','NCNN','TF','TF','TF','MNN'],
-        ['A73','MNN','TF','TF','TF','TF','TF','TF','TF','TF','TF','TF','TF','MNN','TF'],
-        ['A72','TF','MNN','TF','MNN','TF','MNN','TF','MNN','NCNN','NCNN','TF','ONNX','MNN','TF'],
-        ['M5','TF','empty','TF','empty','TF','empty','MNN','empty','TF','empty','TF','empty','TF','empty'],
-        ['X3','TF','empty','MNN','empty','TF','empty','MNN','empty','NCNN','empty','TF','empty','MNN','empty'],
-        ['X1','TF','empty','MNN','empty','TF','empty','MNN','empty','TF','empty','TF','empty','MNN','empty'],
-        ['A75','TF','empty','TF','empty','TF','empty','MNN','empty','TF','empty','TF','empty','TF','empty'],
-        ['T200','TF','empty','MNN','empty','TF','empty','MNN','empty','NCNN','empty','TF','empty','MNN','empty'],
-        ['A510','TF','empty','TF','empty','TF','empty','MNN','empty','TF','empty','TF','empty','TF','empty'],
-        ['A53','TF','empty','TF','empty','TF','empty','TF','empty','NCNN','empty','TF','empty','TF','empty']
+        ['RWC','TFLIite','OpenVINO','OpenVINO','OpenVINO','TFLIite','OpenVINO','MNN','OpenVINO','TFLIite','OpenVINO','OpenVINO','OpenVINO','ONNXRT','OpenVINO'],
+        ['CMT','MNN','OpenVINO','MNN','OpenVINO','TFLIite','OpenVINO','MNN','MNN','ONNXRT','TFLIite','ONNXRT','OpenVINO','MNN','OpenVINO'],
+        ['LNC','TFLIite','OpenVINO','OpenVINO','OpenVINO','TFLIite','OpenVINO','MNN','OpenVINO','TFLIite','TFLIite','OpenVINO','OpenVINO','OpenVINO','OpenVINO'],
+        ['SMT','MNN','OpenVINO','MNN','OpenVINO','TFLIite','OpenVINO','MNN','OpenVINO','TFLIite','TFLIite','MNN','OpenVINO','MNN','OpenVINO'],
+        ['M1P','MNN','MNN','MNN','MNN','TFLIite','MNN','MNN','TFLIite','ncnn','ncnn','TFLIite','MNN','MNN','MNN'],
+        ['M1E','TFLIite','MNN','TFLIite','TFLIite','TFLIite','TFLIite','MNN','MNN','ncnn','ncnn','TFLIite','MNN','MNN','MNN'],
+        ['A71x','TFLIite','MNN','TFLIite','TFLIite','TFLIite','TFLIite','MNN','MNN','ncnn','ncnn','TFLIite','MNN','TFLIite','MNN'],
+        ['A78','TFLIite','MNN','TFLIite','TFLIite','TFLIite','TFLIite','MNN','MNN','ncnn','ncnn','TFLIite','MNN','MNN','MNN'],
+        ['A76','TFLIite','MNN','TFLIite','MNN','TFLIite','TFLIite','MNN','MNN','ncnn','ncnn','TFLIite','MNN','MNN','MNN'],
+        ['A55','TFLIite','MNN','TFLIite','TFLIite','TFLIite','TFLIite','MNN','MNN','ncnn','ncnn','TFLIite','TFLIite','TFLIite','MNN'],
+        ['A73','MNN','TFLIite','TFLIite','TFLIite','TFLIite','TFLIite','TFLIite','TFLIite','TFLIite','TFLIite','TFLIite','TFLIite','MNN','TFLIite'],
+        ['A72','TFLIite','MNN','TFLIite','MNN','TFLIite','MNN','TFLIite','MNN','ncnn','ncnn','TFLIite','ONNXRT','MNN','TFLIite'],
+        ['M5','TFLIite','empty','TFLIite','empty','TFLIite','empty','MNN','empty','TFLIite','empty','TFLIite','empty','TFLIite','empty'],
+        ['X3','TFLIite','empty','MNN','empty','TFLIite','empty','MNN','empty','ncnn','empty','TFLIite','empty','MNN','empty'],
+        ['X1','TFLIite','empty','MNN','empty','TFLIite','empty','MNN','empty','TFLIite','empty','TFLIite','empty','MNN','empty'],
+        ['A75','TFLIite','empty','TFLIite','empty','TFLIite','empty','MNN','empty','TFLIite','empty','TFLIite','empty','TFLIite','empty'],
+        ['T200','TFLIite','empty','MNN','empty','TFLIite','empty','MNN','empty','ncnn','empty','TFLIite','empty','MNN','empty'],
+        ['A510','TFLIite','empty','TFLIite','empty','TFLIite','empty','MNN','empty','TFLIite','empty','TFLIite','empty','TFLIite','empty'],
+        ['A53','TFLIite','empty','TFLIite','empty','TFLIite','empty','TFLIite','empty','ncnn','empty','TFLIite','empty','TFLIite','empty']
 ]
 
 
 # 颜色映射
 color_map = {
-    'TF': '#5491f4',   # 蓝色
+    'TFLIite': '#5491f4',   # 蓝色
     'MNN': '#ec5548',      # 红色
-    'NCNN': '#33a852',     # 绿色
-    'ONNX': '#fabc04',   # 黄色
-    'OV': '#ff00ff',     # 灰色
+    'ncnn': '#33a852',     # 绿色
+    'ONNXRT': '#ff9632',   # 橘色
+    'OpenVINO': '#87CEFA',     # 浅蓝色
     'empty': '#b6b6b6'
 }
 
@@ -50,7 +50,8 @@ for i in range(n_rows):
             (j, n_rows - i - 1),  # 坐标 (x, y)
             1, 1,                 # 宽度和高度
             facecolor=color_map.get(value, '#FFFFFF'),  # 根据值填充颜色
-            edgecolor='black'     # 设置边框颜色
+            edgecolor='black',     # 设置边框颜色
+            linewidth=1
         )
         if i > 0:
             if value not in color_map:
