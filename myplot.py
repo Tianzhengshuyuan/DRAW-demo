@@ -94,27 +94,29 @@ class MyPlot:
         self.setup_figure()
         # 是否存在键subplot且其值为true
         if 'subplot' in self.cfg and self.cfg['subplot']:
-            cfgs = self.cfg['subplot_cfgs']
+            # cfgs = self.cfg['subplot_cfgs']
+            nrows = len(self.cfg['subplot_cfgs'])  # 子图的数量
+            self.fig, axes = plt.subplots(nrows=nrows, ncols=1, figsize=self.cfg['figsize'])
+            plt.subplots_adjust(hspace=0.4)  # 调整子图之间的间距
+
+            # 如果只有一个子图，axes 不是列表，需要转换为列表
+            if nrows == 1:
+                axes = [axes]
+
+            # 遍历子图配置，逐个绘制
+            for ax, cfg in zip(axes, self.cfg['subplot_cfgs']):
+                self.draw_plot(ax, cfg)
         else:
             cfgs = [self.cfg]
-
-        if 'gridspec_kwargs' in self.cfg:
-            gs = self.fig.add_gridspec(**self.cfg['gridspec_kwargs'])
-            subplots_kwargs = self.cfg['subplots_kwargs'] if 'subplots_kwargs' in self.cfg else {}
-            axes = gs.subplots(**subplots_kwargs)
-            nrows = self.cfg['gridspec_kwargs']['nrows']
-            ncols = self.cfg['gridspec_kwargs']['ncols']
-            axes = np.array(axes).reshape(nrows, ncols)
-
-        for cfg in cfgs:
-            if 'gridspec_kwargs' in self.cfg:
-                # 进一步检查cfg字典中是否包含pos键
-                assert 'pos' in cfg
-                ax = axes[cfg['pos']]
-            else:
-                gs = [cfg['grid_spec']] if 'grid_spec' in cfg else []
-                ax = self.fig.add_subplot(*gs)
-            self.draw_plot(ax, cfg)
+            for cfg in cfgs:
+                if 'gridspec_kwargs' in self.cfg:
+                    # 进一步检查cfg字典中是否包含pos键
+                    assert 'pos' in cfg
+                    ax = axes[cfg['pos']]
+                else:
+                    gs = [cfg['grid_spec']] if 'grid_spec' in cfg else []
+                    ax = self.fig.add_subplot(*gs)
+                self.draw_plot(ax, cfg)
 
         self.setup_tight()
         self.save()
@@ -282,12 +284,10 @@ class MyPlot:
                   columnspacing=0.8)
 
     def draw_grouplinebar(self, ax, cfg):
-        # X轴位置
-        # print("draw_groupbar")
         categories = cfg['categories']
         x = np.arange(len(categories))  # 分类的索引
         bar_width = 0.25  # 每个柱子的宽度
-        print(x)
+
         A55_bar = cfg['A55_bar']
         A76_bar = cfg['A76_bar']
         M1P_bar = cfg['M1P_bar']
@@ -305,31 +305,38 @@ class MyPlot:
         line2, = ax.plot(x, A76_line, linestyle='--', color='#ea4335', marker='^', markersize=10, label='A76', linewidth=2, zorder=3)
         line3, = ax.plot(x, M1P_line, linestyle='--', color='#fbbc04', marker='*', markersize=10, label='M1P', linewidth=2, zorder=3)
 
-        # 设置X轴刻度和分类名称
-        ax.set_xticks(x)
-        ax.set_xticklabels(categories, fontsize=15)
-
         ymin = cfg['ymin']
         ymax = cfg['ymax']
+
         # 设置Y轴范围
         ax.set_ylim(ymin, ymax)
         ax.set_yticklabels(ax.get_yticklabels(), fontsize=15)
         ax.set_xlim(-0.5, 7.5)
-        # 添加图例
-        # 添加图例：第一行（折线图）
-        legend1 = ax.legend(handles=[line1, line2, line3], fontsize=15, loc='upper center', 
-                            bbox_to_anchor=(0.4, 1.18),  ncol=3, frameon=False, columnspacing=0.8)
+        
+        if cfg['first'] == True:
+            # 添加图例
+            # 添加图例：第一行（折线图）
+            legend1 = ax.legend(handles=[line1, line2, line3], fontsize=15, loc='upper center', 
+                                bbox_to_anchor=(0.4, 1.14),  ncol=3, frameon=False, columnspacing=0.8)
 
-        # 添加图例：第二行（柱状图）
-        legend2 = ax.legend(handles=[bar1, bar2, bar3], fontsize=15, loc='upper center', 
-                            bbox_to_anchor=(0.4, 1.11), ncol=3, frameon=False, columnspacing=0.8)
-        
-        # 保证legend1不被覆盖
-        ax.add_artist(legend1)
-        
-        # 添加注释文本
-        ax.text(0.57, 1.11, "for torch.compile", transform=ax.transAxes, fontsize=15, ha='left', va='center')
-        ax.text(0.57, 1.04, "for TVM", transform=ax.transAxes, fontsize=15, ha='left', va='center')
+            # 添加图例：第二行（柱状图）
+            legend2 = ax.legend(handles=[bar1, bar2, bar3], fontsize=15, loc='upper center', 
+                                bbox_to_anchor=(0.4, 1.09), ncol=3, frameon=False, columnspacing=0.8)
+            
+            # 保证legend1不被覆盖
+            ax.add_artist(legend1)
+            
+            # 添加注释文本
+            ax.text(0.57, 1.075, "for torch.compile", transform=ax.transAxes, fontsize=15, ha='left', va='center')
+            ax.text(0.57, 1.025, "for TVM", transform=ax.transAxes, fontsize=15, ha='left', va='center')
+        if cfg['last'] == True:
+            # 设置X轴刻度和分类名称
+            ax.set_xticks(x)
+            ax.set_xticklabels(categories, fontsize=15)
+        else:
+            ax.set_xticks([])  # 不显示X轴的刻度
+            ax.set_xticklabels([])  # 不显示X轴的标签
+            
 
 
     def draw_groupbar_speedup(self, ax, cfg):

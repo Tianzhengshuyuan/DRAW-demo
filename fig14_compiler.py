@@ -1,32 +1,98 @@
 import os
 import json
 import random
-import argparse
+
 import numpy as np
 from myplot import MyPlot
 
 
-# 命令行参数解析
-parser = argparse.ArgumentParser()
-parser.add_argument('--input_line', type=str, default="tflite_line")
-parser.add_argument('--input_bar', type=str, default="tflite_bar")
-parser.add_argument('--output', type=str, default="tflite_compiler_lib")
-parser.add_argument('--ymin', type=float, default=0)
-parser.add_argument('--ymax', type=float, default=9)
-
-# 解析命令行参数
-args = parser.parse_args()
-line_file_name = args.input_line
-bar_file_name = args.input_bar
-output_file_name = args.output
-
 # 动态加载 JSON 数据和设置保存路径
-line_data_file = os.path.join("json", f"{line_file_name}.json")   # 动态设置 JSON 文件
-bar_data_file = os.path.join("json", f"{bar_file_name}.json")   # 动态设置 JSON 文件
-save_path = os.path.join("pdf", f"{output_file_name}.pdf") 
+tflite_line_data_file = os.path.join("json", "tflite_line.json")  
+tflite_bar_data_file = os.path.join("json", "tflite_bar.json")  
+ 
+mnn_line_data_file = os.path.join("json", "mnn_line.json")  
+mnn_bar_data_file = os.path.join("json", "mnn_bar.json") 
 
-line_data = json.load(open(line_data_file))
-bar_data = json.load(open(bar_data_file))
+onnx_line_data_file = os.path.join("json", "onnx_line.json")  
+onnx_bar_data_file = os.path.join("json", "onnx_bar.json") 
+
+save_path = os.path.join("pdf", "Compiler_lib.pdf") 
+
+tflite_line_data = json.load(open(tflite_line_data_file))
+tflite_bar_data = json.load(open(tflite_bar_data_file))
+mnn_line_data = json.load(open(mnn_line_data_file))
+mnn_bar_data = json.load(open(mnn_bar_data_file))
+onnx_line_data = json.load(open(onnx_line_data_file))
+onnx_bar_data = json.load(open(onnx_bar_data_file))
+
+subfig1_cfg = {
+    'type': 'grouplinebar',
+    'figsize': [12,5],
+    'ylabel': 'Latency ratio to TFLite',
+    'ylabel_kwargs': {
+        'fontsize': 15,
+    },
+    
+    'first': True,
+    'last': False,
+    
+    'ymin': 0,
+    'ymax': 9,
+    
+    'categories': [datum['category'] for datum in tflite_line_data],
+    'A55_bar': [datum['A55'] for datum in tflite_bar_data],
+    'A76_bar': [datum['A76'] for datum in tflite_bar_data],
+    'M1P_bar': [datum['M1P'] for datum in tflite_bar_data],
+    'A55_line': [datum['A55'] for datum in tflite_line_data],
+    'A76_line': [datum['A76'] for datum in tflite_line_data],
+    'M1P_line': [datum['M1P'] for datum in tflite_line_data]
+}
+
+subfig2_cfg = {
+    'type': 'grouplinebar',
+    'figsize': [12,5],
+    'ylabel': 'Latency ratio to MNN',
+    'ylabel_kwargs': {
+        'fontsize': 15,
+    },
+    
+    'first': False,
+    'last': False,
+    
+    'ymin': 0,
+    'ymax': 10,
+    
+    'categories': [datum['category'] for datum in mnn_line_data],
+    'A55_bar': [datum['A55'] for datum in mnn_bar_data],
+    'A76_bar': [datum['A76'] for datum in mnn_bar_data],
+    'M1P_bar': [datum['M1P'] for datum in mnn_bar_data],
+    'A55_line': [datum['A55'] for datum in mnn_line_data],
+    'A76_line': [datum['A76'] for datum in mnn_line_data],
+    'M1P_line': [datum['M1P'] for datum in mnn_line_data],
+}
+
+subfig3_cfg = {
+    'type': 'grouplinebar',
+    'figsize': [12,5],
+    'ylabel': 'Latency ratio to ONNXRT',
+    'ylabel_kwargs': {
+        'fontsize': 15,
+    },
+
+    'first': False,
+    'last': True,
+    
+    'ymin': 0,
+    'ymax': 4,
+    
+    'categories': [datum['category'] for datum in onnx_line_data],
+    'A55_bar': [datum['A55'] for datum in onnx_bar_data],
+    'A76_bar': [datum['A76'] for datum in onnx_bar_data],
+    'M1P_bar': [datum['M1P'] for datum in onnx_bar_data],
+    'A55_line': [datum['A55'] for datum in onnx_line_data],
+    'A76_line': [datum['A76'] for datum in onnx_line_data],
+    'M1P_line': [datum['M1P'] for datum in onnx_line_data],
+}
 
 fig_cfg = {
     'type': 'grouplinebar',
@@ -36,20 +102,14 @@ fig_cfg = {
         'fontsize': 15,
     },
     
-    'ymin': args.ymin,
-    'ymax': args.ymax,
-    'categories': [datum['category'] for datum in line_data],
-    'A55_bar': [datum['A55'] for datum in bar_data],
-    'A76_bar': [datum['A76'] for datum in bar_data],
-    'M1P_bar': [datum['M1P'] for datum in bar_data],
-    'A55_line': [datum['A55'] for datum in line_data],
-    'A76_line': [datum['A76'] for datum in line_data],
-    'M1P_line': [datum['M1P'] for datum in line_data],
+    
+    "subplot": True,
+    'subplot_cfgs': [subfig1_cfg, subfig2_cfg, subfig3_cfg],
     # Misc
     'tight': True,
 
     'axis': 'y', #表示只显示grid中的横线，如果要只显示竖线的话设置为'x'
-    'figsize': [12,5],
+    'figsize': [12,15],
     # Save
     'save_path': save_path
 }
