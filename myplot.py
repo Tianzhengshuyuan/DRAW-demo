@@ -301,9 +301,9 @@ class MyPlot:
         bar2 = ax.bar(x, A76_bar, width=bar_width, label='A76', color='#ea4335', zorder=2, edgecolor='black')
         bar3 = ax.bar(x + bar_width, M1P_bar, width=bar_width, label='M1P', color='#fbbc04', zorder=2, edgecolor='black')
         # 绘制折线图
-        line1, = ax.plot(x, A55_line, linestyle='--', color='#4285f4', marker='o', markersize=10, label='A55', linewidth=2, zorder=3)
-        line2, = ax.plot(x, A76_line, linestyle='--', color='#ea4335', marker='^', markersize=10, label='A76', linewidth=2, zorder=3)
-        line3, = ax.plot(x, M1P_line, linestyle='--', color='#fbbc04', marker='*', markersize=10, label='M1P', linewidth=2, zorder=3)
+        line1, = ax.plot(x, A55_line, linestyle='--', dashes=(2,3), color='#4285f4', marker='o', markersize=10, label='A55', linewidth=2, zorder=3)
+        line2, = ax.plot(x, A76_line, linestyle='--', dashes=(2,3), color='#ea4335', marker='^', markersize=10, label='A76', linewidth=2, zorder=3)
+        line3, = ax.plot(x, M1P_line, linestyle='--', dashes=(2,3), color='#fbbc04', marker='*', markersize=15, label='M1P', linewidth=2, zorder=3)
 
         ymin = cfg['ymin']
         ymax = cfg['ymax']
@@ -312,6 +312,8 @@ class MyPlot:
         ax.set_ylim(ymin, ymax)
         ax.set_yticklabels(ax.get_yticklabels(), fontsize=15)
         ax.set_xlim(-0.5, 7.5)
+        
+        ax.axhline(1.0, color='#b0b0b0', linewidth=1, linestyle='--', zorder=1)
         
         if cfg['first'] == True:
             # 添加图例
