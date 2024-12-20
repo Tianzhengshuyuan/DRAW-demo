@@ -1,4 +1,5 @@
 import functools
+import math
 import matplotlib.ticker as ticker
 import matplotlib.pyplot as plt
 import matplotlib.lines as lines
@@ -834,13 +835,23 @@ class MyPlot:
 
         TFLite = cfg['TFLite']
         MNN = cfg['MNN']
-        
-        ymin = cfg['ymin']
-        ymax = cfg['ymax']
-
         PDLite = cfg['PDLite']
         ncnn = cfg['ncnn']
         
+        ymin = cfg['ymin']
+        ymax = cfg['ymax']
+        
+        error = cfg['error']
+        #加上叉叉
+        for i, value in enumerate(PDLite):
+            print(type(value))
+            if math.isnan(value) :# 如果值为负，显示标志
+                ax.text(x[i] + bar_width * 0.5, error, 'x', ha='center', va='top', fontsize=17, color='#fabc04', zorder=3, fontweight='bold')
+        for i, value in enumerate(ncnn):
+            print(type(value))
+            if math.isnan(value) :# 如果值为负，显示标志
+                ax.text(x[i] + bar_width * 1.5, error, 'x', ha='center', va='top', fontsize=17, color='#33a852', zorder=3,fontweight='bold')     
+                       
         bars1 = ax.bar(x - bar_width * 1.5, TFLite, width=bar_width, label='TFLite', color='#4285f4', zorder=2, edgecolor='black')
         bars2 = ax.bar(x - bar_width * 0.5, MNN, width=bar_width, label='MNN', color='#ea4335', zorder=2, edgecolor='black')            
         bars3 = ax.bar(x + bar_width * 0.5, PDLite, width=bar_width, label='PDLite', color='#fabc04', zorder=2, edgecolor='black')            

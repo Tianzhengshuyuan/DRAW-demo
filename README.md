@@ -98,15 +98,15 @@ python fig78b_speedup.py --input=A55Int8Speedup --ymin=0.4 --ymax=1.2
 ```
 如果要把fig7的b和c画到一起，先手动复制fig7b和fig7c的数据到fig7bc.json，然后使用下面的命令画图
 ```bash
-python fig7bc_one.py --input=fig7bc --ymin=1.0 --ymax=2.0 --number=7
+python fig7bc_one.py --input=fig7bc --ymin=1.0 --ymax=2.0 --number=7 --error=1.05
 ```
 同理，对于fig8b、c，手动复制fig8b和fig8c的数据到fig8bc.json，然后使用下面的命令画图
 ```bash
-python fig7bc_one.py --input=fig8bc --ymin=0.8 --ymax=1.7 --number=8
+python fig7bc_one.py --input=fig8bc --ymin=0.8 --ymax=1.7 --number=8 --error=0.845
 ```
 对于fig10b、c，手动复制fig10b和fig10c的数据到fig10bc.json，然后使用下面的命令画图
 ```bash
-python fig7bc_one.py --input=fig10bc --ymin=0.4 --ymax=1.2 --number=10
+python fig7bc_one.py --input=fig10bc --ymin=0.4 --ymax=1.2 --number=10 --error=0.44
 ```
 
 6. 处理fig9原始数据：

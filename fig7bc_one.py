@@ -10,6 +10,7 @@ from myplot import MyPlot
 parser = argparse.ArgumentParser()
 parser.add_argument('--input', type=str)
 parser.add_argument('--number', type=int)
+parser.add_argument('--error', type=float)
 parser.add_argument('--ymin', type=float, default=75, help="Minimum value for Y-axis (default: 75)")
 parser.add_argument('--ymax', type=float, default=82, help="Maximum value for Y-axis (default: 82)")
 
@@ -17,6 +18,7 @@ parser.add_argument('--ymax', type=float, default=82, help="Maximum value for Y-
 # 解析命令行参数
 args = parser.parse_args()
 input_name = args.input
+error = args.error
 
 # 动态加载 JSON 数据和设置保存路径
 data_file = os.path.join("json", f"{input_name}.json")   # 动态设置 JSON 文件
@@ -31,7 +33,7 @@ fig_cfg = {
     'ylabel_kwargs': {
         'fontsize': 15,
     },
-    
+    'error': error,
     'ymin': args.ymin,
     'ymax': args.ymax,
     'number': args.number,
