@@ -8,9 +8,9 @@ from myplot import MyPlot
 
 # 命令行参数解析
 parser = argparse.ArgumentParser()
-parser.add_argument('--input', type=str, default="timm-models-a")
+parser.add_argument('--input', type=str, default="realapp")
 parser.add_argument('--ymin', type=float, default=0)
-parser.add_argument('--ymax', type=float, default=130)
+parser.add_argument('--ymax', type=float, default=16)
 
 # 解析命令行参数
 args = parser.parse_args()
@@ -25,7 +25,7 @@ data = json.load(open(data_file))
 fig_cfg = {
     'type': 'groupbar_app',
 
-    'ylabel': '#models',
+    'ylabel': 'Latency(ms)',
     'ylabel_kwargs': {
         'fontsize': 15,
     },
@@ -38,12 +38,11 @@ fig_cfg = {
     'app': [datum['app'] for datum in data],
 
     # Misc
-    'tight': True,
     # 'grid': True,
     # 'grid_linestyle': '--',
     'axis': 'y', #表示只显示grid中的横线，如果要只显示竖线的话设置为'x'
 
-    'figsize' : [10,6],
+    'figsize' : [10,4],
     # Save
     'save_path': save_path
 }

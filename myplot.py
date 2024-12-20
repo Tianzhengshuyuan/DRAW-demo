@@ -560,51 +560,31 @@ class MyPlot:
     def draw_groupbar_app(self, ax, cfg):
         # X轴位置
         # print("draw_groupbar")
-        name = cfg['name']
-        x = np.arange(len(name))  # 分类的索引
+        category = cfg['category']
+        x = np.arange(len(category))  # 分类的索引
         bar_width = 0.25  # 每个柱子的宽度
 
-        name = cfg['name']
-        v0_9 = cfg['v0_9']
-        v1_0 = cfg['v1_0']
+        etbench = cfg['etbench']
+        app = cfg['app']
         
-        ax_right = ax.twinx()
-        
-        left_array = np.array(v0_9)
-        right_array = np.array(v1_0)
-        
-        scale_factor = left_array.max() / right_array.max() 
 
         # 绘制每组柱子
-        ax.bar(x - bar_width * 0.5, v0_9/scale_factor, width=bar_width, label='v0.9.12', color='#4285f4', zorder=2, edgecolor='black')
-        ax_right.bar(x + bar_width * 0.5, v1_0, width=bar_width, label='v1.0.12 inc.', color='#ea4335', zorder=2, edgecolor='black')
+        ax.bar(x - bar_width * 0.5, etbench, width=bar_width, label='ETBench', color='#4285f4', zorder=2, edgecolor='black')
+        ax.bar(x + bar_width * 0.5, app, width=bar_width, label='Application', color='#ea4335', zorder=2, edgecolor='black')
 
         # 设置X轴刻度和分类名称
         ax.set_xticks(x)
-        ax.set_xticklabels(name, fontsize=15)
+        ax.set_xticklabels(category, fontsize=15)
 
         ymin = cfg['ymin']
         ymax = cfg['ymax']
-        
-        # 设置右侧Y轴范围
-        ax_right.set_ylim(ymin, ymax)
-        ax_right.set_yticklabels(ax_right.get_yticklabels(), fontsize=15)
+    
         
         # 设置左侧Y轴（Instruction）
-        ax.set_ylim(0,left_array.max() / scale_factor * 1.1)
+        ax.set_ylim(ymin, ymax)
         ax.tick_params(axis='y', labelsize=15) 
-        # 自定义右侧Y轴刻度标签
-        def format_instruction_ticks(tick, pos):
-            value = int(tick * scale_factor)  # 恢复为原始数据
-            return str(value)
 
-        ax.yaxis.set_major_formatter(ticker.FuncFormatter(format_instruction_ticks))
-        ax_right.set_ylabel('#models', fontsize=15)
-        # 添加图例
-        left_handles, left_labels = ax.get_legend_handles_labels()
-        right_handles, right_labels = ax_right.get_legend_handles_labels()
-
-        ax.legend(left_handles + right_handles, left_labels + right_labels, fontsize=15, ncol=2, loc='upper center', bbox_to_anchor=(0.5, 1.1), frameon=False)
+        ax.legend(fontsize=15, ncol=2, loc='upper center', bbox_to_anchor=(0.5, 1.15), frameon=False)
 
     def draw_groupbar_accuracy(self, ax, cfg):
         categories = cfg['categories']

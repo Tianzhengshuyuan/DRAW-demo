@@ -186,5 +186,11 @@ python power_efficiency.py
 ```
 ```bash
 python power_efficiency_translate.py --input=sub-20W-power-efficiency --output=sub-20W-power-efficiency
-python power_efficiency.py --input=sub-20W-power-efficiency --ymin=0 --ymax=54
+python power_efficiency.py --input=sub-20W-power-efficiency --ymin=0 --ymax=20 --twenty=1
+```
+
+13. 画realapp
+```bash
+python realapp_translate.py
+python realapp.py 
 ```
