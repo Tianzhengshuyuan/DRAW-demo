@@ -8,10 +8,9 @@ from myplot import MyPlot
 
 # 命令行参数解析
 parser = argparse.ArgumentParser()
-parser.add_argument('--input', type=str, default="sub-3W-power-efficiency")
-parser.add_argument('--twenty', type=int, default=0)
+parser.add_argument('--input', type=str, default="timm-models-a")
 parser.add_argument('--ymin', type=float, default=0)
-parser.add_argument('--ymax', type=float, default=25)
+parser.add_argument('--ymax', type=float, default=130)
 
 # 解析命令行参数
 args = parser.parse_args()
@@ -24,22 +23,27 @@ save_path = os.path.join("pdf", f"{input_name}.pdf")
 data = json.load(open(data_file))
 
 fig_cfg = {
-    'type': 'groupbar_pe',
-    'twenty': args.twenty,
+    'type': 'groupbar_app',
+
+    'ylabel': '#models',
+    'ylabel_kwargs': {
+        'fontsize': 15,
+    },
+    
     'ymin': args.ymin,
     'ymax': args.ymax,
     
-    'name': [datum['name'] for datum in data],
-    'perf': [datum['Performance'] for datum in data],
-    'effi': [datum['Performance/W'] for datum in data],
+    'category': [datum['category'] for datum in data],
+    'etbench': [datum['etbench'] for datum in data],
+    'app': [datum['app'] for datum in data],
 
     # Misc
-    # 'tight': True,
+    'tight': True,
     # 'grid': True,
     # 'grid_linestyle': '--',
     'axis': 'y', #表示只显示grid中的横线，如果要只显示竖线的话设置为'x'
 
-    'figsize' : [10,3],
+    'figsize' : [10,6],
     # Save
     'save_path': save_path
 }

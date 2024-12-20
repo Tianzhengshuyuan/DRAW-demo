@@ -142,6 +142,7 @@ class MyPlot:
             'pie': self.draw_pie,
             'groupbar': self.draw_groupbar,
             'groupbar_timm': self.draw_groupbar_timm,
+            'groupbar_app': self.draw_groupbar_app,
             'groupbar_pe': self.draw_groupbar_pe,
             'groupstackbar': self.draw_groupstackbar,
             'grouplinebar': self.draw_grouplinebar,
@@ -421,6 +422,55 @@ class MyPlot:
 
         ax.legend(left_handles + right_handles, left_labels + right_labels, fontsize=15, ncol=2, loc='upper center', bbox_to_anchor=(0.5, 1.1), frameon=False)
 
+    def draw_groupbar_timm(self, ax, cfg):
+        # X轴位置
+        # print("draw_groupbar")
+        name = cfg['name']
+        x = np.arange(len(name))  # 分类的索引
+        bar_width = 0.25  # 每个柱子的宽度
+
+        name = cfg['name']
+        v0_9 = cfg['v0_9']
+        v1_0 = cfg['v1_0']
+        
+        ax_right = ax.twinx()
+        
+        left_array = np.array(v0_9)
+        right_array = np.array(v1_0)
+        
+        scale_factor = left_array.max() / right_array.max() 
+
+        # 绘制每组柱子
+        ax.bar(x - bar_width * 0.5, v0_9/scale_factor, width=bar_width, label='v0.9.12', color='#4285f4', zorder=2, edgecolor='black')
+        ax_right.bar(x + bar_width * 0.5, v1_0, width=bar_width, label='v1.0.12 inc.', color='#ea4335', zorder=2, edgecolor='black')
+
+        # 设置X轴刻度和分类名称
+        ax.set_xticks(x)
+        ax.set_xticklabels(name, fontsize=15)
+
+        ymin = cfg['ymin']
+        ymax = cfg['ymax']
+        
+        # 设置右侧Y轴范围
+        ax_right.set_ylim(ymin, ymax)
+        ax_right.set_yticklabels(ax_right.get_yticklabels(), fontsize=15)
+        
+        # 设置左侧Y轴（Instruction）
+        ax.set_ylim(0,left_array.max() / scale_factor * 1.1)
+        ax.tick_params(axis='y', labelsize=15) 
+        # 自定义右侧Y轴刻度标签
+        def format_instruction_ticks(tick, pos):
+            value = int(tick * scale_factor)  # 恢复为原始数据
+            return str(value)
+
+        ax.yaxis.set_major_formatter(ticker.FuncFormatter(format_instruction_ticks))
+        ax_right.set_ylabel('#models', fontsize=15)
+        # 添加图例
+        left_handles, left_labels = ax.get_legend_handles_labels()
+        right_handles, right_labels = ax_right.get_legend_handles_labels()
+
+        ax.legend(left_handles + right_handles, left_labels + right_labels, fontsize=15, ncol=2, loc='upper center', bbox_to_anchor=(0.5, 1.1), frameon=False)
+
     def draw_groupbar_pe(self, ax, cfg):
         name = cfg['name']
         x = np.arange(len(name))  # 分类的索引
@@ -436,32 +486,38 @@ class MyPlot:
         right_array = np.array(effi)
 
         scale_factor = int(left_array.max() / right_array.max())
-
+        
+        ymin = cfg['ymin']
+        ymax = cfg['ymax']
         # 绘制每组柱子
-        ax.bar(x - bar_width * 0.5, perf/scale_factor, width=bar_width, label='Performance', color='#4285f4', zorder=2, edgecolor='black')
-        ax_right.bar(x + bar_width * 0.5, effi, width=bar_width, label='Performance/W', color='#ea4335', zorder=2, edgecolor='black')
+        bars1 = ax.bar(x - bar_width * 0.5, perf/scale_factor, width=bar_width, label='Performance', color='#4285f4', zorder=2, edgecolor='black')
+        bars2 = ax_right.bar(x + bar_width * 0.5, effi, width=bar_width, label='Performance/W', color='#ea4335', zorder=2, edgecolor='black')
 
         # 设置X轴刻度和分类名称
         ax.set_xticks(x)
         if cfg['twenty'] == 1:
             ax.set_xlim(-0.5, 14.5)
-            ax.set_xticklabels(name, fontsize=8)         
+            ax.set_xticklabels(name, fontsize=7)  
+            self.annotate_bars(ax, bars1, left_array.max()/scale_factor, '#4285f4', -0.45, -38)
+            self.annotate_bars(ax, bars2, ymax , '#ea4335', 0.75, -38)       
         else:
+            self.annotate_bars(ax, bars1, left_array.max()/scale_factor, '#4285f4', -0.45, -20)
+            self.annotate_bars(ax, bars2, ymax , '#ea4335', 0.75, -20)
             ax.set_xlim(-0.5, 12.5)
             ax.set_xticklabels(name, fontsize=10)
             
-        ymin = cfg['ymin']
-        ymax = cfg['ymax']
-        
         # 设置右侧Y轴范围
         ax_right.set_ylim(ymin, ymax)
+        
+        ax_right.autoscale(enable=False) 
         ax_right.set_yticklabels(ax_right.get_yticklabels(), fontsize=12)
+        print(ax_right.get_yticklabels())
         
         # 设置左侧Y轴（Instruction）
         ax.set_ylim(0,left_array.max() / scale_factor * 1.1)
         ax.yaxis.set_major_locator(MultipleLocator(5)) 
         ax.tick_params(axis='y', labelsize=12) 
-        # 自定义右侧Y轴刻度标签
+        # 自定义左侧Y轴刻度标签
         def format_instruction_ticks(tick, pos):
             value = int(tick * scale_factor)  # 恢复为原始数据
             return str(value)
@@ -473,6 +529,7 @@ class MyPlot:
         right_handles, right_labels = ax_right.get_legend_handles_labels()
 
         ax.legend(left_handles + right_handles, left_labels + right_labels, fontsize=12, ncol=2, loc='upper center', bbox_to_anchor=(0.5, 1.16), frameon=False)
+        
         if cfg['twenty'] == 0:
             ax.add_line(lines.Line2D([-0.5, -0.5], [-9, 0], color='black', linewidth=1, clip_on=False))
             ax.add_line(lines.Line2D([1.5, 1.5], [-9, 0], color='black', linewidth=1, clip_on=False))
@@ -499,7 +556,56 @@ class MyPlot:
             ax.text(0.400, -0.15, "lunar lake", transform=ax.transAxes, fontsize=12, ha='center', va='center')
             ax.text(0.670, -0.15, "M1", transform=ax.transAxes, fontsize=12, ha='center', va='center')
             ax.text(0.900, -0.15, "ORIN", transform=ax.transAxes, fontsize=12, ha='center', va='center')
-    
+        print(ax_right.get_ylim())
+    def draw_groupbar_app(self, ax, cfg):
+        # X轴位置
+        # print("draw_groupbar")
+        name = cfg['name']
+        x = np.arange(len(name))  # 分类的索引
+        bar_width = 0.25  # 每个柱子的宽度
+
+        name = cfg['name']
+        v0_9 = cfg['v0_9']
+        v1_0 = cfg['v1_0']
+        
+        ax_right = ax.twinx()
+        
+        left_array = np.array(v0_9)
+        right_array = np.array(v1_0)
+        
+        scale_factor = left_array.max() / right_array.max() 
+
+        # 绘制每组柱子
+        ax.bar(x - bar_width * 0.5, v0_9/scale_factor, width=bar_width, label='v0.9.12', color='#4285f4', zorder=2, edgecolor='black')
+        ax_right.bar(x + bar_width * 0.5, v1_0, width=bar_width, label='v1.0.12 inc.', color='#ea4335', zorder=2, edgecolor='black')
+
+        # 设置X轴刻度和分类名称
+        ax.set_xticks(x)
+        ax.set_xticklabels(name, fontsize=15)
+
+        ymin = cfg['ymin']
+        ymax = cfg['ymax']
+        
+        # 设置右侧Y轴范围
+        ax_right.set_ylim(ymin, ymax)
+        ax_right.set_yticklabels(ax_right.get_yticklabels(), fontsize=15)
+        
+        # 设置左侧Y轴（Instruction）
+        ax.set_ylim(0,left_array.max() / scale_factor * 1.1)
+        ax.tick_params(axis='y', labelsize=15) 
+        # 自定义右侧Y轴刻度标签
+        def format_instruction_ticks(tick, pos):
+            value = int(tick * scale_factor)  # 恢复为原始数据
+            return str(value)
+
+        ax.yaxis.set_major_formatter(ticker.FuncFormatter(format_instruction_ticks))
+        ax_right.set_ylabel('#models', fontsize=15)
+        # 添加图例
+        left_handles, left_labels = ax.get_legend_handles_labels()
+        right_handles, right_labels = ax_right.get_legend_handles_labels()
+
+        ax.legend(left_handles + right_handles, left_labels + right_labels, fontsize=15, ncol=2, loc='upper center', bbox_to_anchor=(0.5, 1.1), frameon=False)
+
     def draw_groupbar_accuracy(self, ax, cfg):
         categories = cfg['categories']
         x = np.arange(len(categories))  # 分类的索引

@@ -1,0 +1,37 @@
+[
+    {
+        "category": "EF2-s0",
+        "etbench": 6.48,
+        "app": 7.0
+    },
+    {
+        "category": "SWF-XS",
+        "etbench": 7.42,
+        "app": 8.0
+    },
+    {
+        "category": "ENX-XXS",
+        "etbench": 14.94,
+        "app": 15.0
+    },
+    {
+        "category": "EMO-1M",
+        "etbench": 10.4,
+        "app": 12.0
+    },
+    {
+        "category": "MV2-050",
+        "etbench": 13.59,
+        "app": 15.0
+    },
+    {
+        "category": "MV-XXS",
+        "etbench": 9.2,
+        "app": 10.0
+    },
+    {
+        "category": "LVT-128S",
+        "etbench": 5.17,
+        "app": 6.0
+    }
+]
