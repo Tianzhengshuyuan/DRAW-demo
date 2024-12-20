@@ -787,12 +787,12 @@ class MyPlot:
             "#ff6c00",  
             "#ff6c00",  
             "#fabc04",  
+            "#fabc04",  
+            "#33a852",  
             "#33a852",  
             "#4185f3",  
-            "#fabc04",  
-            "#9900ff",  
-            "#33a852",  
-            "#4185f3"   
+            "#4185f3",   
+            "#9900ff"  
         ]
         bars1 = ax.bar(x - bar_width * 6.5, G31, hatch='//', width=bar_width, label='G31', color=colors_large_gap[0], zorder=2, edgecolor='black', alpha=0.8)
         bars2 = ax.bar(x - bar_width * 5.5, G52, hatch='\\\\', width=bar_width, label='G52', color=colors_large_gap[1], zorder=2, edgecolor='black', alpha=0.8)            
@@ -802,12 +802,12 @@ class MyPlot:
         bars6 = ax.bar(x - bar_width * 1.5, A660G, hatch='..', width=bar_width, label='A660G', color=colors_large_gap[5], zorder=2, edgecolor='black', alpha=0.8)            
         bars7 = ax.bar(x - bar_width * 0.5, A740G, width=bar_width, label='A740G', color=colors_large_gap[6], zorder=2, edgecolor='black', alpha=0.8)            
         bars8 = ax.bar(x + bar_width * 0.5, AMP, hatch='//', width=bar_width, label='AMP', color=colors_large_gap[7], zorder=2, edgecolor='black', alpha=0.8)            
-        bars9 = ax.bar(x + bar_width * 1.5, ORIN_NPU, hatch='\\\\', width=bar_width, label='ORIN_NPU', color=colors_large_gap[10], zorder=2, edgecolor='black', alpha=0.8)            
-        bars10 = ax.bar(x + bar_width * 2.5, MTL_GPU, hatch='//', width=bar_width, label='MTL_GPU', color=colors_large_gap[8], zorder=2, edgecolor='black', alpha=0.8)            
-        bars11 = ax.bar(x + bar_width * 3.5, MTL_NPU, hatch='\\\\', width=bar_width, label='MTL_NPU', color=colors_large_gap[12], zorder=2, edgecolor='black', alpha=0.8)            
-        bars12 = ax.bar(x + bar_width * 4.5, LNL_GPU, hatch='//', width=bar_width, label='LNL_GPU', color=colors_large_gap[9], zorder=2, edgecolor='black', alpha=0.8)            
-        bars13 = ax.bar(x + bar_width * 5.5, LNL_NPU, hatch='\\\\', width=bar_width, label='LNL_NPU', color=colors_large_gap[13], zorder=2, edgecolor='black', alpha=0.8) 
-        bars14 = ax.bar(x + bar_width * 6.5, AIP_NPU,  width=bar_width, label='AIP_NPU', color=colors_large_gap[11], zorder=2, edgecolor='black', alpha=0.8)            
+        bars9 = ax.bar(x + bar_width * 1.5, ORIN_NPU, hatch='\\\\', width=bar_width, label='ORIN_NPU', color=colors_large_gap[8], zorder=2, edgecolor='black', alpha=0.8)            
+        bars10 = ax.bar(x + bar_width * 2.5, MTL_GPU, hatch='//', width=bar_width, label='MTL_GPU', color=colors_large_gap[9], zorder=2, edgecolor='black', alpha=0.8)            
+        bars11 = ax.bar(x + bar_width * 3.5, MTL_NPU, hatch='\\\\', width=bar_width, label='MTL_NPU', color=colors_large_gap[10], zorder=2, edgecolor='black', alpha=0.8)            
+        bars12 = ax.bar(x + bar_width * 4.5, LNL_GPU, hatch='//', width=bar_width, label='LNL_GPU', color=colors_large_gap[11], zorder=2, edgecolor='black', alpha=0.8)            
+        bars13 = ax.bar(x + bar_width * 5.5, LNL_NPU, hatch='\\\\', width=bar_width, label='LNL_NPU', color=colors_large_gap[12], zorder=2, edgecolor='black', alpha=0.8) 
+        bars14 = ax.bar(x + bar_width * 6.5, AIP_NPU,  width=bar_width, label='AIP_NPU', color=colors_large_gap[13], zorder=2, edgecolor='black', alpha=0.8)            
 
         # 标注条形上的数值，使用 colors_large_gap 对应的颜色
         self.annotate_bars(ax, bars1, ymax, colors_large_gap[0], 0.15, 0.07)
@@ -818,12 +818,12 @@ class MyPlot:
         self.annotate_bars(ax, bars6, ymax, colors_large_gap[5], 0.15, 0.07)
         self.annotate_bars(ax, bars7, ymax, colors_large_gap[6], 0.15, 0.07)
         self.annotate_bars(ax, bars8, ymax, colors_large_gap[7], 0.15, 0.07)
-        self.annotate_bars(ax, bars9, ymax, colors_large_gap[10], 0.15, 0.07)
-        self.annotate_bars(ax, bars10, ymax, colors_large_gap[8], 0.15, 0.07)
-        self.annotate_bars(ax, bars11, ymax, colors_large_gap[12], 0.15, 0.07)
-        self.annotate_bars(ax, bars12, ymax, colors_large_gap[9], 0.15, 0.07)
-        self.annotate_bars(ax, bars13, ymax, colors_large_gap[13], 0.15, 0.07)
-        self.annotate_bars(ax, bars14, ymax, colors_large_gap[11], 0.15, 0.07)
+        self.annotate_bars(ax, bars9, ymax, colors_large_gap[8], 0.15, 0.07)
+        self.annotate_bars(ax, bars10, ymax, colors_large_gap[9], 0.15, 0.07)
+        self.annotate_bars(ax, bars11, ymax, colors_large_gap[10], 0.15, 0.07)
+        self.annotate_bars(ax, bars12, ymax, colors_large_gap[11], 0.15, 0.07)
+        self.annotate_bars(ax, bars13, ymax, colors_large_gap[12], 0.15, 0.07)
+        self.annotate_bars(ax, bars14, ymax, colors_large_gap[13], 0.15, 0.07)
         # 添加图例
         ax.legend(fontsize=13, loc='upper center', bbox_to_anchor=(0.5, 1.13), ncol=14, frameon=False,
                 handletextpad=0.2, handlelength = 1.3, columnspacing=0.2)
@@ -846,7 +846,7 @@ class MyPlot:
         for i, bar in enumerate([bars1, bars2, bars3, bars4, bars5, bars6, bars7, bars8, bars9, bars10, bars11, bars12, bars13, bars14]):
             for rect in bar:
                 if rect.get_height() == -1:
-                    ax.text(rect.get_x() + rect.get_width() / 2, 0.445, 'X', color='red', ha='center', va='center', fontsize=10)
+                    ax.text(rect.get_x() + rect.get_width() / 2, 0.48, 'X', color=colors_large_gap[i], ha='center', va='center', fontsize=10)
         
         ax.add_line(lines.Line2D([-0.5, -0.5], [0.4, 0.5], color='black', linewidth=1, clip_on=False))
         ax.add_line(lines.Line2D([0.5, 0.5], [0.4, 0.5], color='black', linewidth=1, clip_on=False))

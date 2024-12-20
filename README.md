@@ -153,7 +153,7 @@ python fig13_acc_lat.py --input=lunar_NPU_acc_lat --ymin=68 --ymax=83 --xmin=1 -
 9. 画fig11
 ```bash
 python fig11_translate.py 
-python fig11_accuracy.py --input=GpuInt8Speedup --ymin=0.45 --ymax=1.6
+python fig11_speedup.py --input=GpuInt8Speedup --ymin=0.45 --ymax=1.6
 ```
 
 10. 画fig14，先处理原始数据
