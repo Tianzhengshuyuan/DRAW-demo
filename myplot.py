@@ -189,6 +189,7 @@ class MyPlot:
     def annotate_bars(self, ax, bars, ymax, text_color, x_offset, y_offset):
         for bar in bars:
             height = bar.get_height()
+
             if height > ymax:  # 超过Y轴最大值时才显示
                 ax.text(
                     bar.get_x() + x_offset,  # X位置
@@ -351,29 +352,58 @@ class MyPlot:
         categories = cfg['categories']
         x = np.arange(len(categories))  # 分类的索引
         bar_width = 0.25  # 每个柱子的宽度
+        if 'bar_width' in cfg:
+            bar_width = cfg['bar_width']
 
-        top1 = cfg['top1']
-        top1_div20 = cfg['top1_div20']
-        top1_div50 = cfg['top1_div50']
-        # 绘制每组柱子
-        ax.bar(x - bar_width, top1, width=bar_width, label='Top-1', color='#4285f4', zorder=2, edgecolor='black')
-        ax.bar(x, top1_div20, width=bar_width, label='Top-1 div20', color='#ea4335', zorder=2, edgecolor='black')
-        ax.bar(x + bar_width, top1_div50, width=bar_width, label='Top-1 div50', color='#fbbc04', zorder=2, edgecolor='black')
+        TFLite = cfg['TFLite']
+        MNN = cfg['MNN']
+        
+        ymin = cfg['ymin']
+        ymax = cfg['ymax']
 
+        if 'PDLite' in cfg:
+            PDLite = cfg['PDLite']
+            ncnn = cfg['ncnn']
+            
+            bars1 = ax.bar(x - bar_width * 1.5, TFLite, width=bar_width, label='TFLite', color='#4285f4', zorder=2, edgecolor='black')
+            bars2 = ax.bar(x - bar_width * 0.5, MNN, width=bar_width, label='MNN', color='#ea4335', zorder=2, edgecolor='black')            
+            bars3 = ax.bar(x + bar_width * 0.5, PDLite, width=bar_width, label='PDLite', color='#fabc04', zorder=2, edgecolor='black')            
+            bars4 = ax.bar(x + bar_width * 1.5, ncnn, width=bar_width, label='ncnn', color='#33a852', zorder=2, edgecolor='black')            
+            
+            # 标注条形上的数值
+            self.annotate_bars(ax, bars1, ymax, '#4285f4',0,0)
+            self.annotate_bars(ax, bars2, ymax, '#ea4335',0,0)
+            self.annotate_bars(ax, bars3, ymax, '#fabc04',0,0)
+            self.annotate_bars(ax, bars4, ymax, '#33a852',0,0)
+            # 添加图例
+            ax.legend(fontsize=13, loc='upper center', bbox_to_anchor=(0.5, 1.13), ncol=4, frameon=False)
+
+            # ax.set_xlim(-1.3,7)
+        else:
+            # 绘制每组柱子
+            bars1 = ax.bar(x - bar_width/2, TFLite, width=bar_width, label='TFLite', color='#4285f4', zorder=2, edgecolor='black')
+            bars2 = ax.bar(x + bar_width/2, MNN, width=bar_width, label='MNN', color='#ea4335', zorder=2, edgecolor='black')
+            
+            self.annotate_bars(ax, bars1, ymax, '#4285f4',0,0)
+            self.annotate_bars(ax, bars2, ymax, '#ea4335',0,0) 
+             
+            for i, value in enumerate(TFLite):
+                if math.isnan(value) :# 如果值为负，显示标志
+                    ax.text(x[i] - bar_width * 0.5, 0.525, 'x', ha='center', va='top', fontsize=17, color='#4285f4', zorder=3, fontweight='bold')
+            for i, value in enumerate(MNN):
+                if math.isnan(value) :# 如果值为负，显示标志
+                    ax.text(x[i] + bar_width * 0.5, 0.525, 'x', ha='center', va='top', fontsize=17, color='#ea4335', zorder=3,fontweight='bold') 
+            ax.legend(fontsize=13, loc='upper center', bbox_to_anchor=(0.5, 1.1), ncol=2, frameon=False)
+        
         # 设置X轴刻度和分类名称
         ax.set_xticks(x)
-        ax.set_xticklabels(categories, fontsize=15)
+        ax.set_xticklabels(categories, fontsize=14)
 
         ymin = cfg['ymin']
         ymax = cfg['ymax']
         # 设置Y轴范围
         ax.set_ylim(ymin, ymax)
         ax.set_yticklabels(ax.get_yticklabels(), fontsize=15)
-
-        # 添加图例
-        ax.legend(fontsize=15, loc='upper center', bbox_to_anchor=(0.5, 1.1), ncol=13, frameon=False,
-                  columnspacing=0.8)
-
     def draw_groupbar_timm(self, ax, cfg):
         # X轴位置
         # print("draw_groupbar")

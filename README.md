@@ -92,7 +92,7 @@ python fig78a_speedup.py --input=GpuFp16Speedup --ymin=1.1 --ymax=1.8
 python fig78b_speedup.py --input=G610Fp16Speedup --ymin=1.0 --ymax=1.7
 python fig78b_speedup.py --input=A660GFp16Speedup --ymin=0.8 --ymax=1.7
 
-python fig78a_speedup.py --input=CpuInt8Speedup --ymin=0.5 --ymax=1.0
+python fig78a_speedup.py --input=CpuInt8Speedup --ymin=0.5 --ymax=1.04
 python fig78b_speedup.py --input=A78Int8Speedup --ymin=0.5 --ymax=1.2
 python fig78b_speedup.py --input=A55Int8Speedup --ymin=0.4 --ymax=1.2  
 ```
