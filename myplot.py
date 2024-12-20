@@ -552,8 +552,8 @@ class MyPlot:
             ax.add_line(lines.Line2D([11.5, 11.5], [-10, 0], color='black', linewidth=1, clip_on=False))
             ax.add_line(lines.Line2D([14.5, 14.5], [-10, 0], color='black', linewidth=1, clip_on=False))
 
-            ax.text(0.135, -0.15, "meteor lake", transform=ax.transAxes, fontsize=12, ha='center', va='center')
-            ax.text(0.400, -0.15, "lunar lake", transform=ax.transAxes, fontsize=12, ha='center', va='center')
+            ax.text(0.135, -0.15, "MTL", transform=ax.transAxes, fontsize=12, ha='center', va='center')
+            ax.text(0.400, -0.15, "LNL", transform=ax.transAxes, fontsize=12, ha='center', va='center')
             ax.text(0.670, -0.15, "M1", transform=ax.transAxes, fontsize=12, ha='center', va='center')
             ax.text(0.900, -0.15, "ORIN", transform=ax.transAxes, fontsize=12, ha='center', va='center')
         print(ax_right.get_ylim())
