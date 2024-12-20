@@ -656,7 +656,7 @@ class MyPlot:
             for i, value in enumerate(data):
                 if value < 0:  # 如果值为负，显示标志
                     ax.text(
-                        x[i] + bar_width * offset, 2.0,  
+                        x[i] + bar_width * offset, 4.5,  
                         'x', ha='center', va='top', fontsize=17, color=color, zorder=3
                     )
             ax.bar(x + bar_width * offset, data, width=bar_width, label=label, color=color, zorder=2, edgecolor='black', hatch=hatch)
@@ -724,7 +724,7 @@ class MyPlot:
             for i, value in enumerate(data):
                 if value < 0:  # 如果值为负，显示标志
                     ax.text(
-                        x[i] + bar_width * offset, 2.0,  
+                        x[i] + bar_width * offset, 4.5,  
                         'x', ha='center', va='top', fontsize=17, color=color, zorder=3
                     )
             ax.bar(x + bar_width * offset, data, width=bar_width, label=label, color=color, zorder=2, edgecolor='black', hatch=hatch)
