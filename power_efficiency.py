@@ -9,6 +9,7 @@ from myplot import MyPlot
 # 命令行参数解析
 parser = argparse.ArgumentParser()
 parser.add_argument('--input', type=str, default="sub-3W-power-efficiency")
+parser.add_argument('--twenty', type=int, default=0)
 parser.add_argument('--ymin', type=float, default=0)
 parser.add_argument('--ymax', type=float, default=25)
 
@@ -24,7 +25,7 @@ data = json.load(open(data_file))
 
 fig_cfg = {
     'type': 'groupbar_pe',
-    
+    'twenty': args.twenty,
     'ymin': args.ymin,
     'ymax': args.ymax,
     
@@ -38,7 +39,7 @@ fig_cfg = {
     # 'grid_linestyle': '--',
     'axis': 'y', #表示只显示grid中的横线，如果要只显示竖线的话设置为'x'
 
-    'figsize' : [10,6],
+    'figsize' : [10,3],
     # Save
     'save_path': save_path
 }

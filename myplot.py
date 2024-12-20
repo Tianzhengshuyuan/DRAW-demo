@@ -6,6 +6,7 @@ import numpy as np
 from matplotlib.lines import Line2D
 from matplotlib.transforms import Affine2D
 from scipy.interpolate import make_interp_spline
+from matplotlib.ticker import MultipleLocator, FuncFormatter
 
 from myutil import try_idx, y2btm, y2normalized, find_range_bound
 
@@ -421,22 +422,20 @@ class MyPlot:
         ax.legend(left_handles + right_handles, left_labels + right_labels, fontsize=15, ncol=2, loc='upper center', bbox_to_anchor=(0.5, 1.1), frameon=False)
 
     def draw_groupbar_pe(self, ax, cfg):
-        # X轴位置
-        # print("draw_groupbar")
         name = cfg['name']
         x = np.arange(len(name))  # 分类的索引
         bar_width = 0.25  # 每个柱子的宽度
 
         name = cfg['name']
-        perf = cfg['perf']
-        effi = cfg['effi']
+        perf = np.array(cfg['perf'])
+        effi = np.array(cfg['effi'])
         
         ax_right = ax.twinx()
         
         left_array = np.array(perf)
         right_array = np.array(effi)
-        
-        scale_factor = left_array.max() / right_array.max() 
+
+        scale_factor = int(left_array.max() / right_array.max())
 
         # 绘制每组柱子
         ax.bar(x - bar_width * 0.5, perf/scale_factor, width=bar_width, label='Performance', color='#4285f4', zorder=2, edgecolor='black')
@@ -444,19 +443,24 @@ class MyPlot:
 
         # 设置X轴刻度和分类名称
         ax.set_xticks(x)
-        ax.set_xticklabels(name, fontsize=15)
-        ax.set_xlim(-0.5, 12.5)
-        
+        if cfg['twenty'] == 1:
+            ax.set_xlim(-0.5, 14.5)
+            ax.set_xticklabels(name, fontsize=8)         
+        else:
+            ax.set_xlim(-0.5, 12.5)
+            ax.set_xticklabels(name, fontsize=10)
+            
         ymin = cfg['ymin']
         ymax = cfg['ymax']
         
         # 设置右侧Y轴范围
         ax_right.set_ylim(ymin, ymax)
-        ax_right.set_yticklabels(ax_right.get_yticklabels(), fontsize=15)
+        ax_right.set_yticklabels(ax_right.get_yticklabels(), fontsize=12)
         
         # 设置左侧Y轴（Instruction）
         ax.set_ylim(0,left_array.max() / scale_factor * 1.1)
-        ax.tick_params(axis='y', labelsize=15) 
+        ax.yaxis.set_major_locator(MultipleLocator(5)) 
+        ax.tick_params(axis='y', labelsize=12) 
         # 自定义右侧Y轴刻度标签
         def format_instruction_ticks(tick, pos):
             value = int(tick * scale_factor)  # 恢复为原始数据
@@ -468,22 +472,34 @@ class MyPlot:
         left_handles, left_labels = ax.get_legend_handles_labels()
         right_handles, right_labels = ax_right.get_legend_handles_labels()
 
-        ax.legend(left_handles + right_handles, left_labels + right_labels, fontsize=15, ncol=2, loc='upper center', bbox_to_anchor=(0.5, 1.1), frameon=False)
-        ax.add_line(lines.Line2D([-0.5, -0.5], [-3, 0], color='black', linewidth=1, clip_on=False))
-        ax.add_line(lines.Line2D([1.5, 1.5], [-3, 0], color='black', linewidth=1, clip_on=False))
-        ax.add_line(lines.Line2D([3.5, 3.5], [-3, 0], color='black', linewidth=1, clip_on=False))
-        ax.add_line(lines.Line2D([5.5, 5.5], [-3, 0], color='black', linewidth=1, clip_on=False))
-        ax.add_line(lines.Line2D([7.5, 7.5], [-3, 0], color='black', linewidth=1, clip_on=False))
-        ax.add_line(lines.Line2D([10.5, 10.5], [-3, 0], color='black', linewidth=1, clip_on=False))
-        ax.add_line(lines.Line2D([12.5, 12.5], [-3, 0], color='black', linewidth=1, clip_on=False))
+        ax.legend(left_handles + right_handles, left_labels + right_labels, fontsize=12, ncol=2, loc='upper center', bbox_to_anchor=(0.5, 1.16), frameon=False)
+        if cfg['twenty'] == 0:
+            ax.add_line(lines.Line2D([-0.5, -0.5], [-9, 0], color='black', linewidth=1, clip_on=False))
+            ax.add_line(lines.Line2D([1.5, 1.5], [-9, 0], color='black', linewidth=1, clip_on=False))
+            ax.add_line(lines.Line2D([3.5, 3.5], [-9, 0], color='black', linewidth=1, clip_on=False))
+            ax.add_line(lines.Line2D([5.5, 5.5], [-9, 0], color='black', linewidth=1, clip_on=False))
+            ax.add_line(lines.Line2D([7.5, 7.5], [-9, 0], color='black', linewidth=1, clip_on=False))
+            ax.add_line(lines.Line2D([10.5, 10.5], [-9, 0], color='black', linewidth=1, clip_on=False))
+            ax.add_line(lines.Line2D([12.5, 12.5], [-9, 0], color='black', linewidth=1, clip_on=False))
 
-        ax.text(0.075, -0.1, "MIX2", transform=ax.transAxes, fontsize=15, ha='center', va='center')
-        ax.text(0.234, -0.1, "S20P", transform=ax.transAxes, fontsize=15, ha='center', va='center')
-        ax.text(0.388, -0.1, "MIX2", transform=ax.transAxes, fontsize=15, ha='center', va='center')
-        ax.text(0.541, -0.1, "MIX2", transform=ax.transAxes, fontsize=15, ha='center', va='center')
-        ax.text(0.733, -0.1, "MIX2", transform=ax.transAxes, fontsize=15, ha='center', va='center')
-        ax.text(0.925, -0.1, "MIX2", transform=ax.transAxes, fontsize=15, ha='center', va='center')
+            ax.text(0.075, -0.17, "MIX2", transform=ax.transAxes, fontsize=12, ha='center', va='center')
+            ax.text(0.234, -0.17, "S20P", transform=ax.transAxes, fontsize=12, ha='center', va='center')
+            ax.text(0.388, -0.17, "K40P", transform=ax.transAxes, fontsize=12, ha='center', va='center')
+            ax.text(0.541, -0.17, "AC2P", transform=ax.transAxes, fontsize=12, ha='center', va='center')
+            ax.text(0.733, -0.17, "EG2", transform=ax.transAxes, fontsize=12, ha='center', va='center')
+            ax.text(0.925, -0.17, "AI PRO", transform=ax.transAxes, fontsize=12, ha='center', va='center')
+        else:
+            ax.add_line(lines.Line2D([-0.5, -0.5], [-10, 0], color='black', linewidth=1, clip_on=False))
+            ax.add_line(lines.Line2D([3.5, 3.5], [-10, 0], color='black', linewidth=1, clip_on=False))
+            ax.add_line(lines.Line2D([7.5, 7.5], [-10, 0], color='black', linewidth=1, clip_on=False))
+            ax.add_line(lines.Line2D([11.5, 11.5], [-10, 0], color='black', linewidth=1, clip_on=False))
+            ax.add_line(lines.Line2D([14.5, 14.5], [-10, 0], color='black', linewidth=1, clip_on=False))
 
+            ax.text(0.135, -0.15, "meteor lake", transform=ax.transAxes, fontsize=12, ha='center', va='center')
+            ax.text(0.400, -0.15, "lunar lake", transform=ax.transAxes, fontsize=12, ha='center', va='center')
+            ax.text(0.670, -0.15, "M1", transform=ax.transAxes, fontsize=12, ha='center', va='center')
+            ax.text(0.900, -0.15, "ORIN", transform=ax.transAxes, fontsize=12, ha='center', va='center')
+    
     def draw_groupbar_accuracy(self, ax, cfg):
         categories = cfg['categories']
         x = np.arange(len(categories))  # 分类的索引
@@ -1088,8 +1104,8 @@ class MyPlot:
     # 将当前的图表保存到配置中指定的路径
     @expect("save_path")
     def save(self):
-        plt.savefig(self.cfg['save_path'])
-
+        # plt.savefig(self.cfg['save_path'])
+        plt.savefig(self.cfg['save_path'], bbox_inches='tight', pad_inches=0.02)
     # 显示所有当前创建的绘图窗口
     def show(self):
         plt.show()
