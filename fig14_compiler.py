@@ -16,7 +16,7 @@ mnn_bar_data_file = os.path.join("json", "mnn_bar.json")
 onnx_line_data_file = os.path.join("json", "onnx_line.json")  
 onnx_bar_data_file = os.path.join("json", "onnx_bar.json") 
 
-save_path = os.path.join("pdf", "Compiler_lib.pdf") 
+save_path = "pdf/fig14_Compiler_lib.pdf"
 
 tflite_line_data = json.load(open(tflite_line_data_file))
 tflite_bar_data = json.load(open(tflite_bar_data_file))

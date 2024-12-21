@@ -17,7 +17,7 @@ input_name = args.input
 
 # 动态加载 JSON 数据和设置保存路径
 data_file = os.path.join("json", f"{input_name}.json")   # 动态设置 JSON 文件
-save_path = os.path.join("pdf", f"{input_name}.pdf") 
+save_path = f"pdf/fig11_{input_name}.pdf"
 
 data = json.load(open(data_file))
 

@@ -29,7 +29,7 @@ python fig5_translate.py --input=fig5 --model=LVT
 ```python
     # 'ylabel': 'Top-1 accuracy (%)',
 ```
-转换的命令如下，ymin和ymax是y轴的显示范围，输出的pdf在pdf文件夹内
+画图的命令如下，ymin和ymax是y轴的显示范围，输出的pdf在pdf文件夹内
 ```bash
 python fig5_accuracy.py --model=EF2 --ymin=75 --ymax=83
 python fig5_accuracy.py --model=SWF --ymin=75 --ymax=83
@@ -82,19 +82,12 @@ python fig8a_translate.py --input=fig10a --output=CpuInt8Speedup
 python fig7b_translate.py --input=fig10b --output=A78Int8Speedup
 python fig7b_translate.py --input=fig10c --output=A55Int8Speedup
 ```
-然后作图，使用命令
+画图7、8、10a，使用下面的命令
 ```bash
-python fig78a_speedup.py --input=CpuFp16Speedup --ymin=1.3 --ymax=2.15
-python fig78b_speedup.py --input=A78Fp16Speedup --ymin=1.1 --ymax=2.0
-python fig78b_speedup.py --input=A55Fp16Speedup --ymin=1.0 --ymax=2.0
-
-python fig78a_speedup.py --input=GpuFp16Speedup --ymin=1.1 --ymax=1.8
-python fig78b_speedup.py --input=G610Fp16Speedup --ymin=1.0 --ymax=1.7
-python fig78b_speedup.py --input=A660GFp16Speedup --ymin=0.8 --ymax=1.7
-
-python fig78a_speedup.py --input=CpuInt8Speedup --ymin=0.5 --ymax=1.04
-python fig78b_speedup.py --input=A78Int8Speedup --ymin=0.5 --ymax=1.2
-python fig78b_speedup.py --input=A55Int8Speedup --ymin=0.4 --ymax=1.2  
+python fig78a_speedup.py --input=CpuFp16Speedup --ymin=1.3 --ymax=2.15 --fig=fig7a
+python fig78a_speedup.py --input=GpuFp16Speedup --ymin=1.1 --ymax=1.8 --fig=fig8a
+python fig78a_speedup.py --input=CpuInt8Speedup --ymin=0.5 --ymax=1.04 --fig=fig10a
+ 
 ```
 如果要把fig7的b和c画到一起，先手动复制fig7b和fig7c的数据到fig7bc.json，然后使用下面的命令画图
 ```bash
@@ -173,20 +166,20 @@ python fig14_compiler.py
 11. 画timm-models-a和timm-models-b:
 ```bash
 python timm-models_translate.py
-python timm-models.py --ymin=0 --ymax=15
+python timm-models_translate.py --input=timm-models-b --output=timm-models-b
 ```
 ```bash
-python timm-models_translate.py --input=timm-models-b --output=timm-models-b
+python timm-models.py --ymin=0 --ymax=15
 python timm-models.py --input=timm-models-b --ymin=0 --ymax=9
 ```
 
 12. 画sub-3W-power-efficiency和sub-20W-power-efficiency
 ```bash
 python power_efficiency_translate.py
-python power_efficiency.py
+python power_efficiency_translate.py --input=sub-20W-power-efficiency --output=sub-20W-power-efficiency
 ```
 ```bash
-python power_efficiency_translate.py --input=sub-20W-power-efficiency --output=sub-20W-power-efficiency
+python power_efficiency.py
 python power_efficiency.py --input=sub-20W-power-efficiency --ymin=0 --ymax=20 --twenty=1
 ```
 

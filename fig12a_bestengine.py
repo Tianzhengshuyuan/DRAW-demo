@@ -101,7 +101,7 @@ plt.show()
 
 #保存图片
 output_folder = "pdf"
-output_file = os.path.join(output_folder, "CpuBestEngine.pdf")
+output_file = "pdf/fig12a_CpuBestEngine.pdf"
 os.makedirs(output_folder, exist_ok=True)  # 确保文件夹存在
 plt.savefig(output_file, format="pdf", bbox_inches="tight")
 print(f"图片已保存到 {output_file}")

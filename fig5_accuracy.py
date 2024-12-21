@@ -18,7 +18,7 @@ model_name = args.model
 
 # 动态加载 JSON 数据和设置保存路径
 data_file = os.path.join("json", f"{model_name}.json")   # 动态设置 JSON 文件
-save_path = os.path.join("pdf", f"{model_name}.pdf") 
+save_path = f"pdf/fig5_{model_name}.pdf"
 
 data = json.load(open(data_file))
 

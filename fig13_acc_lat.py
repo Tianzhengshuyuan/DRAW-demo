@@ -20,7 +20,7 @@ output_name = args.input
 
 # 动态加载 JSON 数据和设置保存路径
 input_file = os.path.join("json", f"{input_name}.json")   # 动态设置 json文件
-output_file = os.path.join("pdf", f"{output_name}.pdf")   
+output_file = f"pdf/fig13_{output_name}.pdf" 
 
 data = json.load(open(input_file))
 

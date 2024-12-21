@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from myplot import MyPlot
 
 data_file = os.path.join("json", "sota.json")   # 动态设置 JSON 文件
-save_path = os.path.join("pdf", "sota.pdf") 
+save_path = os.path.join("pdf", "fig2_sota.pdf") 
 
 data = json.load(open(data_file))
 

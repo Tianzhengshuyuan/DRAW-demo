@@ -10,6 +10,7 @@ from myplot import MyPlot
 parser = argparse.ArgumentParser()
 parser.add_argument('--input', type=str)
 parser.add_argument('--error', type=float)
+parser.add_argument('--fig', type=str)
 parser.add_argument('--ymin', type=float, default=75, help="Minimum value for Y-axis (default: 75)")
 parser.add_argument('--ymax', type=float, default=82, help="Maximum value for Y-axis (default: 82)")
 
@@ -17,10 +18,11 @@ parser.add_argument('--ymax', type=float, default=82, help="Maximum value for Y-
 args = parser.parse_args()
 input_name = args.input
 error = args.error
+fig = args.fig
 
 # 动态加载 JSON 数据和设置保存路径
 data_file = os.path.join("json", f"{input_name}.json")   # 动态设置 JSON 文件
-save_path = os.path.join("pdf", f"{input_name}.pdf") 
+save_path = f"pdf/{fig}_{input_name}.pdf"
 
 data = json.load(open(data_file))
 
@@ -40,7 +42,7 @@ fig_cfg = {
     'MNN': [datum['MNN'] for datum in data],
 
     # Misc
-    'tight': True,
+    # 'tight': True,
     # 'grid': True,
     # 'grid_linestyle': '--',
     'axis': 'y', #表示只显示grid中的横线，如果要只显示竖线的话设置为'x'
