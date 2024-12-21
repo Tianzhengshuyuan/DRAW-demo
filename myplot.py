@@ -404,6 +404,9 @@ class MyPlot:
         # 设置Y轴范围
         ax.set_ylim(ymin, ymax)
         ax.set_yticklabels(ax.get_yticklabels(), fontsize=15)
+        ax.axhline(1.0, color='#b0b0b0', linewidth=1, linestyle='--', zorder=1)
+
+
     def draw_groupbar_timm(self, ax, cfg):
         # X轴位置
         # print("draw_groupbar")
@@ -872,6 +875,8 @@ class MyPlot:
         ymax = cfg['ymax']
         
         error = cfg['error']
+        ax.axhline(1.0, color='#b0b0b0', linewidth=1, linestyle='--', zorder=1)
+        
         #加上叉叉
         for i, value in enumerate(PDLite):
             print(type(value))
