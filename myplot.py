@@ -384,8 +384,8 @@ class MyPlot:
             bars1 = ax.bar(x - bar_width/2, TFLite, width=bar_width, label='TFLite', color='#4285f4', zorder=2, edgecolor='black')
             bars2 = ax.bar(x + bar_width/2, MNN, width=bar_width, label='MNN', color='#ea4335', zorder=2, edgecolor='black')
             
-            self.annotate_bars(ax, bars1, ymax, '#4285f4',0,0)
-            self.annotate_bars(ax, bars2, ymax, '#ea4335',0,0) 
+            self.annotate_bars(ax, bars1, ymax, '#4285f4',0.5,0.03)
+            self.annotate_bars(ax, bars2, ymax, '#ea4335',0.5,0.03) 
              
             for i, value in enumerate(TFLite):
                 if math.isnan(value) :# 如果值为负，显示标志

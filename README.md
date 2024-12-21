@@ -84,7 +84,7 @@ python fig7b_translate.py --input=fig10c --output=A55Int8Speedup
 ```
 画图7、8、10a，使用下面的命令
 ```bash
-python fig78a_speedup.py --input=CpuFp16Speedup --ymin=1.3 --ymax=2.15 --fig=fig7a
+python fig78a_speedup.py --input=CpuFp16Speedup --ymin=1.3 --ymax=1.9 --fig=fig7a
 python fig78a_speedup.py --input=GpuFp16Speedup --ymin=1.1 --ymax=1.8 --fig=fig8a
 python fig78a_speedup.py --input=CpuInt8Speedup --ymin=0.5 --ymax=1.04 --fig=fig10a
  
