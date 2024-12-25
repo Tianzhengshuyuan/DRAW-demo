@@ -27,10 +27,11 @@ onnx_bar_data = json.load(open(onnx_bar_data_file))
 
 subfig1_cfg = {
     'type': 'grouplinebar',
-    'figsize': [12,5],
+    'figsize': [12,3],
     'ylabel': 'Latency ratio to TFLite',
     'ylabel_kwargs': {
         'fontsize': 15,
+        'labelpad': 25
     },
     
     'first': True,
@@ -50,10 +51,11 @@ subfig1_cfg = {
 
 subfig2_cfg = {
     'type': 'grouplinebar',
-    'figsize': [12,5],
+    'figsize': [12,3],
     'ylabel': 'Latency ratio to MNN',
     'ylabel_kwargs': {
         'fontsize': 15,
+        'labelpad': 16
     },
     
     'first': False,
@@ -73,10 +75,11 @@ subfig2_cfg = {
 
 subfig3_cfg = {
     'type': 'grouplinebar',
-    'figsize': [12,5],
+    'figsize': [12,3],
     'ylabel': 'Latency ratio to ONNXRT',
     'ylabel_kwargs': {
         'fontsize': 15,
+        'labelpad': 11
     },
 
     'first': False,
@@ -109,7 +112,7 @@ fig_cfg = {
     'tight': True,
 
     'axis': 'y', #表示只显示grid中的横线，如果要只显示竖线的话设置为'x'
-    'figsize': [12,15],
+    'figsize': [12,10.5],
     # Save
     'save_path': save_path
 }

@@ -98,13 +98,14 @@ class MyPlot:
         if 'subplot' in self.cfg and self.cfg['subplot']:
             # cfgs = self.cfg['subplot_cfgs']
             nrows = len(self.cfg['subplot_cfgs'])  # 子图的数量
+            print(nrows)
             self.fig, axes = plt.subplots(nrows=nrows, ncols=1, figsize=self.cfg['figsize'])
-            plt.subplots_adjust(hspace=0.4)  # 调整子图之间的间距
+            plt.subplots_adjust(hspace=0.01)  # 调整子图之间的间距
 
             # 如果只有一个子图，axes 不是列表，需要转换为列表
             if nrows == 1:
                 axes = [axes]
-
+                
             # 遍历子图配置，逐个绘制
             for ax, cfg in zip(axes, self.cfg['subplot_cfgs']):
                 self.draw_plot(ax, cfg)
@@ -325,19 +326,20 @@ class MyPlot:
         if cfg['first'] == True:
             # 添加图例
             # 添加图例：第一行（折线图）
-            legend1 = ax.legend(handles=[line1, line2, line3], fontsize=15, loc='upper center', 
-                                bbox_to_anchor=(0.4, 1.14),  ncol=3, frameon=False, columnspacing=0.8)
+            legend1 = ax.legend(handles=[line1, line2, line3], fontsize=13, loc='upper center', 
+                                bbox_to_anchor=(0.4, 1.16), ncol=3, frameon=False, columnspacing=0.8)
 
             # 添加图例：第二行（柱状图）
-            legend2 = ax.legend(handles=[bar1, bar2, bar3], fontsize=15, loc='upper center', 
-                                bbox_to_anchor=(0.4, 1.09), ncol=3, frameon=False, columnspacing=0.8)
+            legend2 = ax.legend(handles=[bar1, bar2, bar3], fontsize=13, loc='upper center', 
+                                bbox_to_anchor=(0.4, 1.11), ncol=3, frameon=False, columnspacing=0.8)
             
             # 保证legend1不被覆盖
             ax.add_artist(legend1)
             
             # 添加注释文本
-            ax.text(0.57, 1.075, "for torch.compile", transform=ax.transAxes, fontsize=15, ha='left', va='center')
-            ax.text(0.57, 1.025, "for TVM", transform=ax.transAxes, fontsize=15, ha='left', va='center')
+            ax.text(0.57, 1.075, "for torch.compile", transform=ax.transAxes, fontsize=13, ha='left', va='center')
+            ax.text(0.57, 1.025, "for TVM", transform=ax.transAxes, fontsize=13, ha='left', va='center')
+            
         if cfg['last'] == True:
             # 设置X轴刻度和分类名称
             ax.set_xticks(x)
